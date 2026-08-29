@@ -216,10 +216,10 @@ test("restart clears both journey storage versions", () => {
   assert.match(source, /removeItem\("switchpath\.demoJourney\.v2"\)/);
 });
 
-test("pathway progress and next action derive from the persisted current step", () => {
+test("pathway cards and next action derive from the persisted generated pathway", () => {
   const source = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../src/pages/pathway.astro"), "utf8");
-  assert.match(source, /id="pathway-summary"/);
-  assert.match(source, /pathway-summary/);
+  assert.doesNotMatch(source, /pathway-summary/);
+  assert.match(source, /class="summary-hint"/);
   assert.match(source, /generatedPathway/);
   assert.match(source, /See \$\{step\.professional\} matches/);
 });
@@ -239,9 +239,8 @@ test("pathway and marketplace expose generated rendering and generic booking hoo
   assert.match(pathway, /pathway-later/);
   assert.match(pathway, /details/);
   assert.match(pathway, /fallback-later/);
-  assert.match(pathway, /3 previews/);
-  assert.match(pathway, /progressOrder/);
-  assert.match(pathway, /state\.currentStep === "complete"/);
+  assert.match(pathway, /class="summary-hint"/);
+  assert.match(pathway, /What may come later/);
   assert.match(marketplace, /Browse all/);
   assert.match(marketplace, /canBook/);
 });
@@ -251,7 +250,7 @@ test("static fallback cards use shared progress metadata and persisted completio
   const pathway = readFileSync(resolve(root, "src/pages/pathway.astro"), "utf8");
   assert.match(pathway, /<section aria-labelledby="pathway-title">[\s\S]*<details class="pathway-later" id="fallback-later">[\s\S]*<\/section><aside/);
   assert.match(pathway, /<li data-pathway-step=\{step\.id\} data-order=\{step\.order\} class="path-card path-card-preview">/);
-  assert.match(pathway, /const rendered = \[\.\.\.\(steps \? root\.querySelectorAll\("\[data-pathway-step\]"\) : document\.querySelectorAll\("\[data-pathway-step\]"\)\)\];/);
+  assert.match(pathway, /if \(steps\) document\.querySelector\("#fallback-later"\)\.hidden = true;/);
   assert.doesNotMatch(pathway, /if \(!steps\) document\.querySelector\("#pathway-summary"\)\.textContent = "0 complete · 1 active · 3 previews"/);
 });
 

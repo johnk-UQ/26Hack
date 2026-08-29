@@ -14,6 +14,7 @@ export const PROFESSIONALS = [
     availabilityRank: 2,
     rationale: "Works with first-time investors and charges a clear fixed initial fee.",
     accent: "#b7e17e",
+    photo: "/faces/female/female-1.jpg",
   },
   {
     id: "daniel-okafor",
@@ -30,6 +31,7 @@ export const PROFESSIONALS = [
     availabilityRank: 4,
     rationale: "Fits your near-term availability and focuses on building a plan before choosing products.",
     accent: "#d0edaa",
+    photo: "/faces/male/male-1.jpg",
   },
   {
     id: "sophie-nguyen",
@@ -46,6 +48,7 @@ export const PROFESSIONALS = [
     availabilityRank: 3,
     rationale: "Relevant to your unresolved property question and two-year horizon.",
     accent: "#9ecb70",
+    photo: "/faces/female/female-2.jpg",
   },
   {
     id: "harper-jones",
@@ -62,6 +65,7 @@ export const PROFESSIONALS = [
     availabilityRank: 5,
     rationale: "A preview match for testing the borrowing questions after your broader plan.",
     accent: "#e1efcc",
+    photo: "/faces/female/female-3.jpg",
   },
   {
     id: "amelia-patel",
@@ -78,6 +82,7 @@ export const PROFESSIONALS = [
     availabilityRank: 1,
     rationale: "Can map the tax questions and records to gather before a purchase.",
     accent: "#c4e396",
+    photo: "/faces/female/female-4.jpg",
   },
   {
     id: "liam-walsh",
@@ -94,5 +99,6 @@ export const PROFESSIONALS = [
     availabilityRank: 2,
     rationale: "A later-stage option for understanding the contract before signing.",
     accent: "#aed17d",
+    photo: "/faces/male/male-2.jpg",
   },
 ];
