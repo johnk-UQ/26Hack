@@ -167,6 +167,24 @@ test("projector hero reserves desktop clearance for both CTA buttons", () => {
   assert.match(styles, /@media \(min-width: 1024px\)\s*\{\s*\.hero-title\s*\{\s*font-size: 5rem;/);
 });
 
+test("landing hero has a one-shot conversation reveal with reduced-motion fallback", () => {
+  const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+  const source = readFileSync(resolve(root, "src/pages/index.astro"), "utf8");
+  const styles = readFileSync(resolve(root, "src/styles/global.css"), "utf8");
+  assert.match(source, /hero-bubble-soft[^>]*hero-sequence-question/);
+  assert.match(source, /hero-bubble-dark[^>]*hero-sequence-response/);
+  assert.match(source, /hero-recommendation[^>]*hero-sequence-recommendation/);
+  assert.match(source, /hero-thinking/);
+  assert.match(styles, /prefers-reduced-motion/);
+  assert.match(styles, /hero-sequence-question[^}]*animation/);
+  assert.match(styles, /hero-sequence-response[^}]*animation/);
+  assert.match(styles, /hero-sequence-recommendation[^}]*animation/);
+  assert.match(styles, /hero-thinking-dot[^}]*animation/);
+  assert.match(styles, /event-link:hover[^}]*transform/);
+  assert.match(styles, /#how-it-works article:hover[^}]*transform/);
+  assert.match(styles, /button-primary[^}]*transition/);
+});
+
 test("onboarding uses the two-turn AI journey and direct pathway navigation", () => {
   const source = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../src/pages/onboarding.astro"), "utf8");
   assert.match(source, /createAiJourneyClient/);
