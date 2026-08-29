@@ -2,48 +2,45 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="Arc | Private Markets">
-  <main class="bg-[#f4f1ea] text-[#171717]">
+<Layout title="Arc | Find the right accountant">
+  <main class="bg-[#f7f5f0] text-[#18201f]">
 
-    <!-- NAVIGATION -->
-    <header class="border-b border-black/10">
-      <nav class="mx-auto flex max-w-[1500px] items-center justify-between px-6 py-6 lg:px-10">
+    <!-- NAV -->
+    <header class="border-b border-black/10 bg-[#f7f5f0]">
+      <nav class="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 lg:px-10">
 
         <a href="/" class="text-2xl font-semibold tracking-[-0.04em]">
           arc
         </a>
 
-        <div class="hidden items-center gap-9 text-sm md:flex">
-          <a href="#discover" class="hover:opacity-60">
-            Discover
-          </a>
-
-          <a href="#how-it-works" class="hover:opacity-60">
+        <div class="hidden items-center gap-8 text-sm md:flex">
+          <a href="#how-it-works" class="transition hover:opacity-50">
             How it works
           </a>
 
-          <a href="#markets" class="hover:opacity-60">
-            Private markets
+          <a href="#reasons" class="transition hover:opacity-50">
+            What we help with
           </a>
 
-          <a href="#learn" class="hover:opacity-60">
-            Learn
+          <a href="#accountants" class="transition hover:opacity-50">
+            Browse accountants
+          </a>
+
+          <a href="#for-accountants" class="transition hover:opacity-50">
+            For accountants
           </a>
         </div>
 
         <div class="flex items-center gap-5">
-          <a
-            href="/marketplace"
-            class="hidden text-sm md:block"
-          >
-            Explore
+          <a href="#" class="hidden text-sm sm:block">
+            Sign in
           </a>
 
           <a
-            href="/onboarding"
-            class="rounded-full bg-black px-6 py-3 text-sm font-medium text-white transition hover:bg-black/80"
+            href="/intake"
+            class="rounded-full bg-[#172522] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#253935]"
           >
-            Get started
+            Get matched
           </a>
         </div>
 
@@ -52,53 +49,141 @@ import Layout from "../layouts/Layout.astro";
 
 
     <!-- HERO -->
-    <section class="border-b border-black/10">
+    <section class="overflow-hidden">
 
-      <div class="mx-auto max-w-[1500px] px-6 pb-20 pt-24 lg:px-10 lg:pb-28 lg:pt-32">
+      <div class="mx-auto grid max-w-[1400px] gap-14 px-6 py-20 lg:grid-cols-[1.05fr_0.95fr] lg:px-10 lg:py-28">
 
-        <div class="max-w-[1150px]">
+        <!-- LEFT -->
+        <div class="flex flex-col justify-center">
 
-          <p class="mb-8 text-xs font-semibold uppercase tracking-[0.2em]">
-            Private markets. Made understandable.
-          </p>
+          <div class="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2 text-xs font-medium">
+            <span class="h-2 w-2 rounded-full bg-[#a9ef78]"></span>
+            Accounting help, matched to you
+          </div>
 
-          <h1
-            class="text-[64px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[82px] lg:text-[112px]"
-          >
-            Discover private markets
-            <span class="text-[#77746d]">
-              built around you.
-            </span>
+          <h1 class="max-w-4xl text-5xl font-medium leading-[1.02] tracking-[-0.05em] sm:text-6xl lg:text-[78px]">
+            Find the right accountant for your financial life.
           </h1>
 
-        </div>
-
-
-        <div class="mt-14 grid gap-10 lg:grid-cols-2">
-
-          <p class="max-w-xl text-xl leading-8 text-[#55524d]">
-            Explore private equity, infrastructure, private credit and
-            real assets — matched to your stated goals and explained
-            in plain English.
+          <p class="mt-7 max-w-2xl text-lg leading-8 text-black/60 sm:text-xl">
+            Tell us what's happening with your money. We'll help understand
+            what you need and connect you with accountants who specialise
+            in your situation.
           </p>
 
-
-          <div class="flex flex-col items-start lg:items-end">
+          <div class="mt-9 flex flex-wrap gap-3">
 
             <a
-              href="/onboarding"
-              class="inline-flex items-center gap-4 rounded-full bg-black px-8 py-4 text-sm font-medium text-white transition hover:bg-black/80"
+              href="/intake"
+              class="rounded-full bg-[#172522] px-7 py-4 text-sm font-medium text-white transition hover:bg-[#253935]"
             >
-              Build your investor profile
-
-              <span class="text-lg">
-                →
-              </span>
+              Find my accountant →
             </a>
 
-            <p class="mt-4 text-xs text-[#77746d]">
-              Free to explore · About 2 minutes
-            </p>
+            <a
+              href="#accountants"
+              class="rounded-full border border-black/15 bg-white px-7 py-4 text-sm font-medium transition hover:bg-black/5"
+            >
+              Browse accountants
+            </a>
+
+          </div>
+
+          <div class="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-sm text-black/50">
+            <span>✓ Verified professionals</span>
+            <span>✓ Transparent pricing</span>
+            <span>✓ Online consultations</span>
+          </div>
+
+        </div>
+
+
+        <!-- RIGHT: INTAKE PREVIEW -->
+        <div class="relative flex items-center justify-center">
+
+          <div class="absolute right-0 top-8 h-56 w-56 rounded-full bg-[#d9ffc5] blur-3xl"></div>
+
+          <div class="relative w-full max-w-[560px] rounded-[28px] border border-black/10 bg-white p-5 shadow-[0_28px_70px_rgba(25,35,32,0.10)] sm:p-7">
+
+            <div class="flex items-center justify-between border-b border-black/10 pb-5">
+
+              <div>
+                <p class="text-sm font-medium">
+                  What can we help you with?
+                </p>
+
+                <p class="mt-1 text-xs text-black/40">
+                  You don't need to know the accounting terminology.
+                </p>
+              </div>
+
+              <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[#d9ffc5] font-semibold">
+                A
+              </div>
+
+            </div>
+
+
+            <div class="space-y-5 py-6">
+
+              <div class="max-w-[85%] rounded-2xl rounded-tl-sm bg-[#f2f0eb] px-4 py-3 text-sm leading-6">
+                Tell me what's happening with your finances and I'll help
+                figure out what kind of accounting support might be useful.
+              </div>
+
+              <div class="ml-auto max-w-[88%] rounded-2xl rounded-tr-sm bg-[#172522] px-4 py-3 text-sm leading-6 text-white">
+                I started my first full-time job this year, bought some ETFs,
+                have a little crypto and also made about $4,000 freelancing.
+              </div>
+
+              <div class="max-w-[88%] rounded-2xl rounded-tl-sm bg-[#f2f0eb] px-4 py-3 text-sm leading-6">
+                Got it. You may need help with an individual tax return,
+                investment income, capital gains and freelance income.
+              </div>
+
+            </div>
+
+
+            <div class="rounded-2xl border border-black/10 bg-[#fbfaf7] p-4">
+
+              <p class="text-xs font-medium uppercase tracking-[0.15em] text-black/35">
+                Your situation
+              </p>
+
+              <div class="mt-3 flex flex-wrap gap-2">
+                <span class="rounded-full bg-white px-3 py-1.5 text-xs ring-1 ring-black/10">
+                  PAYG employee
+                </span>
+
+                <span class="rounded-full bg-white px-3 py-1.5 text-xs ring-1 ring-black/10">
+                  ETFs
+                </span>
+
+                <span class="rounded-full bg-white px-3 py-1.5 text-xs ring-1 ring-black/10">
+                  Crypto
+                </span>
+
+                <span class="rounded-full bg-white px-3 py-1.5 text-xs ring-1 ring-black/10">
+                  Freelance income
+                </span>
+              </div>
+
+            </div>
+
+
+            <div class="mt-5 flex items-center gap-3 rounded-2xl border border-black/10 px-4 py-3">
+
+              <input
+                type="text"
+                placeholder="Tell us what's going on..."
+                class="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-black/30"
+              />
+
+              <button class="flex h-10 w-10 items-center justify-center rounded-full bg-[#172522] text-white">
+                →
+              </button>
+
+            </div>
 
           </div>
 
@@ -108,242 +193,25 @@ import Layout from "../layouts/Layout.astro";
 
     </section>
 
-	<!-- FUND MANAGER MARQUEE -->
-	<section class="overflow-hidden border-b border-black/10 bg-[#d8ff75] py-10 text-black">
 
-		<div class="mx-auto max-w-[1500px] px-6 lg:px-10">
-		<p class="mb-8 text-center text-xs font-medium uppercase tracking-[0.2em] text-black/50">
-		Illustrative managers available for discovery
-		</p>
-	</div>
+    <!-- TRUST STRIP -->
+    <section class="border-y border-black/10 bg-[#172522] text-white">
 
-	<!-- Moving logo/name track -->
-	<div class="marquee">
-		<div class="marquee-track">
+      <div class="mx-auto grid max-w-[1400px] gap-6 px-6 py-7 text-center text-sm sm:grid-cols-3 lg:px-10">
 
-		<!-- First copy -->
-		<div class="manager">BLACKSTONE</div>
-		<div class="manager serif">KKR</div>
-		<div class="manager">APOLLO</div>
-		<div class="manager serif">Brookfield</div>
-		<div class="manager">EQT</div>
-		<div class="manager serif">Carlyle</div>
-		<div class="manager">MACQUARIE</div>
-		<div class="manager serif">Partners Group</div>
-		<div class="manager">CVC</div>
-		<div class="manager serif">Warburg Pincus</div>
-		<div class="manager">IFM INVESTORS</div>
-
-		<!-- Duplicate copy for seamless animation -->
-		<div class="manager">BLACKSTONE</div>
-		<div class="manager serif">KKR</div>
-		<div class="manager">APOLLO</div>
-		<div class="manager serif">Brookfield</div>
-		<div class="manager">EQT</div>
-		<div class="manager serif">Carlyle</div>
-		<div class="manager">MACQUARIE</div>
-		<div class="manager serif">Partners Group</div>
-		<div class="manager">CVC</div>
-		<div class="manager serif">Warburg Pincus</div>
-		<div class="manager">IFM INVESTORS</div>
-
-		</div>
-	</div>
-
-	</section>
-	
-    <!-- INTRO -->
-    <section
-      id="discover"
-      class="border-b border-black/10"
-    >
-      <div class="mx-auto max-w-[1500px] px-6 py-24 lg:px-10 lg:py-32">
-
-        <div class="grid gap-16 lg:grid-cols-[0.7fr_1.3fr]">
-
-          <div>
-            <p class="text-xs font-semibold uppercase tracking-[0.2em]">
-              Private markets, differently
-            </p>
-          </div>
-
-
-          <div class="max-w-4xl">
-
-            <h2
-              class="text-4xl font-medium leading-[1.08] tracking-[-0.035em] sm:text-5xl lg:text-6xl"
-            >
-              Opportunities that were once difficult to find,
-              made easier to discover and understand.
-            </h2>
-
-            <p class="mt-8 max-w-2xl text-lg leading-8 text-[#69665f]">
-              Arc helps you navigate private market investments by turning
-              your goals, risk preferences and investment horizon into a
-              clear profile — then showing opportunities aligned with what
-              you told us.
-            </p>
-
-          </div>
-
+        <div>
+          <span class="text-white/45">01</span>
+          <span class="ml-3">Explain your situation normally</span>
         </div>
 
-      </div>
-    </section>
-
-
-	
-    <!-- MATCH PREVIEW -->
-    <section class="border-b border-black/10 bg-[#ebe7df]">
-
-      <div class="mx-auto max-w-[1500px] px-6 py-24 lg:px-10 lg:py-32">
-
-        <div class="mb-14 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-
-          <div>
-            <p class="text-xs font-semibold uppercase tracking-[0.2em]">
-              Personalised discovery
-            </p>
-
-            <h2
-              class="mt-5 max-w-3xl text-4xl font-medium tracking-[-0.04em] sm:text-5xl"
-            >
-              See why an opportunity matches your preferences.
-            </h2>
-          </div>
-
-          <a
-            href="/marketplace"
-            class="text-sm underline underline-offset-4"
-          >
-            Explore opportunities
-          </a>
-
+        <div>
+          <span class="text-white/45">02</span>
+          <span class="ml-3">We identify what help you need</span>
         </div>
 
-
-        <!-- Fund card -->
-        <div class="overflow-hidden rounded-[2px] bg-[#171717] text-white">
-
-          <div class="grid lg:grid-cols-[1.3fr_0.7fr]">
-
-            <div class="p-8 sm:p-12 lg:p-16">
-
-              <div class="flex flex-wrap items-center gap-3">
-
-                <span
-                  class="rounded-full border border-white/30 px-3 py-1 text-xs"
-                >
-                  Infrastructure
-                </span>
-
-                <span
-                  class="rounded-full bg-[#d9ff77] px-3 py-1 text-xs font-medium text-black"
-                >
-                  96% match
-                </span>
-
-              </div>
-
-              <h3
-                class="mt-10 max-w-2xl text-4xl font-medium leading-tight tracking-[-0.035em] sm:text-5xl"
-              >
-                Australian Digital Infrastructure Fund
-              </h3>
-
-              <p
-                class="mt-6 max-w-xl text-lg leading-8 text-white/60"
-              >
-                Exposure to data centres, fibre networks and renewable
-                energy infrastructure supporting Australia's digital economy.
-              </p>
-
-
-              <div class="mt-12 grid grid-cols-2 gap-8 sm:grid-cols-4">
-
-                <div>
-                  <p class="text-xs uppercase tracking-wider text-white/40">
-                    Minimum
-                  </p>
-                  <p class="mt-2 text-lg">$2,000</p>
-                </div>
-
-                <div>
-                  <p class="text-xs uppercase tracking-wider text-white/40">
-                    Horizon
-                  </p>
-                  <p class="mt-2 text-lg">8–12 yrs</p>
-                </div>
-
-                <div>
-                  <p class="text-xs uppercase tracking-wider text-white/40">
-                    Risk
-                  </p>
-                  <p class="mt-2 text-lg">High</p>
-                </div>
-
-                <div>
-                  <p class="text-xs uppercase tracking-wider text-white/40">
-                    Liquidity
-                  </p>
-                  <p class="mt-2 text-lg">Low</p>
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <!-- Match explanation -->
-            <div class="border-t border-white/15 bg-[#222222] p-8 sm:p-12 lg:border-l lg:border-t-0 lg:p-14">
-
-              <p class="text-xs uppercase tracking-[0.2em] text-white/40">
-                Why it matches you
-              </p>
-
-              <div class="mt-8 space-y-7">
-
-                <div class="flex gap-4">
-                  <span>✓</span>
-
-                  <p class="text-sm leading-6 text-white/80">
-                    Your long investment horizon aligns with the fund's
-                    expected holding period.
-                  </p>
-                </div>
-
-                <div class="flex gap-4">
-                  <span>✓</span>
-
-                  <p class="text-sm leading-6 text-white/80">
-                    You indicated a high preference for long-term growth.
-                  </p>
-                </div>
-
-                <div class="flex gap-4">
-                  <span>✓</span>
-
-                  <p class="text-sm leading-6 text-white/80">
-                    Digital infrastructure and renewable energy match
-                    your selected themes.
-                  </p>
-                </div>
-
-              </div>
-
-
-              <a
-                href="/fund"
-                class="mt-12 inline-flex items-center gap-3 text-sm font-medium"
-              >
-                View opportunity
-                <span>→</span>
-              </a>
-
-            </div>
-
-          </div>
-
+        <div>
+          <span class="text-white/45">03</span>
+          <span class="ml-3">Compare matched accountants</span>
         </div>
 
       </div>
@@ -352,98 +220,101 @@ import Layout from "../layouts/Layout.astro";
 
 
     <!-- HOW IT WORKS -->
-    <section
-      id="how-it-works"
-      class="border-b border-black/10 bg-[#f4f1ea]"
-    >
+    <section id="how-it-works">
 
-      <div class="mx-auto max-w-[1500px] px-6 py-24 lg:px-10 lg:py-32">
+      <div class="mx-auto max-w-[1400px] px-6 py-24 lg:px-10">
 
-        <div class="grid gap-16 lg:grid-cols-[0.8fr_1.2fr]">
+        <div class="max-w-2xl">
 
-          <div>
-            <p class="text-xs font-semibold uppercase tracking-[0.2em]">
-              How it works
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-black/45">
+            How it works
+          </p>
+
+          <h2 class="mt-4 text-4xl font-medium tracking-[-0.04em] sm:text-5xl">
+            You describe your life. We help find the specialist.
+          </h2>
+
+        </div>
+
+
+        <div class="mt-14 grid gap-5 md:grid-cols-3">
+
+          <div class="rounded-[24px] border border-black/10 bg-white p-7">
+
+            <div class="flex h-11 w-11 items-center justify-center rounded-full bg-[#d9ffc5] text-sm font-semibold">
+              1
+            </div>
+
+            <h3 class="mt-8 text-2xl font-medium tracking-[-0.03em]">
+              Tell us what's going on
+            </h3>
+
+            <p class="mt-4 leading-7 text-black/55">
+              Describe your financial situation naturally — your job,
+              investments, side income, property or whatever is relevant.
             </p>
 
-            <h2
-              class="mt-5 max-w-lg text-5xl font-medium leading-[1.05] tracking-[-0.04em]"
-            >
-              Understand first.
-              Discover second.
-            </h2>
+            <div class="mt-8 rounded-2xl bg-[#f6f4ef] p-4 text-sm italic leading-6 text-black/60">
+              “I started a graduate job, have ETFs and do some freelance work.”
+            </div>
+
           </div>
 
 
-          <div>
+          <div class="rounded-[24px] border border-black/10 bg-white p-7">
 
-            <!-- Step -->
-            <div class="border-t border-black/20 py-8">
-              <div class="grid gap-5 sm:grid-cols-[60px_1fr]">
-
-                <span class="text-sm text-[#77746d]">
-                  01
-                </span>
-
-                <div>
-                  <h3 class="text-2xl font-medium">
-                    Tell us what matters to you
-                  </h3>
-
-                  <p class="mt-3 max-w-xl leading-7 text-[#69665f]">
-                    Share your goals, investment horizon, risk tolerance,
-                    liquidity needs and areas of interest.
-                  </p>
-                </div>
-
-              </div>
+            <div class="flex h-11 w-11 items-center justify-center rounded-full bg-[#d9ffc5] text-sm font-semibold">
+              2
             </div>
 
+            <h3 class="mt-8 text-2xl font-medium tracking-[-0.03em]">
+              We understand what you need
+            </h3>
 
-            <!-- Step -->
-            <div class="border-t border-black/20 py-8">
-              <div class="grid gap-5 sm:grid-cols-[60px_1fr]">
+            <p class="mt-4 leading-7 text-black/55">
+              AI structures your situation and identifies the accounting
+              areas that may be relevant.
+            </p>
 
-                <span class="text-sm text-[#77746d]">
-                  02
-                </span>
+            <div class="mt-8 flex flex-wrap gap-2">
+              <span class="rounded-full bg-[#f6f4ef] px-3 py-2 text-xs">
+                Individual tax
+              </span>
 
-                <div>
-                  <h3 class="text-2xl font-medium">
-                    Build your investor profile
-                  </h3>
+              <span class="rounded-full bg-[#f6f4ef] px-3 py-2 text-xs">
+                Investment income
+              </span>
 
-                  <p class="mt-3 max-w-xl leading-7 text-[#69665f]">
-                    AI interprets your answers and creates a simple,
-                    understandable profile.
-                  </p>
-                </div>
-
-              </div>
+              <span class="rounded-full bg-[#f6f4ef] px-3 py-2 text-xs">
+                Freelancing
+              </span>
             </div>
 
+          </div>
 
-            <!-- Step -->
-            <div class="border-y border-black/20 py-8">
-              <div class="grid gap-5 sm:grid-cols-[60px_1fr]">
 
-                <span class="text-sm text-[#77746d]">
-                  03
-                </span>
+          <div class="rounded-[24px] border border-black/10 bg-white p-7">
 
-                <div>
-                  <h3 class="text-2xl font-medium">
-                    Discover relevant opportunities
-                  </h3>
-
-                  <p class="mt-3 max-w-xl leading-7 text-[#69665f]">
-                    Compare opportunities and understand why each one
-                    does — or doesn't — align with your preferences.
-                  </p>
-                </div>
-
-              </div>
+            <div class="flex h-11 w-11 items-center justify-center rounded-full bg-[#d9ffc5] text-sm font-semibold">
+              3
             </div>
+
+            <h3 class="mt-8 text-2xl font-medium tracking-[-0.03em]">
+              Meet accountants that fit
+            </h3>
+
+            <p class="mt-4 leading-7 text-black/55">
+              Compare professionals by expertise, pricing, reviews,
+              availability and how closely they match your situation.
+            </p>
+
+            <a
+              href="/intake"
+              class="mt-8 inline-flex items-center gap-2 text-sm font-medium"
+            >
+              Get matched
+              <span>→</span>
+            </a>
 
           </div>
 
@@ -454,60 +325,565 @@ import Layout from "../layouts/Layout.astro";
     </section>
 
 
-    <!-- EDUCATION -->
-    <section id="learn" class="bg-white">
+    <!-- COMMON REASONS -->
+    <section id="reasons" class="border-y border-black/10 bg-[#e9f6e2]">
 
-      <div class="mx-auto max-w-[1500px] px-6 py-24 lg:px-10 lg:py-32">
+      <div class="mx-auto max-w-[1400px] px-6 py-24 lg:px-10">
 
-        <div class="grid gap-10 lg:grid-cols-2">
+        <div class="grid gap-12 lg:grid-cols-[0.75fr_1.25fr]">
 
-          <div
-            class="flex min-h-[460px] flex-col justify-between bg-[#d8ff75] p-8 sm:p-12"
-          >
+          <div>
 
-            <div>
-              <p class="text-xs uppercase tracking-[0.2em]">
-                AI Fund Explainer
-              </p>
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-black/45">
+              What can we help with?
+            </p>
 
-              <h2
-                class="mt-6 max-w-lg text-4xl font-medium tracking-[-0.04em] sm:text-5xl"
-              >
-                Private market language, without the jargon.
-              </h2>
-            </div>
+            <h2 class="mt-4 text-4xl font-medium tracking-[-0.04em] sm:text-5xl">
+              Accounting usually starts with a life event.
+            </h2>
 
-            <p class="max-w-md text-lg leading-8">
-              Understand carried interest, hurdle rates, capital calls,
-              IRR, DPI and other terms in plain English.
+            <p class="mt-5 max-w-md leading-7 text-black/55">
+              Start with what's happening in your life. We'll help work out
+              the accounting from there.
             </p>
 
           </div>
 
 
-          <div
-            class="flex min-h-[460px] flex-col justify-between bg-[#262626] p-8 text-white sm:p-12"
-          >
+          <div class="grid gap-3 sm:grid-cols-2">
 
-            <div>
-              <p class="text-xs uppercase tracking-[0.2em] text-white/50">
-                Eligibility
+            <a href="/intake" class="group rounded-[20px] bg-white p-6 transition hover:-translate-y-1">
+
+              <p class="text-lg font-medium">
+                I started my first job
               </p>
 
-              <h2
-                class="mt-6 max-w-lg text-4xl font-medium tracking-[-0.04em] sm:text-5xl"
-              >
-                Know what you can actually access.
-              </h2>
-            </div>
+              <p class="mt-2 text-sm leading-6 text-black/50">
+                Tax returns, deductions, investments and understanding your finances.
+              </p>
 
-            <p class="max-w-md text-lg leading-8 text-white/60">
-              Clearly distinguish opportunities available to retail
-              investors from those restricted to wholesale or
-              sophisticated investors.
-            </p>
+              <p class="mt-6 text-sm">
+                Start here →
+              </p>
+
+            </a>
+
+
+            <a href="/intake" class="group rounded-[20px] bg-white p-6 transition hover:-translate-y-1">
+
+              <p class="text-lg font-medium">
+                I started investing
+              </p>
+
+              <p class="mt-2 text-sm leading-6 text-black/50">
+                Shares, ETFs, dividends, capital gains and investment reporting.
+              </p>
+
+              <p class="mt-6 text-sm">
+                Start here →
+              </p>
+
+            </a>
+
+
+            <a href="/intake" class="group rounded-[20px] bg-white p-6 transition hover:-translate-y-1">
+
+              <p class="text-lg font-medium">
+                I have a side hustle
+              </p>
+
+              <p class="mt-2 text-sm leading-6 text-black/50">
+                Freelance income, ABNs, expenses, deductions and tax planning.
+              </p>
+
+              <p class="mt-6 text-sm">
+                Start here →
+              </p>
+
+            </a>
+
+
+            <a href="/intake" class="group rounded-[20px] bg-white p-6 transition hover:-translate-y-1">
+
+              <p class="text-lg font-medium">
+                I own crypto
+              </p>
+
+              <p class="mt-2 text-sm leading-6 text-black/50">
+                Crypto transactions, disposal events and capital gains.
+              </p>
+
+              <p class="mt-6 text-sm">
+                Start here →
+              </p>
+
+            </a>
+
+
+            <a href="/intake" class="group rounded-[20px] bg-white p-6 transition hover:-translate-y-1">
+
+              <p class="text-lg font-medium">
+                I bought an investment property
+              </p>
+
+              <p class="mt-2 text-sm leading-6 text-black/50">
+                Rental income, expenses, depreciation and property tax.
+              </p>
+
+              <p class="mt-6 text-sm">
+                Start here →
+              </p>
+
+            </a>
+
+
+            <a href="/intake" class="group rounded-[20px] bg-white p-6 transition hover:-translate-y-1">
+
+              <p class="text-lg font-medium">
+                I do gig work
+              </p>
+
+              <p class="mt-2 text-sm leading-6 text-black/50">
+                Rideshare, delivery and contractor income made easier to understand.
+              </p>
+
+              <p class="mt-6 text-sm">
+                Start here →
+              </p>
+
+            </a>
 
           </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- BENEFITS -->
+    <section>
+
+      <div class="mx-auto max-w-[1400px] px-6 py-24 lg:px-10">
+
+        <div class="text-center">
+
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-black/45">
+            Why Arc?
+          </p>
+
+          <h2 class="mx-auto mt-4 max-w-2xl text-4xl font-medium tracking-[-0.04em] sm:text-5xl">
+            Less searching. Less jargon. Better prepared.
+          </h2>
+
+        </div>
+
+
+        <div class="mt-14 grid gap-px overflow-hidden rounded-[24px] border border-black/10 bg-black/10 sm:grid-cols-2 lg:grid-cols-4">
+
+          <div class="bg-white p-7">
+            <p class="text-sm font-medium">
+              Matched to your situation
+            </p>
+
+            <p class="mt-3 text-sm leading-6 text-black/50">
+              Not every accountant specialises in the same things.
+            </p>
+          </div>
+
+          <div class="bg-white p-7">
+            <p class="text-sm font-medium">
+              Know the price upfront
+            </p>
+
+            <p class="mt-3 text-sm leading-6 text-black/50">
+              Compare consultation and service pricing before you book.
+            </p>
+          </div>
+
+          <div class="bg-white p-7">
+            <p class="text-sm font-medium">
+              Skip the jargon
+            </p>
+
+            <p class="mt-3 text-sm leading-6 text-black/50">
+              Tell us what's happening in normal language.
+            </p>
+          </div>
+
+          <div class="bg-white p-7">
+            <p class="text-sm font-medium">
+              Everything organised
+            </p>
+
+            <p class="mt-3 text-sm leading-6 text-black/50">
+              Keep your situation, questions and documents together.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FEATURED ACCOUNTANTS -->
+    <section id="accountants" class="border-y border-black/10 bg-white">
+
+      <div class="mx-auto max-w-[1400px] px-6 py-24 lg:px-10">
+
+        <div class="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+
+          <div>
+
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-black/45">
+              Featured accountants
+            </p>
+
+            <h2 class="mt-4 text-4xl font-medium tracking-[-0.04em] sm:text-5xl">
+              Find someone who understands your situation.
+            </h2>
+
+          </div>
+
+          <a href="/accountants" class="text-sm font-medium">
+            View all accountants →
+          </a>
+
+        </div>
+
+
+        <div class="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+
+          <!-- ACCOUNTANT 1 -->
+          <article class="rounded-[24px] border border-black/10 p-6">
+
+            <div class="flex items-start gap-4">
+
+              <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#d9ffc5] text-lg font-semibold">
+                SC
+              </div>
+
+              <div>
+
+                <div class="flex items-center gap-2">
+                  <h3 class="text-xl font-medium">
+                    Sarah Chen
+                  </h3>
+
+                  <span class="rounded-full bg-[#e9f6e2] px-2 py-1 text-[10px] font-medium">
+                    VERIFIED
+                  </span>
+                </div>
+
+                <p class="mt-1 text-sm text-black/45">
+                  CPA · Registered Tax Agent
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="mt-6 flex items-center gap-2 text-sm">
+              <span>★★★★★</span>
+              <span class="font-medium">4.9</span>
+              <span class="text-black/35">(128 reviews)</span>
+            </div>
+
+
+            <div class="mt-6">
+
+              <p class="text-xs uppercase tracking-[0.15em] text-black/35">
+                Specialises in
+              </p>
+
+              <div class="mt-3 flex flex-wrap gap-2">
+                <span class="rounded-full bg-[#f5f3ef] px-3 py-1.5 text-xs">
+                  Young professionals
+                </span>
+
+                <span class="rounded-full bg-[#f5f3ef] px-3 py-1.5 text-xs">
+                  Shares & ETFs
+                </span>
+
+                <span class="rounded-full bg-[#f5f3ef] px-3 py-1.5 text-xs">
+                  Side hustles
+                </span>
+              </div>
+
+            </div>
+
+
+            <div class="mt-7 grid grid-cols-2 border-t border-black/10 pt-5">
+
+              <div>
+                <p class="text-xs text-black/35">
+                  From
+                </p>
+
+                <p class="mt-1 text-lg font-medium">
+                  $149
+                </p>
+              </div>
+
+              <div>
+                <p class="text-xs text-black/35">
+                  Next available
+                </p>
+
+                <p class="mt-1 text-sm font-medium">
+                  Today · 5:30 PM
+                </p>
+              </div>
+
+            </div>
+
+
+            <a
+              href="/accountant/sarah-chen"
+              class="mt-6 block rounded-full bg-[#172522] px-5 py-3 text-center text-sm font-medium text-white"
+            >
+              View profile
+            </a>
+
+          </article>
+
+
+          <!-- ACCOUNTANT 2 -->
+          <article class="rounded-[24px] border border-black/10 p-6">
+
+            <div class="flex items-start gap-4">
+
+              <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#e4e9ff] text-lg font-semibold">
+                DM
+              </div>
+
+              <div>
+
+                <div class="flex items-center gap-2">
+                  <h3 class="text-xl font-medium">
+                    Daniel Morris
+                  </h3>
+
+                  <span class="rounded-full bg-[#e9f6e2] px-2 py-1 text-[10px] font-medium">
+                    VERIFIED
+                  </span>
+                </div>
+
+                <p class="mt-1 text-sm text-black/45">
+                  CA · Registered Tax Agent
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="mt-6 flex items-center gap-2 text-sm">
+              <span>★★★★★</span>
+              <span class="font-medium">4.8</span>
+              <span class="text-black/35">(94 reviews)</span>
+            </div>
+
+
+            <div class="mt-6">
+
+              <p class="text-xs uppercase tracking-[0.15em] text-black/35">
+                Specialises in
+              </p>
+
+              <div class="mt-3 flex flex-wrap gap-2">
+                <span class="rounded-full bg-[#f5f3ef] px-3 py-1.5 text-xs">
+                  Property
+                </span>
+
+                <span class="rounded-full bg-[#f5f3ef] px-3 py-1.5 text-xs">
+                  Crypto
+                </span>
+
+                <span class="rounded-full bg-[#f5f3ef] px-3 py-1.5 text-xs">
+                  Investors
+                </span>
+              </div>
+
+            </div>
+
+
+            <div class="mt-7 grid grid-cols-2 border-t border-black/10 pt-5">
+
+              <div>
+                <p class="text-xs text-black/35">
+                  From
+                </p>
+
+                <p class="mt-1 text-lg font-medium">
+                  $179
+                </p>
+              </div>
+
+              <div>
+                <p class="text-xs text-black/35">
+                  Next available
+                </p>
+
+                <p class="mt-1 text-sm font-medium">
+                  Tomorrow · 10:00 AM
+                </p>
+              </div>
+
+            </div>
+
+
+            <a
+              href="/accountant/daniel-morris"
+              class="mt-6 block rounded-full bg-[#172522] px-5 py-3 text-center text-sm font-medium text-white"
+            >
+              View profile
+            </a>
+
+          </article>
+
+
+          <!-- ACCOUNTANT 3 -->
+          <article class="rounded-[24px] border border-black/10 p-6">
+
+            <div class="flex items-start gap-4">
+
+              <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#ffe5d3] text-lg font-semibold">
+                AP
+              </div>
+
+              <div>
+
+                <div class="flex items-center gap-2">
+                  <h3 class="text-xl font-medium">
+                    Amelia Patel
+                  </h3>
+
+                  <span class="rounded-full bg-[#e9f6e2] px-2 py-1 text-[10px] font-medium">
+                    VERIFIED
+                  </span>
+                </div>
+
+                <p class="mt-1 text-sm text-black/45">
+                  CPA · Registered Tax Agent
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="mt-6 flex items-center gap-2 text-sm">
+              <span>★★★★★</span>
+              <span class="font-medium">5.0</span>
+              <span class="text-black/35">(71 reviews)</span>
+            </div>
+
+
+            <div class="mt-6">
+
+              <p class="text-xs uppercase tracking-[0.15em] text-black/35">
+                Specialises in
+              </p>
+
+              <div class="mt-3 flex flex-wrap gap-2">
+                <span class="rounded-full bg-[#f5f3ef] px-3 py-1.5 text-xs">
+                  Freelancers
+                </span>
+
+                <span class="rounded-full bg-[#f5f3ef] px-3 py-1.5 text-xs">
+                  Gig workers
+                </span>
+
+                <span class="rounded-full bg-[#f5f3ef] px-3 py-1.5 text-xs">
+                  Individual tax
+                </span>
+              </div>
+
+            </div>
+
+
+            <div class="mt-7 grid grid-cols-2 border-t border-black/10 pt-5">
+
+              <div>
+                <p class="text-xs text-black/35">
+                  From
+                </p>
+
+                <p class="mt-1 text-lg font-medium">
+                  $129
+                </p>
+              </div>
+
+              <div>
+                <p class="text-xs text-black/35">
+                  Next available
+                </p>
+
+                <p class="mt-1 text-sm font-medium">
+                  Today · 7:00 PM
+                </p>
+              </div>
+
+            </div>
+
+
+            <a
+              href="/accountant/amelia-patel"
+              class="mt-6 block rounded-full bg-[#172522] px-5 py-3 text-center text-sm font-medium text-white"
+            >
+              View profile
+            </a>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ACCOUNTANT VALUE PROP -->
+    <section id="for-accountants" class="bg-[#172522] text-white">
+
+      <div class="mx-auto grid max-w-[1400px] gap-12 px-6 py-24 lg:grid-cols-2 lg:px-10">
+
+        <div>
+
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">
+            For accountants
+          </p>
+
+          <h2 class="mt-4 max-w-xl text-4xl font-medium tracking-[-0.04em] sm:text-5xl">
+            Spend less time qualifying leads.
+          </h2>
+
+        </div>
+
+
+        <div>
+
+          <p class="max-w-xl text-lg leading-8 text-white/60">
+            Receive prepared client enquiries with their situation already
+            structured, expected service identified and documents organised
+            before the first conversation.
+          </p>
+
+          <p class="mt-7 text-2xl font-medium leading-9">
+            Spend more time doing accounting work.
+          </p>
+
+          <a
+            href="#"
+            class="mt-8 inline-flex rounded-full bg-[#d9ffc5] px-6 py-3.5 text-sm font-medium text-[#172522]"
+          >
+            Join as an accountant →
+          </a>
 
         </div>
 
@@ -517,30 +893,25 @@ import Layout from "../layouts/Layout.astro";
 
 
     <!-- FINAL CTA -->
-    <section class="bg-[#171717] text-white">
+    <section class="bg-[#d9ffc5]">
 
-      <div class="mx-auto max-w-[1500px] px-6 py-24 lg:px-10 lg:py-32">
+      <div class="mx-auto max-w-[1400px] px-6 py-24 text-center lg:px-10">
 
-        <p class="text-xs uppercase tracking-[0.2em] text-white/50">
-          Start exploring
+        <h2 class="mx-auto max-w-4xl text-5xl font-medium leading-[1.03] tracking-[-0.045em] sm:text-6xl">
+          Finding an accountant shouldn't require understanding accounting.
+        </h2>
+
+        <p class="mx-auto mt-6 max-w-xl text-lg leading-8 text-black/55">
+          Tell us what's happening with your money and we'll help you
+          find someone who understands it.
         </p>
 
-        <div class="mt-8 flex flex-col justify-between gap-12 lg:flex-row lg:items-end">
-
-          <h2
-            class="max-w-4xl text-5xl font-medium leading-[1.02] tracking-[-0.045em] sm:text-6xl lg:text-7xl"
-          >
-            Find private-market opportunities aligned with what matters to you.
-          </h2>
-
-          <a
-            href="/onboarding"
-            class="shrink-0 rounded-full bg-[#d8ff75] px-8 py-4 text-sm font-medium text-black transition hover:opacity-80"
-          >
-            Build your profile →
-          </a>
-
-        </div>
+        <a
+          href="/intake"
+          class="mt-9 inline-flex rounded-full bg-[#172522] px-7 py-4 text-sm font-medium text-white"
+        >
+          Find my accountant →
+        </a>
 
       </div>
 
@@ -548,29 +919,24 @@ import Layout from "../layouts/Layout.astro";
 
 
     <!-- FOOTER -->
-    <footer class="bg-[#171717] text-white">
+    <footer class="bg-[#f7f5f0]">
 
-      <div class="mx-auto max-w-[1500px] border-t border-white/15 px-6 py-10 lg:px-10">
+      <div class="mx-auto flex max-w-[1400px] flex-col justify-between gap-6 px-6 py-10 text-sm text-black/45 sm:flex-row lg:px-10">
 
-        <div class="flex flex-col justify-between gap-6 sm:flex-row">
+        <div>
+          <p class="text-xl font-semibold text-[#172522]">
+            arc
+          </p>
 
-          <div>
-            <p class="text-2xl font-semibold">
-              arc
-            </p>
-
-            <p class="mt-4 max-w-sm text-xs leading-5 text-white/40">
-              Arc is a discovery and education platform.
-              Information shown does not constitute financial advice
-              or an investment recommendation.
-            </p>
-          </div>
-
-          <div class="text-sm text-white/50">
-            © 2026 Arc
-          </div>
-
+          <p class="mt-3 max-w-md text-xs leading-5">
+            Arc helps users organise their financial situation and connect
+            with accounting professionals. Information shown is not tax advice.
+          </p>
         </div>
+
+        <p>
+          © 2026 Arc
+        </p>
 
       </div>
 
@@ -578,57 +944,3 @@ import Layout from "../layouts/Layout.astro";
 
   </main>
 </Layout>
-
-<style>
-  .marquee {
-    width: 100%;
-    overflow: hidden;
-  }
-
-  .marquee-track {
-    display: flex;
-    width: max-content;
-    align-items: center;
-    gap: 6rem;
-    animation: marquee 28s linear infinite;
-  }
-
-  .manager {
-    flex-shrink: 0;
-    white-space: nowrap;
-
-    font-size: 1.5rem;
-    font-weight: 600;
-    letter-spacing: -0.03em;
-
-    opacity: 0.95;
-  }
-
-  .manager.serif {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 1.8rem;
-    font-weight: 400;
-  }
-
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-
-    to {
-      transform: translateX(-50%);
-    }
-  }
-
-  /* Pause when user hovers */
-  .marquee:hover .marquee-track {
-    animation-play-state: paused;
-  }
-
-  /* Accessibility */
-  @media (prefers-reduced-motion: reduce) {
-    .marquee-track {
-      animation: none;
-    }
-  }
-</style>
