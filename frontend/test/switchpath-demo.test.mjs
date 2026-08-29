@@ -219,9 +219,22 @@ test("restart clears both journey storage versions", () => {
 test("pathway progress and next action derive from the persisted current step", () => {
   const source = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../src/pages/pathway.astro"), "utf8");
   assert.match(source, /id="pathway-summary"/);
-  assert.match(source, /summary\.textContent = `\$\{completed\} complete/);
-  assert.match(source, /current === 1/);
-  assert.match(source, /Preview broker questions/);
+  assert.match(source, /pathway-summary/);
+  assert.match(source, /generatedPathway/);
+  assert.match(source, /See \$\{step\.professional\} matches/);
+});
+
+test("pathway and marketplace expose generated rendering and generic booking hooks", () => {
+  const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+  const pathway = readFileSync(resolve(root, "src/pages/pathway.astro"), "utf8");
+  const marketplace = readFileSync(resolve(root, "src/pages/marketplace.astro"), "utf8");
+  assert.match(pathway, /generatedPathway/);
+  assert.match(pathway, /generatedSummary/);
+  assert.match(marketplace, /generatedMatches/);
+  assert.match(marketplace, /normalizeGeneratedJourney/);
+  assert.match(marketplace, /generated.slice\(0, 3\)/);
+  assert.match(marketplace, /Browse all/);
+  assert.match(marketplace, /canBook/);
 });
 
 test("marketplace profile focus and booking disabled state have accessible treatments", () => {

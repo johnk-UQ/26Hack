@@ -1,4 +1,14 @@
-# Astro Starter Kit: Basics
+# Switchpath demo
+
+The laptop demo can use Groq for the generated two-turn journey. Copy `.env.example` to `.env` and set `GROQ_API_KEY` to a key with access to the configured model. Without a key, the prefilled property journey falls back to the curated example.
+
+Run the complete local demo from this directory with:
+
+```sh
+npm run dev
+```
+
+This starts the Astro site only; the API is optional for the fallback journey. The demo is intended for a single laptop run, not production hosting.
 
 ```sh
 npm create astro@latest -- --template basics
