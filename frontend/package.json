@@ -6,7 +6,10 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev",
+    "dev": "npm run dev:web",
+    "dev:web": "astro dev",
+    "dev:api": "node server/index.mjs",
+    "dev:ai": "node scripts/dev-ai.mjs",
     "build": "astro build",
     "test": "node --test test/*.test.mjs",
     "preview": "astro preview",
