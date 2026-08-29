@@ -92,7 +92,7 @@ From a profile, Alex selects a fictional time and reaches a context-sharing chec
 - goals and timeframe;
 - income, savings, and HECS debt;
 - housing and dependant status;
-- Arc’s pathway summary.
+- Switchpath’s pathway summary.
 
 The primary action changes from **Request consultation** to a confirmation state naming the professional, time, shared items, and next pathway step. No real booking, payment, account, email, or calendar action occurs.
 
@@ -117,4 +117,4 @@ Suggested content boundaries are `src/data/demoJourney.ts`, `src/data/profession
 - Booking confirmation reflects the selected time and only the context Alex chose to share.
 - Navigation and controls work by keyboard, inputs have programmatic labels, focus is visible, and reduced-motion preferences are respected.
 - The experience is composed for a projected laptop around 1440×900 and remains usable on a narrow mobile viewport.
-- Navigation copy consistently distinguishes Arc’s guidance from professional financial, credit, tax, and legal advice.
+- Navigation copy consistently distinguishes Switchpath’s guidance from professional financial, credit, tax, and legal advice.
