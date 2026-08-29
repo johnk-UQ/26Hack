@@ -29,3 +29,10 @@ Complete. The task commit hash is included in the handoff alongside this report.
 - Booking persists a generated next-role slug or `complete`, rather than a fixed role.
 - Generated strings are HTML-escaped before the page-level templates consume them; visible tab copy is `Your top matches`.
 - Verification rerun: `npm test` PASS (36/36); `npm run build` PASS (4 static routes); local route smoke remained HTTP 200 for `/pathway` and `/marketplace`.
+
+## Review round 2 fixes
+
+- Static fallback now includes its own collapsed later-role details list.
+- Progress resolves role slugs and the explicit `complete` state instead of coercing slugs with `Number()`.
+- Generated summary context is escaped before any template interpolation.
+- Final route smoke: `/pathway` 200 (47,423 bytes), `/marketplace` 200 (58,712 bytes).
