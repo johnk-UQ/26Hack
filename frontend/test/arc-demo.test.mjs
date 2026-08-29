@@ -159,7 +159,9 @@ test("dark explainer and profile panels use the dedicated dark panel variant", (
   assert.match(marketplace, /class="panel panel-dark [^"]*text-white/);
 });
 
-test("landing hero keeps its primary CTA within the projected desktop viewport", () => {
+test("projector hero reserves desktop clearance for both CTA buttons", () => {
   const source = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../src/pages/index.astro"), "utf8");
-  assert.match(source, /<section class="grid[^>]*\blg:py-8\b/);
+  const styles = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../src/styles/global.css"), "utf8");
+  assert.match(source, /<h1 class="display-title hero-title[^>]*>/);
+  assert.match(styles, /@media \(min-width: 1024px\)\s*\{\s*\.hero-title\s*\{\s*font-size: 5rem;/);
 });

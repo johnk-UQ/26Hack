@@ -35,6 +35,7 @@ body {
 .button-secondary { border: 1px solid var(--line); background: var(--raised); color: var(--ink); }
 .button-secondary:hover { background: var(--pale); }
 .display-title { font-family: Georgia, "Times New Roman", serif; font-size: clamp(3.4rem, 7vw, 6.4rem); line-height: .95; letter-spacing: -.06em; }
+@media (min-width: 1024px) { .hero-title { font-size: 5rem; } }
 .section-title { font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.4rem, 4vw, 4.2rem); line-height: 1; letter-spacing: -.045em; }
 .eyebrow { display: flex; align-items: center; gap: .55rem; color: var(--muted); font-size: .68rem; font-weight: 800; letter-spacing: .16em; line-height: 1.4; text-transform: uppercase; }
 .eyebrow-dot { width: .5rem; height: .5rem; border-radius: 50%; background: #83b45f; }
