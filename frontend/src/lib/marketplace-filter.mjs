@@ -20,4 +20,3 @@ export function filterProfessionals(professionals, filters = {}) {
       && person.availabilityRank <= maxAvailabilityRank;
   });
 }
-

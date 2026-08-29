@@ -96,4 +96,3 @@ export const PROFESSIONALS = [
     accent: "#aed17d",
   },
 ];
-

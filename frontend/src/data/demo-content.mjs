@@ -61,4 +61,3 @@ export const ALEX_SUMMARY = [
   "Renting · no dependants",
   "Property considered within two years",
 ];
-
