@@ -41,3 +41,16 @@ Complete. The task commit hash is included in the handoff alongside this report.
 
 - Fallback later roles now participate in pathway progress counting and the fallback details node is moved into the pathway section at runtime for valid layout semantics.
 - Verification: `npm test` PASS (36/36), `npm run build` PASS (4 static routes), and `/pathway` plus `/marketplace` local smoke returned HTTP 200.
+
+## Fix round 4
+
+- Restored the static fallback later-role details inside the pathway section and added `data-pathway-step`/`data-order` to each fallback card.
+- Removed the fallback-only hard-coded progress overwrite; fallback and generated cards now share the persisted `currentStep`/`complete` calculation, while generated progress is scoped to generated cards so hidden fallback markup does not affect counts.
+- Added focused assertions covering fallback placement, card metadata, shared progress selection, and removal of the stale fallback summary override.
+- Verification: `npm test` PASS (37/37), `npm run build` PASS (4 static routes), and `git diff --check` clean.
+- Browser smoke: fallback `/pathway` returned the expected `0 complete · 1 active · 3 previews`; expanding `What may come later` showed Mortgage broker, Tax accountant, and Conveyancer; `See matches` navigated to `/marketplace`, which rendered the three top matches. No real key was used.
+
+### Self-review and concerns
+
+- The production change is limited to `pathway.astro`; the test update removes an assertion for the obsolete append-to-missing-node behavior and adds the regression coverage described above.
+- The browser smoke did not force a persisted `complete` snapshot because browser evaluation is read-only and completing a booking would create a user-facing appointment side effect. The shared state branch and regression assertions cover that path statically.

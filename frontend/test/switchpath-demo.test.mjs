@@ -240,11 +240,19 @@ test("pathway and marketplace expose generated rendering and generic booking hoo
   assert.match(pathway, /details/);
   assert.match(pathway, /fallback-later/);
   assert.match(pathway, /3 previews/);
-  assert.match(pathway, /append\(document\.querySelector\("#fallback-later"\)/);
   assert.match(pathway, /progressOrder/);
   assert.match(pathway, /state\.currentStep === "complete"/);
   assert.match(marketplace, /Browse all/);
   assert.match(marketplace, /canBook/);
+});
+
+test("static fallback cards use shared progress metadata and persisted completion", () => {
+  const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+  const pathway = readFileSync(resolve(root, "src/pages/pathway.astro"), "utf8");
+  assert.match(pathway, /<section aria-labelledby="pathway-title">[\s\S]*<details class="pathway-later" id="fallback-later">[\s\S]*<\/section><aside/);
+  assert.match(pathway, /<li data-pathway-step=\{step\.id\} data-order=\{step\.order\} class="path-card path-card-preview">/);
+  assert.match(pathway, /const rendered = \[\.\.\.\(steps \? root\.querySelectorAll\("\[data-pathway-step\]"\) : document\.querySelectorAll\("\[data-pathway-step\]"\)\)\];/);
+  assert.doesNotMatch(pathway, /if \(!steps\) document\.querySelector\("#pathway-summary"\)\.textContent = "0 complete · 1 active · 3 previews"/);
 });
 
 test("marketplace profile focus and booking disabled state have accessible treatments", () => {
