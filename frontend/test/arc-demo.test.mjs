@@ -148,3 +148,13 @@ test("marketplace controller with imports uses a normal Astro module script", ()
   assert.doesNotMatch(source, /<script\s+define:vars=/);
   assert.match(source, /<script>\s+import\s+\{\s*buildBookingConfirmation/);
 });
+
+test("dark explainer and profile panels use the dedicated dark panel variant", () => {
+  const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+  const css = readFileSync(resolve(root, "src/styles/global.css"), "utf8");
+  const onboarding = readFileSync(resolve(root, "src/pages/onboarding.astro"), "utf8");
+  const marketplace = readFileSync(resolve(root, "src/pages/marketplace.astro"), "utf8");
+  assert.match(css, /\.panel-dark\s*\{[^}]*background:\s*var\(--forest\)/s);
+  assert.match(onboarding, /class="panel panel-dark [^"]*text-white/);
+  assert.match(marketplace, /class="panel panel-dark [^"]*text-white/);
+});
