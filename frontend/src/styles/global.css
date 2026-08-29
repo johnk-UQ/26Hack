@@ -68,6 +68,8 @@ body {
 .profile-photo { display: block; height: 4.5rem; width: 4.5rem; border-radius: 50%; object-fit: cover; border: 2px solid rgb(255 255 255 / .3); }
 .profile-photo[hidden] { display: none; }
 .avatar-lime { background: var(--lime); }
+.onboarding-layout .avatar-lime { background: transparent; }
+.onboarding-layout .avatar-lime img { border-radius: 0; object-fit: contain; }
 .avatar-dark { background: var(--forest); color: white; }
 .avatar-small { height: 2rem; width: 2rem; flex-shrink: 0; font-size: .75rem; }
 .bubble { max-width: 88%; border-radius: 1rem; padding: .8rem 1rem; font-size: .9rem; line-height: 1.65; }
