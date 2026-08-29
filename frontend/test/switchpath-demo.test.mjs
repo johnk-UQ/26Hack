@@ -166,10 +166,27 @@ test("projector hero reserves desktop clearance for both CTA buttons", () => {
   assert.match(styles, /@media \(min-width: 1024px\)\s*\{\s*\.hero-title\s*\{\s*font-size: 5rem;/);
 });
 
-test("onboarding review gate prevents navigation before validating every response", () => {
+test("onboarding navigates directly to the pathway after analysis", () => {
   const source = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../src/pages/onboarding.astro"), "utf8");
-  assert.match(source, /#build-pathway"\)\?\.addEventListener\("click", \(event\) => \{\s*event\.preventDefault\(\);/);
-  assert.match(source, /saveJourney\(null, next\);\s*window\.location\.assign\(/);
+  assert.doesNotMatch(source, /#build-pathway['\"]\)\.addEventListener/);
+  assert.match(source, /location\.assign\(['\"]\/pathway['\"]\)/);
+  assert.match(source, /saveJourney\(null,updateJourney\(state,/);
+});
+
+test("onboarding uses a compact send control and hides completed conversation controls", () => {
+  const source = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../src/pages/onboarding.astro"), "utf8");
+  assert.doesNotMatch(source, />Your response <span/);
+  assert.match(source, /Response for Switchpath prompt/);
+  assert.match(source, /aria-label="Send response"/);
+  assert.match(source, /data-controls/);
+  assert.match(source, /controls\.hidden\s*=\s*true/);
+});
+
+test("onboarding keeps the conversation viewport until direct pathway navigation", () => {
+  const source = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../src/pages/onboarding.astro"), "utf8");
+  assert.doesNotMatch(source, /conversation\.hidden\s*=\s*true/);
+  assert.match(source, /conversation-viewport/);
+  assert.match(source, /location\.assign\(['\"]\/pathway['\"]\)/);
 });
 
 test("pathway progress and next action derive from the persisted current step", () => {

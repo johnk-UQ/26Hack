@@ -20,8 +20,9 @@ export const PATHWAY_STEPS = [
     id: "adviser",
     professional: "Financial adviser",
     timing: "Start this month",
+    firstConversation: "30–60 min · indicative $195–$250",
     reason: "Clarify goals, risk tolerance, cash buffer, and how property fits the broader plan.",
-    completion: "Alex understands the questions to resolve before committing money.",
+    completion: "You understand the questions to resolve before committing money.",
     action: "See adviser matches",
   },
   {
@@ -29,8 +30,9 @@ export const PATHWAY_STEPS = [
     id: "mortgage-broker",
     professional: "Mortgage broker",
     timing: "After your broader plan is clear",
+    firstConversation: "30–60 min · indicative fee varies",
     reason: "Test borrowing capacity and explain relevant loan options after the broader plan is clear.",
-    completion: "Alex has a realistic borrowing range and knows what evidence lenders require.",
+    completion: "You have a realistic borrowing range and know what evidence lenders require.",
     action: "Preview this step",
   },
   {
@@ -38,8 +40,9 @@ export const PATHWAY_STEPS = [
     id: "tax-accountant",
     professional: "Tax accountant",
     timing: "Before a purchase",
+    firstConversation: "30–60 min · indicative fee varies",
     reason: "Explain personal tax implications and record-keeping obligations before a purchase.",
-    completion: "Alex knows which tax questions and records to take forward.",
+    completion: "You know which tax questions and records to take forward.",
     action: "Preview this step",
   },
   {
@@ -47,13 +50,14 @@ export const PATHWAY_STEPS = [
     id: "conveyancer",
     professional: "Conveyancer",
     timing: "Once you identify a property",
-    reason: "Review the contract and transaction once Alex identifies a property.",
+    firstConversation: "30–60 min · indicative fee varies",
+    reason: "Review the contract and transaction once you identify a property.",
     completion: "The legal transaction steps are clear before signing.",
     action: "Preview this step",
   },
 ];
 
-export const ALEX_SUMMARY = [
+export const SHARED_CONTEXT = [
   "Started first well-paid graduate job",
   "$85,000 income",
   "$35,000 savings",
