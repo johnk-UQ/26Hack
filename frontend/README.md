@@ -9,3 +9,7 @@ npm run dev:ai
 ```
 
 When no key is configured, use `npm run dev:web` for the static fallback. The Astro site is static and the API is optional for the fallback journey. This is a pitch demo, not production hosting.
+
+## Vercel
+
+Set the Vercel project Root Directory to `frontend`, keep the Astro framework preset, and add `GROQ_API_KEY` for Preview and Production. The included `vercel.json` builds with `npm run build` and publishes `dist/`; `/api/clarify` and `/api/generate` run server-side, so the key is never sent to the browser. Redeploy after changing the environment variable.
