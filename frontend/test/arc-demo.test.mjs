@@ -161,5 +161,5 @@ test("dark explainer and profile panels use the dedicated dark panel variant", (
 
 test("landing hero keeps its primary CTA within the projected desktop viewport", () => {
   const source = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../src/pages/index.astro"), "utf8");
-  assert.match(source, /<section class="grid[^>]*\blg:py-16\b/);
+  assert.match(source, /<section class="grid[^>]*\blg:py-8\b/);
 });
