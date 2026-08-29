@@ -6,7 +6,7 @@ This document governs the demo’s visual implementation. Product behaviour and 
 
 1. **Reassuring before impressive.** Explain unfamiliar decisions in plain language and show one next step at a time.
 2. **Guided, not prescriptive.** Make sequence and rationale prominent; reserve professional recommendations for fictional matches.
-3. **Editorial, not institutional.** Retain Arc’s confident typography and generous space while replacing private-market imagery and jargon.
+3. **Editorial, not institutional.** Retain Switchpath’s confident typography and generous space while replacing private-market imagery and jargon.
 4. **Stage legibility.** Important headings, progress, prices, and calls to action must read clearly when projected from a laptop.
 
 ## Adopted deep-green / pale-green visual system
@@ -30,17 +30,17 @@ states.
 
 ## Typography
 
-Two families, bundled locally through Fontsource so no request leaves the deployment.
+Interface type is bundled locally through Fontsource so no request leaves the deployment. Editorial headings use Times New Roman, a system font with no bundling and no web request.
 
 | Role | Family | Token | Weights | Used for |
 | --- | --- | --- | --- | --- |
-| Editorial | Newsreader Variable | `--font-serif` | 500 headings, 600–700 wordmark | `.display-title`, `.section-title`, `font-serif` headings, the `arc` wordmark, confirmation headings |
+| Editorial | Times New Roman (system) | `--font-serif` | 400 headings | `.display-title`, `.section-title`, `font-serif` headings, confirmation headings |
 | Interface | Inter Variable | `--font-sans` | 400 body, 600–800 labels and buttons | Body copy, navigation, forms, cards, eyebrows, metadata |
 
-- Fallbacks: `--font-serif` falls back to Georgia then Times New Roman; `--font-sans` falls back to system UI sans. Both are declared in `@theme` in `frontend/src/styles/global.css`, so Tailwind's `font-serif` and `font-sans` utilities resolve to the same stacks.
-- Loading: `frontend/src/layouts/Layout.astro` imports `@fontsource-variable/inter/wght.css` and `@fontsource-variable/newsreader/wght.css`. Fonts are emitted into the build output and served from the site. Do not add Google Fonts `<link>` tags.
+- Fallbacks: `--font-serif` is `"Times New Roman", Times, serif`; `--font-sans` falls back to system UI sans. Both are declared in `@theme` in `frontend/src/styles/global.css`, so Tailwind's `font-serif` and `font-sans` utilities resolve to the same stacks.
+- Loading: `frontend/src/layouts/Layout.astro` imports `@fontsource-variable/inter/wght.css`. Times New Roman ships with the OS, so nothing is bundled or requested for it.
 - Sizing: headings keep the existing `clamp()` scale. Body copy stays at or above 16px, supporting copy at or above 14px, and uppercase labels at or above 11px with `0.12em` tracking.
-- Newsreader is set at weight 500 with `font-optical-sizing: auto` for projector legibility; do not drop editorial headings below 500. Reserve italics for genuine emphasis.
+- Times New Roman has no weight-500 cut, so editorial headings are set at weight 400 to match what actually renders. Reserve italics for genuine emphasis.
 - Body text uses `font-synthesis-weight: none` so no faux-bold appears if a font fails to load.
 - Avoid gradients, ornamental finance imagery, and any third family.
 
