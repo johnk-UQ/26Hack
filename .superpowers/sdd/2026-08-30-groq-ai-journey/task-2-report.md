@@ -37,3 +37,16 @@ The API validates before invoking the client, validates/normalises generated out
 
 - Manual smoke testing with a real key remains intentionally pending; automated tests never contact Groq.
 - The local launcher uses npm child processes and is intended for the pitch laptop rather than production process supervision.
+
+## Round 1 follow-up
+
+Corrected permanent HTTP error handling: only 429/5xx, network, timeout, and schema-validation failures retry; permanent 4xx responses now fail immediately. Public error codes are also whitelisted. Added direct mocked-fetch coverage for request configuration, successful clarification, exactly-one retries, permanent 401 handling, timeout aborts, network errors, 429/5xx, and invalid structured output.
+
+Exact verification output:
+
+```text
+npm test -- --test-name-pattern='Groq|successful|rejects|maps|normalises'
+32 tests, 32 passed, 0 failed
+npm run build
+4 page(s) built ... Complete!
+```
