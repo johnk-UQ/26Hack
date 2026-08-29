@@ -10,6 +10,7 @@ import {
 } from "../src/lib/journey-state.mjs";
 import { filterProfessionals } from "../src/lib/marketplace-filter.mjs";
 import { buildBookingConfirmation, CONTEXT_ITEMS } from "../src/lib/booking-context.mjs";
+import { getScrollBehavior } from "../src/lib/motion-policy.mjs";
 
 const professionals = [
   {
@@ -57,6 +58,22 @@ test("journey state updates fields and persists a versioned snapshot", () => {
   assert.equal(JSON.parse(storage.get(STORAGE_KEY)).version, 1);
 });
 
+test("journey state rejects JSON-shaped snapshots with unusable response items", () => {
+  const storage = new Map();
+  const valid = createInitialJourney();
+  storage.set(STORAGE_KEY, JSON.stringify({ ...valid, intakeResponses: ["kept", null, 3, {}, "also kept"] }));
+  const recovered = loadJourney(storage);
+  assert.deepEqual(recovered.intakeResponses, valid.intakeResponses);
+});
+
+test("saved response edits are rehydrated for every onboarding field", () => {
+  const storage = new Map();
+  const valid = createInitialJourney();
+  const edited = updateJourney(valid, { intakeResponses: valid.intakeResponses.map((answer, index) => `${answer} [edited ${index}]`) });
+  saveJourney(storage, edited);
+  assert.deepEqual(loadJourney(storage).intakeResponses, edited.intakeResponses);
+});
+
 test("marketplace filters by type, speciality, place, price, and earliest availability", () => {
   assert.deepEqual(
     filterProfessionals(professionals, {
@@ -87,4 +104,9 @@ test("booking confirmation contains only explicitly selected context items", () 
   ]);
   assert.equal(confirmation.professional, "Maya Chen");
   assert.equal(confirmation.nextPathwayStep, "Mortgage broker");
+});
+
+test("reduced motion uses instant profile scrolling", () => {
+  assert.equal(getScrollBehavior(true), "auto");
+  assert.equal(getScrollBehavior(false), "smooth");
 });

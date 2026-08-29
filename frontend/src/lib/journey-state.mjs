@@ -28,7 +28,8 @@ function isJourney(value) {
       typeof value.demoPerson === "string" &&
       typeof value.currentStep === "string" &&
       Array.isArray(value.intakeResponses) &&
-      value.intakeResponses.length === 5,
+      value.intakeResponses.length === 5 &&
+      value.intakeResponses.every((response) => typeof response === "string" && response.trim().length > 0),
   );
 }
 
@@ -66,4 +67,3 @@ export function saveJourney(storage, state) {
 export function updateJourney(state, patch) {
   return { ...state, ...patch, version: 1 };
 }
-

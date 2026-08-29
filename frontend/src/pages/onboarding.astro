@@ -35,6 +35,7 @@ import { INTAKE_PROMPTS, INTAKE_RESPONSES } from "../data/demo-content.mjs";
   const review = document.querySelector("#review");
   const progress = document.querySelector("#progress");
   const answers = steps.map((step) => step.querySelector("textarea"));
+  state.intakeResponses.forEach((response, index) => { if (answers[index]) answers[index].value = response; });
   let active = 0;
   const show = (index) => {
     active = Math.max(0, Math.min(index, steps.length));
@@ -43,7 +44,13 @@ import { INTAKE_PROMPTS, INTAKE_RESPONSES } from "../data/demo-content.mjs";
     progress.textContent = active === steps.length ? "Ready" : `${active + 1} / ${steps.length}`;
     if (active === steps.length) {
       const list = document.querySelector("#review-list");
-      list.innerHTML = answers.map((answer, i) => `<div class="border-b border-[var(--line)] pb-3"><dt class="text-xs font-bold uppercase tracking-[.12em] text-[var(--quiet)]">${i + 1}. ${steps[i].querySelector(".bubble p:last-child").textContent}</dt><dd class="mt-1 leading-6">${answer.value}</dd></div>`).join("");
+      list.replaceChildren();
+      answers.forEach((answer, i) => {
+        const row = document.createElement("div"); row.className = "border-b border-[var(--line)] pb-3";
+        const question = document.createElement("dt"); question.className = "text-xs font-bold uppercase tracking-[.12em] text-[var(--quiet)]"; question.textContent = `${i + 1}. ${steps[i].querySelector(".bubble p:last-child").textContent}`;
+        const response = document.createElement("dd"); response.className = "mt-1 leading-6"; response.textContent = answer.value;
+        row.append(question, response); list.append(row);
+      });
     }
   };
   steps.forEach((step, index) => {
