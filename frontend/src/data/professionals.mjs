@@ -28,7 +28,7 @@ export const PROFESSIONALS = [
     priceLabel: "$195 / 50 min",
     availability: "Thu 4:00 pm, Brisbane or video",
     availabilityRank: 4,
-    rationale: "Fits Alex’s near-term availability and focuses on building a plan before choosing products.",
+    rationale: "Fits your near-term availability and focuses on building a plan before choosing products.",
     accent: "#d0edaa",
   },
   {
@@ -44,7 +44,7 @@ export const PROFESSIONALS = [
     priceLabel: "$250 / 60 min",
     availability: "Wed 12:30 pm, video",
     availabilityRank: 3,
-    rationale: "Relevant to Alex’s unresolved property question and two-year horizon.",
+    rationale: "Relevant to your unresolved property question and two-year horizon.",
     accent: "#9ecb70",
   },
   {

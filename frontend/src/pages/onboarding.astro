@@ -3,73 +3,13 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import { INTAKE_PROMPTS, INTAKE_RESPONSES } from "../data/demo-content.mjs";
 ---
-
 <Layout title="Tell Switchpath what’s happening | Switchpath">
-  <main class="page-shell text-[var(--ink)]">
-    <Header />
-    <section class="mx-auto max-w-[1280px] px-6 pb-16 pt-12 lg:px-10 lg:pb-24 lg:pt-20">
-      <div class="max-w-3xl"><p class="eyebrow">Step 1 of 3 · Your situation</p><h1 class="section-title mt-5">Tell us what is happening.</h1><p class="mt-5 max-w-2xl text-lg leading-8 text-[var(--muted)]">There is no right terminology. We’ll use your answers to explain which professional questions may come first.</p></div>
-      <div class="mt-12 grid gap-8 lg:grid-cols-[1.2fr_.8fr]">
-        <section class="panel overflow-hidden" aria-labelledby="conversation-title">
-          <div class="flex items-center justify-between border-b border-[var(--line)] px-6 py-5 sm:px-8"><div class="flex items-center gap-3"><div class="avatar avatar-lime" aria-hidden="true">A</div><div><h2 id="conversation-title" class="font-semibold">Switchpath assistant</h2><p class="text-xs text-[var(--quiet)]">A scripted demo for Alex · fictional context</p></div></div><p id="progress" class="text-sm font-semibold text-[var(--muted)]" role="status" aria-live="polite" aria-atomic="true">Step 1 of 5</p></div>
-          <div id="conversation" class="px-6 py-8 sm:px-8">
-            {INTAKE_PROMPTS.map((prompt, index) => <article class="conversation-step" data-step={index} hidden={index !== 0}>
-              <div class="bubble bubble-arc max-w-none"><p class="text-xs font-bold uppercase tracking-[.14em] text-[var(--quiet)]">Switchpath asks</p><p id={`prompt-${index}`} class="mt-2 text-base leading-7">{prompt}</p></div>
-              <label id={`response-label-${index}`} class="label mt-7" for={`answer-${index}`}>Alex’s response <span class="normal-case font-normal tracking-normal text-[var(--quiet)]">(editable)</span></label>
-              <textarea id={`answer-${index}`} aria-labelledby={`prompt-${index} response-label-${index}`} aria-describedby={`answer-error-${index}`} class="field mt-2 min-h-28 resize-y leading-6" rows="3" required>{INTAKE_RESPONSES[index]}</textarea>
-              <p id={`answer-error-${index}`} class="mt-2 text-sm font-semibold text-[#a43b2b]" role="alert" hidden>Please add a response before continuing.</p>
-              <div class="mt-5 flex flex-wrap justify-between gap-3"><button type="button" class="button-secondary back-button focus-ring" data-back disabled={index === 0}>← Back</button><button type="button" class="button-primary next-button focus-ring" data-next>{index === INTAKE_PROMPTS.length - 1 ? "Review my situation" : "Use this response"} <span aria-hidden="true">→</span></button></div>
-            </article>)}
-            <article id="review" hidden class="rounded-2xl bg-[var(--pale)] p-5"><p class="eyebrow">Captured context</p><h2 id="review-title" tabindex="-1" class="mt-3 font-serif text-3xl">Here’s what Switchpath heard.</h2><p class="mt-3 leading-7 text-[var(--muted)]">Review the five answers before Switchpath lays out a pathway. This is navigation, not financial advice.</p><dl id="review-list" class="mt-6 space-y-4"></dl><div class="mt-7 flex flex-wrap justify-between gap-3"><button id="edit-answers" type="button" class="button-secondary focus-ring">← Edit answers</button><a href="/pathway" id="build-pathway" class="button-primary focus-ring">Build my pathway <span aria-hidden="true">↗</span></a></div></article>
-          </div>
-        </section>
-        <aside class="panel panel-dark h-fit p-6 text-white lg:sticky lg:top-6 lg:p-8"><p class="eyebrow text-[var(--pale)]">What happens next</p><h2 class="mt-4 font-serif text-3xl leading-tight">Switchpath will show who may help, and in what order.</h2><ol class="mt-8 space-y-5"><li class="flex gap-3"><span class="text-white/45">01</span><span><strong class="block">Listen</strong><small class="mt-1 block text-white/60">Capture the moment in your words.</small></span></li><li class="flex gap-3"><span class="text-white/45">02</span><span><strong class="block">Explain</strong><small class="mt-1 block text-white/60">Name roles, reasons, timing, and questions.</small></span></li><li class="flex gap-3"><span class="text-white/45">03</span><span><strong class="block">Connect</strong><small class="mt-1 block text-white/60">Compare fictional demo profiles when you’re ready.</small></span></li></ol><p class="mt-9 border-t border-white/15 pt-5 text-xs leading-5 text-white/55">Switchpath does not recommend investments, properties, loans, tax structures, or providers as objectively best.</p></aside>
-      </div>
-    </section>
-  </main>
-</Layout>
-
+<main class="page-shell text-[var(--ink)]"><Header /><section class="mx-auto max-w-[1280px] px-6 pb-16 pt-12 lg:px-10 lg:pb-24 lg:pt-20"><div class="max-w-3xl"><p class="eyebrow">Step 1 of 3 · Your situation</p><h1 class="section-title mt-5">Tell us what is happening.</h1><p class="mt-5 max-w-2xl text-lg leading-8 text-[var(--muted)]">There is no right terminology. We’ll use your answers to explain which professional questions may come first.</p></div>
+<div id="onboarding-layout" class="onboarding-layout mt-12 grid gap-8 lg:grid-cols-[1.2fr_.8fr]"><section class="conversation-shell" aria-labelledby="conversation-title"><div id="conversation-header" class="flex items-center justify-between border-b border-[var(--line)] px-0 py-5"><div class="flex items-center gap-3"><div class="avatar avatar-lime" aria-hidden="true">S</div><div><h2 id="conversation-title" class="font-semibold">Switchpath assistant</h2><p class="text-xs text-[var(--quiet)]">Your words stay editable</p></div></div><p id="progress" class="text-sm font-semibold text-[var(--muted)]" role="status" aria-live="polite">Step 1 of 5</p></div>
+<div id="conversation" class="conversation-viewport px-0 py-8" role="log" aria-label="Switchpath intake conversation" aria-live="polite">{INTAKE_PROMPTS.map((prompt, index) => <article class="conversation-step" data-step={index} hidden={index !== 0}><div class="conversation-turn conversation-turn-assistant"><div class="avatar avatar-lime avatar-small" aria-hidden="true">S</div><div class="bubble bubble-arc max-w-none"><p class="text-xs font-bold uppercase tracking-[.14em] text-[var(--quiet)]">Switchpath asks</p><p id={`prompt-${index}`} class="mt-2 text-base leading-7">{prompt}</p></div></div><div class="conversation-turn conversation-turn-alex"><div class="min-w-0 flex-1"><label class="sr-only" for={`answer-${index}`}>Response for Switchpath prompt {index + 1}</label><textarea id={`answer-${index}`} aria-label={`Response for Switchpath prompt ${index + 1}`} class="field response-composer mt-2 min-h-28 resize-y leading-6" rows="3" required>{INTAKE_RESPONSES[index]}</textarea></div></div><p id={`answer-error-${index}`} class="mt-2 text-sm font-semibold text-[#a43b2b]" role="alert" hidden>Please add a response before continuing.</p><div class="response-controls mt-5 flex flex-wrap items-center justify-between gap-3" data-controls><button type="button" class="button-secondary focus-ring" data-back disabled={index === 0}>← Back</button><button type="button" class="send-control focus-ring" data-next aria-label="Send response" title="Send response"><span aria-hidden="true">→</span></button></div></article>)}</div><article id="analysis" hidden class="analysis-panel" aria-live="polite"><p class="eyebrow">A considered starting point</p><ol><li>Understanding your situation</li><li>Ordering the conversations</li><li>Preparing your first step</li></ol></article></section>
+<aside class="panel panel-dark h-fit p-6 text-white lg:sticky lg:top-6 lg:p-8"><p class="eyebrow eyebrow-on-dark">What happens next</p><h2 class="mt-4 font-serif text-3xl leading-tight">Switchpath will show who may help, and in what order.</h2><ol class="mt-8 space-y-5"><li>01 · <strong>Listen</strong></li><li>02 · <strong>Explain</strong></li><li>03 · <strong>Connect</strong></li></ol><p class="mt-9 border-t border-white/15 pt-5 text-xs leading-5 text-white/70">Switchpath does not provide regulated advice.</p></aside></div></section></main></Layout>
 <script>
-  import { loadJourney, saveJourney, updateJourney } from "../lib/journey-state.mjs";
-  const state = loadJourney();
-  const steps = [...document.querySelectorAll(".conversation-step")];
-  const review = document.querySelector("#review");
-  const progress = document.querySelector("#progress");
-  const answers = steps.map((step) => step.querySelector("textarea"));
-  state.intakeResponses.forEach((response, index) => { if (answers[index]) answers[index].value = response; });
-  let active = 0;
-  const show = (index, shouldFocus = false) => {
-    active = Math.max(0, Math.min(index, steps.length));
-    steps.forEach((step, i) => { step.hidden = i !== active; });
-    review.hidden = active !== steps.length;
-    progress.textContent = active === steps.length ? "Ready to build your pathway" : `Step ${active + 1} of ${steps.length}`;
-    if (active === steps.length) {
-      const list = document.querySelector("#review-list");
-      list.replaceChildren();
-      answers.forEach((answer, i) => {
-        const row = document.createElement("div"); row.className = "border-b border-[var(--line)] pb-3";
-        const question = document.createElement("dt"); question.className = "text-xs font-bold uppercase tracking-[.12em] text-[var(--quiet)]"; question.textContent = `${i + 1}. ${steps[i].querySelector(".bubble p:last-child").textContent}`;
-        const response = document.createElement("dd"); response.className = "mt-1 leading-6"; response.textContent = answer.value;
-        row.append(question, response); list.append(row);
-      });
-    }
-    if (shouldFocus && active < steps.length) answers[active]?.focus();
-    if (shouldFocus && active === steps.length) document.querySelector("#review-title")?.focus();
-  };
-  steps.forEach((step, index) => {
-    const answer = answers[index];
-    const error = step.querySelector(`#answer-error-${index}`);
-    const validate = () => { const invalid = !answer.value.trim(); answer.setAttribute("aria-invalid", String(invalid)); error.hidden = !invalid; return !invalid; };
-    answer.addEventListener("input", () => { if (answer.value.trim()) { answer.removeAttribute("aria-invalid"); error.hidden = true; } });
-    step.querySelector("[data-next]")?.addEventListener("click", () => { if (!validate()) { answer.focus(); return; } if (index === steps.length - 1) show(steps.length, true); else show(index + 1, true); });
-    step.querySelector("[data-back]")?.addEventListener("click", () => show(index - 1, true));
-  });
-  document.querySelector("#edit-answers")?.addEventListener("click", () => show(steps.length - 1, true));
-  document.querySelector("#build-pathway")?.addEventListener("click", (event) => {
-    event.preventDefault();
-    if (answers.some((answer) => !answer.value.trim())) { const firstBlank = answers.find((answer) => !answer.value.trim()); firstBlank?.focus(); return; }
-    const next = updateJourney(state, { intakeResponses: answers.map((answer) => answer.value), currentStep: "adviser" });
-    saveJourney(null, next);
-    window.location.assign(event.currentTarget.href);
-  });
+import { loadJourney, saveJourney, updateJourney } from "../lib/journey-state.mjs";
+const state=loadJourney(), steps=[...document.querySelectorAll('.conversation-step')], answers=steps.map(s=>s.querySelector('textarea')), analysis=document.querySelector('#analysis'), conversation=document.querySelector('#conversation'), progress=document.querySelector('#progress'); let active=0,busy=false; state.intakeResponses.forEach((r,i)=>answers[i]&&(answers[i].value=r)); const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches; const wait=ms=>new Promise(r=>setTimeout(r,reduced?0:ms)); const scrollChat=()=>conversation?.scrollTo({top:conversation.scrollHeight,behavior:reduced?'auto':'smooth'}); const show=i=>{active=i;steps.forEach((s,n)=>{s.hidden=n>i;const controls=s.querySelector('[data-controls]');if(controls)controls.hidden=n!==i});progress.textContent=i===steps.length?'Preparing your recommendation':`Step ${i+1} of ${steps.length}`;scrollChat()}; const streamPrompt=async(index)=>{const prompt=steps[index]?.querySelector(`#prompt-${index}`);if(!prompt||reduced)return;const full=prompt.textContent;prompt.textContent='';for(const word of full.split(/(\s+)/)){prompt.textContent+=word;scrollChat();await wait(18)}};
+steps.forEach((step,index)=>{const answer=answers[index],error=step.querySelector('[role=alert]'),controls=step.querySelector('[data-controls]'),send=step.querySelector('[data-next]'); answer.addEventListener('input',()=>{if(answer.value.trim())error.hidden=true}); send.addEventListener('click',async()=>{if(busy)return;if(!answer.value.trim()){error.hidden=false;answer.focus();return}busy=true;send.disabled=true;await wait(280);controls.hidden=true;if(index<steps.length-1){show(index+1);await streamPrompt(index+1);answers[index+1].focus();scrollChat();busy=false}else{show(steps.length);analysis.hidden=false;scrollChat();for(const li of analysis.querySelectorAll('li')){await wait(260);li.classList.add('is-complete');scrollChat()}await wait(260);saveJourney(null,updateJourney(state,{intakeResponses:answers.map(a=>a.value),currentStep:'adviser'}));location.assign('/pathway')}});step.querySelector('[data-back]').addEventListener('click',()=>{if(index>0)show(index-1)});});
 </script>
