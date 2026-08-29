@@ -1,5 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, resolve } from "node:path";
 
 import {
   STORAGE_KEY,
@@ -138,4 +141,10 @@ test("reduced motion uses instant profile scrolling", () => {
 test("only financial advisers can create the scripted consultation", () => {
   assert.equal(canCreateScriptedConsultation({ type: "Financial adviser" }), true);
   assert.equal(canCreateScriptedConsultation({ type: "Mortgage broker" }), false);
+});
+
+test("marketplace controller with imports uses a normal Astro module script", () => {
+  const source = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../src/pages/marketplace.astro"), "utf8");
+  assert.doesNotMatch(source, /<script\s+define:vars=/);
+  assert.match(source, /<script>\s+import\s+\{\s*buildBookingConfirmation/);
 });

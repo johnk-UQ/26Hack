@@ -3,8 +3,6 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import { PROFESSIONALS } from "../data/professionals.mjs";
 import { CONTEXT_ITEMS } from "../lib/booking-context.mjs";
-const PROFILE_DATA = Object.fromEntries(PROFESSIONALS.map((person) => [person.id, { name: person.name, type: person.type, speciality: person.speciality, priceLabel: person.priceLabel, availability: person.availability }]));
-const FILTER_DATA = PROFESSIONALS.map(({ id, type, speciality, specialities, locations, price, availabilityRank }) => ({ id, type, speciality, specialities, locations, price, availabilityRank }));
 ---
 
 <Layout title="Find a professional | Arc">
@@ -27,12 +25,14 @@ const FILTER_DATA = PROFESSIONALS.map(({ id, type, speciality, specialities, loc
   </main>
 </Layout>
 
-<script define:vars={{ PROFILE_DATA, FILTER_DATA }}>
+<script>
   import { buildBookingConfirmation, canCreateScriptedConsultation } from "../lib/booking-context.mjs";
+  import { PROFESSIONALS } from "../data/professionals.mjs";
   import { loadJourney, saveJourney, updateJourney } from "../lib/journey-state.mjs";
   import { filterProfessionals } from "../lib/marketplace-filter.mjs";
   import { getScrollBehavior } from "../lib/motion-policy.mjs";
-  const people = PROFILE_DATA;
+  const people = Object.fromEntries(PROFESSIONALS.map((person) => [person.id, { name: person.name, type: person.type, speciality: person.speciality, priceLabel: person.priceLabel, availability: person.availability }]));
+  const filterData = PROFESSIONALS.map(({ id, type, speciality, specialities, locations, price, availabilityRank }) => ({ id, type, speciality, specialities, locations, price, availabilityRank }));
   const scrollBehavior = getScrollBehavior(typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   const cards = [...document.querySelectorAll(".professional-card")];
   const matchesTab = document.querySelector("#matches-tab"); const browseTab = document.querySelector("#browse-tab");
@@ -40,7 +40,7 @@ const FILTER_DATA = PROFESSIONALS.map(({ id, type, speciality, specialities, loc
   let mode = "matches";
   const filters = { type: document.querySelector("#type-filter"), speciality: document.querySelector("#speciality-filter"), location: document.querySelector("#location-filter"), price: document.querySelector("#price-filter"), availability: document.querySelector("#availability-filter") };
   const applyFilters = () => {
-    const filtered = filterProfessionals(FILTER_DATA, { type: filters.type.value, speciality: filters.speciality.value, location: filters.location.value, maxPrice: filters.price.value, maxAvailabilityRank: filters.availability.value });
+    const filtered = filterProfessionals(filterData, { type: filters.type.value, speciality: filters.speciality.value, location: filters.location.value, maxPrice: filters.price.value, maxAvailabilityRank: filters.availability.value });
     const allowed = new Set(filtered.map((person) => person.id)); let shown = 0;
     cards.forEach((card) => { const inMode = mode === "matches" ? card.classList.contains("match-card") : true; const visible = inMode && allowed.has(card.dataset.id); card.hidden = !visible; if (visible) shown += 1; });
     resultCount.textContent = `${shown} fictional profile${shown === 1 ? "" : "s"}`; empty.hidden = shown !== 0;
