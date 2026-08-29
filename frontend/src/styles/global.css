@@ -154,6 +154,26 @@ body {
 }
 @keyframes reveal-up { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
+/* The landing story reveals once, then rests in its useful final state. */
+.hero-sequence-question,
+.hero-sequence-recommendation { animation: hero-rise 520ms cubic-bezier(.22,.8,.32,1) both; }
+.hero-sequence-response { animation: hero-response 620ms cubic-bezier(.22,.8,.32,1) both; }
+.hero-sequence-question { animation-delay: 120ms; }
+.hero-sequence-response { animation-delay: 520ms; }
+.hero-sequence-recommendation { animation-delay: 1280ms; }
+.hero-thinking { display: flex; gap: .3rem; height: 0; margin: -.25rem 0 0 auto; max-width: 440px; overflow: visible; opacity: 0; animation: hero-think 360ms ease-in-out 980ms both; }
+.hero-thinking-dot { width: .3rem; height: .3rem; border-radius: 50%; background: var(--forest); animation: hero-dot 650ms ease-in-out infinite; }
+.hero-thinking-dot:nth-child(2) { animation-delay: 120ms; }
+.hero-thinking-dot:nth-child(3) { animation-delay: 240ms; }
+#how-it-works article { transition: transform 220ms ease, box-shadow 220ms ease, background-color 220ms ease; }
+#how-it-works article:hover { transform: translateY(-3px); box-shadow: 0 14px 28px rgba(18,59,42,.08); }
+.button-primary > span { display: inline-block; transition: transform 180ms ease; }
+.button-primary:hover > span { transform: translate(2px, -2px); }
+@keyframes hero-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes hero-response { from { opacity: 0; transform: translateY(8px); clip-path: inset(0 100% 0 0 round 1.25rem); } to { opacity: 1; transform: translateY(0); clip-path: inset(0 0 0 0 round 1.25rem); } }
+@keyframes hero-think { 0%, 100% { opacity: 0; } 35%, 70% { opacity: .55; } }
+@keyframes hero-dot { 0%, 100% { transform: translateY(0); opacity: .35; } 50% { transform: translateY(-3px); opacity: 1; } }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
