@@ -71,7 +71,7 @@ const PROFILE_KEYS = ["name", "speciality", "specialities", "consultationMinutes
 function checkProfile(profile) {
   requireCondition(exactKeys(profile, PROFILE_KEYS), "malformed professional profile");
   requireCondition(text(profile.name, 2, 80) && /^[\p{L}][\p{L}'-]*(?:\s+[\p{L}][\p{L}'-]*)+$/u.test(profile.name.trim()), "invalid professional name");
-  requireCondition(!/(?:pty|ltd|inc|llc|group|company|bank|wealth)/i.test(profile.name), "company name is not allowed");
+  requireCondition(!profile.name.trim().split(/\s+/).some((part) => /^(?:pty|ltd|inc|llc|group|company|bank|wealth)$/i.test(part)), "company name is not allowed");
   requireCondition(text(profile.speciality, 2, 160), "invalid speciality");
   requireCondition(Array.isArray(profile.specialities) && profile.specialities.length >= 1 && profile.specialities.length <= 5 && profile.specialities.every((item) => text(item, 1, 80)), "invalid specialities");
   requireCondition(Number.isInteger(profile.consultationMinutes) && profile.consultationMinutes >= 20 && profile.consultationMinutes <= 90, "invalid consultation duration");

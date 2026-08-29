@@ -1,4 +1,5 @@
 import http from "node:http";
+import { pathToFileURL } from "node:url";
 import { validateClarifyRequest, validateGenerateRequest, normalizeGeneratedJourney } from "../src/lib/ai-contract.mjs";
 import { createGroqClient, GroqError } from "./groq-client.mjs";
 
@@ -16,4 +17,4 @@ export function createApiHandler({ client = createGroqClient() } = {}) { return 
   try { const body = await readBody(req); const checked = route.endsWith("clarify") ? validateClarifyRequest(body) : validateGenerateRequest(body); if (!checked.ok) throw new GroqError("INVALID_REQUEST", checked.error); const value = route.endsWith("clarify") ? await client.clarify(body.situation) : normalizeGeneratedJourney(await client.generate(body)); return send(res, 200, value, origin); } catch (error) { return send(res, error?.code === "INVALID_REQUEST" ? 400 : 502, publicError(error), origin); }
 }; }
 export function startServer({ port = 8787, host = "127.0.0.1", client } = {}) { const server = http.createServer(createApiHandler({ client })); return new Promise((resolve) => server.listen(port, host, () => resolve(server))); }
-if (process.argv[1] && process.argv[1].endsWith("server/index.mjs")) startServer().then(() => console.log("Switchpath AI API listening on http://127.0.0.1:8787"));
+if (process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url) startServer().then(() => console.log("Switchpath AI API listening on http://127.0.0.1:8787"));
