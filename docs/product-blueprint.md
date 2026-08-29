@@ -1,6 +1,6 @@
-# Arc MVP product blueprint
+# Switchpath MVP product blueprint
 
-Arc is an AI-guided front door to financial professional services. The user describes what is happening in their life; Arc explains which professionals may help, why they matter, and what to do next.
+Switchpath is an AI-guided front door to financial professional services. The user describes what is happening in their life; Switchpath explains which professionals may help, why they matter, and what to do next.
 
 **Promise:** You do not need to know who to call. Just tell us what is happening.
 
@@ -12,7 +12,7 @@ The existing Astro site is visually polished but demonstrates a private-markets 
 
 | Keep | Replace or add |
 | --- | --- |
-| Arc name, editorial typography, warm neutrals, lime accent, strong spacing | Investment-market language and imagery |
+| Switchpath name, editorial typography, warm neutrals, lime accent, strong spacing | Investment-market language and imagery |
 | Responsive landing-page foundation | Consumer promise and example life events |
 | Existing onboarding layout | Working scripted conversation and progress |
 | Advice disclaimer | Clearer navigation-versus-advice boundary |
@@ -34,7 +34,7 @@ All amounts are AUD. Alex and every professional are fictional demo data.
 
 | Route | Demo outcome |
 | --- | --- |
-| `/` | Explain Arc in plain language, show relevant life events, and start the journey. |
+| `/` | Explain Switchpath in plain language, show relevant life events, and start the journey. |
 | `/onboarding` | Run the five-message scripted intake and let Alex review the captured facts. |
 | `/pathway` | Show the ordered professional pathway, reasons, timing, and current step. |
 | `/marketplace` | Show personalised matches or browse all professionals; open a profile and request a consultation. |
@@ -45,7 +45,7 @@ The pitch path is `/` → `/onboarding` → `/pathway` → `/marketplace` → in
 
 Use quick replies or prefilled responses, with an editable text field to preserve the conversational feel.
 
-| Arc prompt | Scripted response |
+| Switchpath prompt | Scripted response |
 | --- | --- |
 | What’s got you thinking about your financial future right now? | I have started my first proper job and saved about $35,000. I want to invest and maybe buy an investment property. |
 | What would you most like to achieve over the next two years? | Build wealth without making an expensive mistake, and understand whether property is realistic. |
@@ -57,7 +57,7 @@ Before generating the pathway, show a short summary with **Edit** and **Build my
 
 ## Generated pathway
 
-Arc describes the questions each professional can answer; it does not recommend an investment, property, loan, tax structure, or provider as objectively best.
+Switchpath describes the questions each professional can answer; it does not recommend an investment, property, loan, tax structure, or provider as objectively best.
 
 | Order | Professional | Why now | Completion signal |
 | --- | --- | --- | --- |
@@ -77,7 +77,7 @@ Each pathway card shows status, reason, suggested timing, and one action. The ad
 
 The adviser step gets three complete fictional profiles:
 
-| Professional | Speciality | Initial consultation | Availability | Why Arc matched them |
+| Professional | Speciality | Initial consultation | Availability | Why Switchpath matched them |
 | --- | --- | --- | --- | --- |
 | Maya Chen | Early-career wealth planning; property readiness | $220 / 60 min | Tue 10:30 am, video | Works with first-time investors and charges a clear fixed initial fee. |
 | Daniel Okafor | Cash-flow planning; investment foundations | $195 / 50 min | Thu 4:00 pm, Brisbane or video | Fits Alex’s near-term availability and focuses on building a plan before choosing products. |
@@ -101,7 +101,7 @@ The primary action changes from **Request consultation** to a confirmation state
 - Keep Astro static output and the existing Tailwind/Vite integration.
 - Use Astro components plus small page-level TypeScript scripts; add no UI framework.
 - Store fictional professionals, intake prompts, and pathway steps in typed local modules.
-- Persist demo progress under a versioned `localStorage` key such as `arc.demoJourney.v1`.
+- Persist demo progress under a versioned `localStorage` key such as `switchpath.demoJourney.v1`.
 - Seed the confirmed Alex journey when state is absent, and provide **Restart demo**.
 - Add no backend, authentication, external API, payment, or secret.
 

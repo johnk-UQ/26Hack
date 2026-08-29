@@ -127,7 +127,7 @@ test("booking confirmation contains only explicitly selected context items", () 
   });
   assert.deepEqual(confirmation.sharedItems, [
     "Goals and timeframe",
-    "Arc's pathway summary",
+    "Switchpath's pathway summary",
   ]);
   assert.equal(confirmation.professional, "Maya Chen");
   assert.equal(confirmation.nextPathwayStep, "Mortgage broker");

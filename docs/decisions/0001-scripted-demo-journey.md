@@ -1,4 +1,4 @@
-# ADR 0001: Scripted, static Arc demo journey
+# ADR 0001: Scripted, static Switchpath demo journey
 
 - **Status:** Accepted
 - **Date:** 2026-08-29
@@ -9,11 +9,11 @@ The hackathon needs one reliable, pitch-ready demonstration of Arc’s different
 
 ## Decision
 
-Build one scripted Australian journey for an early-career graduate considering an investment property. Arc will generate an ordered pathway through a financial adviser, mortgage broker, tax accountant, and conveyancer, then fully demonstrate adviser matching and a fictional booking request.
+Build one scripted Australian journey for an early-career graduate considering an investment property. Switchpath will generate an ordered pathway through a financial adviser, mortgage broker, tax accountant, and conveyancer, then fully demonstrate adviser matching and a fictional booking request.
 
-Keep the Arc name and existing visual language. Implement as static Astro pages with local typed demo data, small client-side TypeScript interactions, and versioned `localStorage` state. Add no backend, accounts, payments, or external services.
+Keep the Switchpath name and existing visual language. Implement as static Astro pages with local typed demo data, small client-side TypeScript interactions, and versioned `localStorage` state. Add no backend, accounts, payments, or external services.
 
-Arc explains professional roles, sequence, and next steps. Licensed professionals—not Arc—provide financial, credit, tax, or legal advice. The user explicitly chooses which intake context is included in a booking request.
+Switchpath explains professional roles, sequence, and next steps. Licensed professionals—not Arc—provide financial, credit, tax, or legal advice. The user explicitly chooses which intake context is included in a booking request.
 
 ## Consequences
 
