@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="Arc | Find the right accountant">
+<Layout title="Arc | Find the right professional">
   <main class="bg-[#f7f5f0] text-[#18201f]">
 
     <!-- NAV -->
@@ -22,12 +22,12 @@ import Layout from "../layouts/Layout.astro";
             What we help with
           </a>
 
-          <a href="#accountants" class="transition hover:opacity-50">
-            Browse accountants
+          <a href="/professionals" class="transition hover:opacity-50">
+            Browse professionals
           </a>
 
-          <a href="#for-accountants" class="transition hover:opacity-50">
-            For accountants
+          <a href="#for-professionals" class="transition hover:opacity-50">
+            For professionals
           </a>
         </div>
 
@@ -56,18 +56,15 @@ import Layout from "../layouts/Layout.astro";
         <!-- LEFT -->
         <div class="flex flex-col justify-center">
 
-          <div class="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2 text-xs font-medium">
-            <span class="h-2 w-2 rounded-full bg-[#a9ef78]"></span>
-            Accounting help, matched to you
-          </div>
+          
 
           <h1 class="max-w-4xl text-5xl font-medium leading-[1.02] tracking-[-0.05em] sm:text-6xl lg:text-[78px]">
-            Find the right accountant for your financial life.
+            Find the right professional for your financial life.
           </h1>
 
           <p class="mt-7 max-w-2xl text-lg leading-8 text-black/60 sm:text-xl">
             Tell us what's happening with your money. We'll help understand
-            what you need and connect you with accountants who specialise
+            what you need and connect you with professionals who specialise
             in your situation.
           </p>
 
@@ -77,23 +74,19 @@ import Layout from "../layouts/Layout.astro";
               href="/intake"
               class="rounded-full bg-[#172522] px-7 py-4 text-sm font-medium text-white transition hover:bg-[#253935]"
             >
-              Find my accountant →
+              Find my professional →
             </a>
 
             <a
-              href="#accountants"
+              href="/professionals"
               class="rounded-full border border-black/15 bg-white px-7 py-4 text-sm font-medium transition hover:bg-black/5"
             >
-              Browse accountants
+              Browse professionals
             </a>
 
           </div>
 
-          <div class="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-sm text-black/50">
-            <span>✓ Verified professionals</span>
-            <span>✓ Transparent pricing</span>
-            <span>✓ Online consultations</span>
-          </div>
+         
 
         </div>
 
@@ -211,7 +204,7 @@ import Layout from "../layouts/Layout.astro";
 
         <div>
           <span class="text-white/45">03</span>
-          <span class="ml-3">Compare matched accountants</span>
+          <span class="ml-3">Compare matched professionals</span>
         </div>
 
       </div>
@@ -300,7 +293,7 @@ import Layout from "../layouts/Layout.astro";
             </div>
 
             <h3 class="mt-8 text-2xl font-medium tracking-[-0.03em]">
-              Meet accountants that fit
+              Meet professionals that fit
             </h3>
 
             <p class="mt-4 leading-7 text-black/55">
@@ -488,7 +481,7 @@ import Layout from "../layouts/Layout.astro";
             </p>
 
             <p class="mt-3 text-sm leading-6 text-black/50">
-              Not every accountant specialises in the same things.
+              Not every professional specialises in the same things.
             </p>
           </div>
 
@@ -529,8 +522,8 @@ import Layout from "../layouts/Layout.astro";
     </section>
 
 
-    <!-- FEATURED ACCOUNTANTS -->
-    <section id="accountants" class="border-y border-black/10 bg-white">
+    <!-- FEATURED professionalS -->
+    <section id="professionals" class="border-y border-black/10 bg-white">
 
       <div class="mx-auto max-w-[1400px] px-6 py-24 lg:px-10">
 
@@ -539,7 +532,7 @@ import Layout from "../layouts/Layout.astro";
           <div>
 
             <p class="text-xs font-semibold uppercase tracking-[0.2em] text-black/45">
-              Featured accountants
+              Featured professionals
             </p>
 
             <h2 class="mt-4 text-4xl font-medium tracking-[-0.04em] sm:text-5xl">
@@ -548,8 +541,8 @@ import Layout from "../layouts/Layout.astro";
 
           </div>
 
-          <a href="/accountants" class="text-sm font-medium">
-            View all accountants →
+          <a href="/professionals" class="text-sm font-medium">
+            View all professionals →
           </a>
 
         </div>
@@ -557,7 +550,7 @@ import Layout from "../layouts/Layout.astro";
 
         <div class="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
 
-          <!-- ACCOUNTANT 1 -->
+          <!-- professional 1 -->
           <article class="rounded-[24px] border border-black/10 p-6">
 
             <div class="flex items-start gap-4">
@@ -643,7 +636,7 @@ import Layout from "../layouts/Layout.astro";
 
 
             <a
-              href="/accountant/sarah-chen"
+              href="/professional/sarah-chen"
               class="mt-6 block rounded-full bg-[#172522] px-5 py-3 text-center text-sm font-medium text-white"
             >
               View profile
@@ -652,7 +645,7 @@ import Layout from "../layouts/Layout.astro";
           </article>
 
 
-          <!-- ACCOUNTANT 2 -->
+          <!-- professional 2 -->
           <article class="rounded-[24px] border border-black/10 p-6">
 
             <div class="flex items-start gap-4">
@@ -738,7 +731,7 @@ import Layout from "../layouts/Layout.astro";
 
 
             <a
-              href="/accountant/daniel-morris"
+              href="/professional/daniel-morris"
               class="mt-6 block rounded-full bg-[#172522] px-5 py-3 text-center text-sm font-medium text-white"
             >
               View profile
@@ -747,7 +740,7 @@ import Layout from "../layouts/Layout.astro";
           </article>
 
 
-          <!-- ACCOUNTANT 3 -->
+          <!-- professional 3 -->
           <article class="rounded-[24px] border border-black/10 p-6">
 
             <div class="flex items-start gap-4">
@@ -833,7 +826,7 @@ import Layout from "../layouts/Layout.astro";
 
 
             <a
-              href="/accountant/amelia-patel"
+              href="/professional/amelia-patel"
               class="mt-6 block rounded-full bg-[#172522] px-5 py-3 text-center text-sm font-medium text-white"
             >
               View profile
@@ -848,15 +841,15 @@ import Layout from "../layouts/Layout.astro";
     </section>
 
 
-    <!-- ACCOUNTANT VALUE PROP -->
-    <section id="for-accountants" class="bg-[#172522] text-white">
+    <!-- professional VALUE PROP -->
+    <section id="for-professionals" class="bg-[#172522] text-white">
 
       <div class="mx-auto grid max-w-[1400px] gap-12 px-6 py-24 lg:grid-cols-2 lg:px-10">
 
         <div>
 
           <p class="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">
-            For accountants
+            For professionals
           </p>
 
           <h2 class="mt-4 max-w-xl text-4xl font-medium tracking-[-0.04em] sm:text-5xl">
@@ -882,7 +875,7 @@ import Layout from "../layouts/Layout.astro";
             href="#"
             class="mt-8 inline-flex rounded-full bg-[#d9ffc5] px-6 py-3.5 text-sm font-medium text-[#172522]"
           >
-            Join as an accountant →
+            Join as an professional →
           </a>
 
         </div>
@@ -898,7 +891,7 @@ import Layout from "../layouts/Layout.astro";
       <div class="mx-auto max-w-[1400px] px-6 py-24 text-center lg:px-10">
 
         <h2 class="mx-auto max-w-4xl text-5xl font-medium leading-[1.03] tracking-[-0.045em] sm:text-6xl">
-          Finding an accountant shouldn't require understanding accounting.
+          Finding an professional shouldn't require understanding accounting.
         </h2>
 
         <p class="mx-auto mt-6 max-w-xl text-lg leading-8 text-black/55">
@@ -910,7 +903,7 @@ import Layout from "../layouts/Layout.astro";
           href="/intake"
           class="mt-9 inline-flex rounded-full bg-[#172522] px-7 py-4 text-sm font-medium text-white"
         >
-          Find my accountant →
+          Find my professional →
         </a>
 
       </div>

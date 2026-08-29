@@ -1,0 +1,459 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const professionals = [
+  {
+    id: "sarah-chen",
+    initials: "SC",
+    headshot: "headshots/sarah-chen.webp",
+    name: "Sarah Chen",
+    profession: "Accountant",
+    professionKey: "accountant",
+    qualification: "CPA · Registered Tax Agent",
+    speciality: "Personal tax and annual returns",
+    specialties: ["Personal tax returns", "Tax compliance", "Deductions"],
+    location: "Online",
+    deliveryKeys: ["online"],
+    price: 79,
+    priceLabel: "$79",
+    duration: "30 min",
+    availabilityDays: 0,
+    nextTime: "Today, 5:30 pm",
+    times: ["Today, 5:30 pm", "Tomorrow, 10:00 am", "Tomorrow, 4:30 pm"],
+    tone: "#d8ff75",
+    rationale: "May suit you if you want help preparing an annual return, identifying eligible deductions and understanding your tax position clearly.",
+    approach: "Sarah reviews income, expenses and supporting records, then prepares a clear checklist of missing information before lodging a return.",
+  },
+  {
+    id: "daniel-morris",
+    initials: "DM",
+    headshot: "headshots/daniel-morris.webp",
+    name: "Daniel Morris",
+    profession: "Accountant",
+    professionKey: "accountant",
+    qualification: "CA · Registered Tax Agent",
+    speciality: "Small-business accounting and tax",
+    specialties: ["Business tax", "Entity setup", "Cash-flow reports"],
+    location: "Brisbane + online",
+    deliveryKeys: ["face-to-face", "online"],
+    price: 179,
+    priceLabel: "$179",
+    duration: "60 min",
+    availabilityDays: 1,
+    nextTime: "Tomorrow, 10:00 am",
+    times: ["Tomorrow, 10:00 am", "Tomorrow, 2:30 pm", "Thursday, 9:00 am"],
+    tone: "#ebe7df",
+    rationale: "May suit business owners who need help choosing a structure, staying compliant and understanding how the business is performing.",
+    approach: "Daniel brings bookkeeping, tax obligations and management reporting into one practical plan with clear dates and responsibilities.",
+  },
+  {
+    id: "maya-chen",
+    initials: "MC",
+    headshot: "headshots/maya-chen.webp",
+    name: "Maya Chen",
+    profession: "Financial adviser",
+    professionKey: "financial-adviser",
+    qualification: "Financial Adviser · AR 001234567",
+    speciality: "Goals-based wealth planning",
+    specialties: ["First-time investors", "Cash-flow planning", "Property readiness"],
+    location: "Online",
+    deliveryKeys: ["online"],
+    price: 220,
+    priceLabel: "$220",
+    duration: "60 min",
+    availabilityDays: 1,
+    nextTime: "Tomorrow, 11:30 am",
+    times: ["Tomorrow, 11:30 am", "Wednesday, 2:00 pm", "Friday, 9:00 am"],
+    tone: "#ebe7df",
+    rationale: "May suit early-career clients who want to clarify goals, cash buffers and investment priorities before choosing financial products.",
+    approach: "Maya starts with goals, current commitments and trade-offs, then maps the decisions that should be resolved before discussing strategies or products.",
+  },
+  {
+    id: "daniel-okafor",
+    initials: "DO",
+    headshot: "headshots/daniel-okafor.webp",
+    name: "Daniel Okafor",
+    profession: "Financial adviser",
+    professionKey: "financial-adviser",
+    qualification: "Financial Adviser · AR 009876543",
+    speciality: "Investment foundations and cash flow",
+    specialties: ["Investment foundations", "Young professionals", "Risk conversations"],
+    location: "Brisbane + online",
+    deliveryKeys: ["face-to-face", "online"],
+    price: 195,
+    priceLabel: "$195",
+    duration: "50 min",
+    availabilityDays: 3,
+    nextTime: "Thursday, 4:00 pm",
+    times: ["Thursday, 4:00 pm", "Friday, 11:30 am", "Monday, 5:00 pm"],
+    tone: "#ebe7df",
+    rationale: "May suit people who want to organise savings, debt and investing into a practical sequence before making long-term commitments.",
+    approach: "Daniel helps clients define the purpose of their money, understand risk and turn competing priorities into a staged financial plan.",
+  },
+  {
+    id: "priya-kapoor",
+    initials: "PK",
+    headshot: "headshots/priya-kapoor.webp",
+    name: "Priya Kapoor",
+    profession: "Lawyer",
+    professionKey: "lawyer",
+    qualification: "Solicitor · Queensland",
+    speciality: "Property and contract law",
+    specialties: ["Contract review", "Property transactions", "First purchases"],
+    location: "Brisbane + online",
+    deliveryKeys: ["face-to-face", "online"],
+    price: 240,
+    priceLabel: "$240",
+    duration: "60 min",
+    availabilityDays: 2,
+    nextTime: "Wednesday, 9:30 am",
+    times: ["Wednesday, 9:30 am", "Thursday, 1:00 pm", "Friday, 10:00 am"],
+    tone: "#ebe7df",
+    rationale: "May suit buyers who want a contract explained in plain language and key obligations identified before signing a property agreement.",
+    approach: "Priya reviews the contract, searches and deadlines, then explains the practical decisions and risks that need attention before settlement.",
+  },
+  {
+    id: "olivia-bennett",
+    initials: "OB",
+    headshot: "headshots/olivia-bennett.webp",
+    name: "Olivia Bennett",
+    profession: "Lawyer",
+    professionKey: "lawyer",
+    qualification: "Principal Lawyer · Queensland",
+    speciality: "Wills and estate planning",
+    specialties: ["Wills", "Estate planning", "Powers of attorney"],
+    location: "Online",
+    deliveryKeys: ["online"],
+    price: 280,
+    priceLabel: "$280",
+    duration: "60 min",
+    availabilityDays: 4,
+    nextTime: "Friday, 1:30 pm",
+    times: ["Friday, 1:30 pm", "Monday, 10:00 am", "Tuesday, 3:30 pm"],
+    tone: "#ebe7df",
+    rationale: "May suit people who want to document their wishes, appoint decision-makers and understand how their estate plan fits together.",
+    approach: "Olivia begins with family circumstances and intended outcomes, then identifies the documents and decisions needed for a coherent estate plan.",
+  },
+  {
+    id: "olivia-brooks",
+    initials: "OB",
+    headshot: "headshots/olivia-brooks.webp",
+    name: "Olivia Brooks",
+    profession: "Mortgage broker",
+    professionKey: "mortgage-broker",
+    qualification: "Mortgage Broker · Credit Representative 445120",
+    speciality: "First-home and investment lending",
+    specialties: ["Borrowing capacity", "Loan comparison", "Pre-approval"],
+    location: "Brisbane + online",
+    deliveryKeys: ["face-to-face", "online"],
+    price: 0,
+    priceLabel: "No initial fee",
+    duration: "30 min",
+    availabilityDays: 0,
+    nextTime: "Today, 4:30 pm",
+    times: ["Today, 4:30 pm", "Tomorrow, 9:00 am", "Tomorrow, 3:00 pm"],
+    tone: "#d8ff75",
+    rationale: "May suit buyers who want to test a realistic borrowing range and understand the information lenders will ask them to provide.",
+    approach: "Olivia reviews income, commitments and deposit position, then explains borrowing capacity, lender requirements and available next steps.",
+  },
+  {
+    id: "lucas-martin",
+    initials: "LM",
+    headshot: "headshots/lucas-martin.webp",
+    name: "Lucas Martin",
+    profession: "Mortgage broker",
+    professionKey: "mortgage-broker",
+    qualification: "Mortgage Broker · Credit Representative 517904",
+    speciality: "Refinancing and self-employed borrowers",
+    specialties: ["Refinancing", "Self-employed", "Loan structures"],
+    location: "Online",
+    deliveryKeys: ["online"],
+    price: 0,
+    priceLabel: "No initial fee",
+    duration: "45 min",
+    availabilityDays: 3,
+    nextTime: "Thursday, 12:00 pm",
+    times: ["Thursday, 12:00 pm", "Friday, 2:30 pm", "Monday, 9:30 am"],
+    tone: "#ebe7df",
+    rationale: "May suit borrowers with variable or business income who want their documentation organised before comparing refinance options.",
+    approach: "Lucas reviews current lending, income evidence and future plans, then outlines suitable lender criteria and a preparation checklist.",
+  },
+];
+---
+
+<Layout title="Browse professionals | Equilisr">
+  <main class="min-h-screen bg-[#f4f1ea] text-[#171717]">
+    <header class="border-b border-black/10 bg-[#f4f1ea]">
+      <nav class="mx-auto flex max-w-[1400px] items-center justify-between gap-5 px-5 py-4 sm:px-7 lg:px-10" aria-label="Primary navigation">
+        <a href="/" class="text-xl font-semibold tracking-[-0.045em] sm:text-2xl">Equilisr</a>
+        <a href="/" class="rounded-full border border-black/10 px-4 py-2 text-sm text-[#69665f] transition duration-200 hover:border-black/25 hover:text-[#171717]">Back home</a>
+      </nav>
+    </header>
+
+    <section class="mx-auto max-w-[1400px] px-5 py-8 sm:px-7 lg:px-10 lg:py-10">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[#77746d]">Professional marketplace</p>
+          <h1 class="mt-2 font-serif text-4xl leading-none tracking-[-0.035em] sm:text-5xl">Browse professionals</h1>
+        </div>
+        
+      </div>
+
+      <div class="mt-6 rounded-[24px] border border-black/10 bg-[#ebe7df] p-4 sm:p-5">
+        <fieldset>
+          <legend class="sr-only">Filter by profession</legend>
+          <div class="flex gap-2 overflow-x-auto pb-1" aria-label="Professional types">
+            <button class="profession-filter inline-flex shrink-0 items-center gap-2 rounded-full border border-[#262626] bg-[#262626] px-4 py-2.5 text-sm font-medium text-white transition duration-200" type="button" data-profession="all" aria-pressed="true"><span class="filter-check" aria-hidden="true">✓</span>All professionals</button>
+            <button class="profession-filter inline-flex shrink-0 items-center gap-2 rounded-full border border-black/10 bg-[#fafafa] px-4 py-2.5 text-sm font-medium transition duration-200 hover:border-black/25" type="button" data-profession="accountant" aria-pressed="false"><span class="filter-check hidden" aria-hidden="true">✓</span>Accountants</button>
+            <button class="profession-filter inline-flex shrink-0 items-center gap-2 rounded-full border border-black/10 bg-[#fafafa] px-4 py-2.5 text-sm font-medium transition duration-200 hover:border-black/25" type="button" data-profession="financial-adviser" aria-pressed="false"><span class="filter-check hidden" aria-hidden="true">✓</span>Financial advisers</button>
+            <button class="profession-filter inline-flex shrink-0 items-center gap-2 rounded-full border border-black/10 bg-[#fafafa] px-4 py-2.5 text-sm font-medium transition duration-200 hover:border-black/25" type="button" data-profession="lawyer" aria-pressed="false"><span class="filter-check hidden" aria-hidden="true">✓</span>Lawyers</button>
+            <button class="profession-filter inline-flex shrink-0 items-center gap-2 rounded-full border border-black/10 bg-[#fafafa] px-4 py-2.5 text-sm font-medium transition duration-200 hover:border-black/25" type="button" data-profession="mortgage-broker" aria-pressed="false"><span class="filter-check hidden" aria-hidden="true">✓</span>Mortgage brokers</button>
+          </div>
+        </fieldset>
+
+        <div class="mt-4 grid gap-3 border-t border-black/10 pt-4 sm:grid-cols-3">
+          <label class="text-xs font-semibold text-[#69665f]">Meeting format
+            <select id="delivery-filter" class="mt-2 w-full rounded-xl border border-black/10 bg-[#fafafa] px-3 py-3 text-sm font-normal text-[#171717] transition duration-200 hover:border-black/25">
+              <option value="all">Any format</option>
+              <option value="face-to-face">Face-to-face</option>
+              <option value="online">Online</option>
+            </select>
+          </label>
+          <label class="text-xs font-semibold text-[#69665f]">Consultation price
+            <select id="price-filter" class="mt-2 w-full rounded-xl border border-black/10 bg-[#fafafa] px-3 py-3 text-sm font-normal text-[#171717] transition duration-200 hover:border-black/25">
+              <option value="999">Any price</option>
+              <option value="0">No initial fee</option>
+              <option value="150">Up to $150</option>
+              <option value="200">Up to $200</option>
+              <option value="250">Up to $250</option>
+              <option value="300">Up to $300</option>
+            </select>
+          </label>
+          <label class="text-xs font-semibold text-[#69665f]">Earliest availability
+            <select id="availability-filter" class="mt-2 w-full rounded-xl border border-black/10 bg-[#fafafa] px-3 py-3 text-sm font-normal text-[#171717] transition duration-200 hover:border-black/25">
+              <option value="99">Any time</option>
+              <option value="0">Today</option>
+              <option value="3">Within 3 days</option>
+              <option value="7">Within 7 days</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="mt-6 flex items-center justify-between gap-4">
+        <p class="text-sm text-[#69665f]" aria-live="polite"><span id="result-count" class="font-semibold text-[#171717]">8</span> professionals available</p>
+        <button id="clear-filters" class="rounded-full px-3 py-2 text-sm font-medium text-[#69665f] underline decoration-black/25 underline-offset-4 transition duration-200 hover:text-[#171717]" type="button">Clear filters</button>
+      </div>
+
+      <div id="professional-results" class="mt-3 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {professionals.map((professional) => (
+          <article class="professional-card flex min-h-[480px] flex-col rounded-[24px] border border-black/10 bg-[#fafafa] p-6 shadow-[0_14px_36px_rgba(23,23,23,0.035)] transition duration-200 hover:-translate-y-0.5 hover:border-black/20 hover:shadow-[0_18px_44px_rgba(23,23,23,0.07)]" data-profession={professional.professionKey} data-delivery={professional.deliveryKeys.join(",")} data-price={professional.price} data-availability={professional.availabilityDays}>
+            <div class="flex items-start gap-4">
+              <img src={professional.headshot} alt="" class="h-14 w-14 shrink-0 rounded-full border border-black/10 bg-[#ebe7df] object-cover" loading="lazy" decoding="async" />
+              <div class="min-w-0 pt-0.5">
+                <p class="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#77746d]">{professional.profession}</p>
+                <h2 class="mt-1 text-xl font-semibold tracking-[-0.025em]">{professional.name}</h2>
+                <p class="mt-1 text-sm text-[#69665f]">{professional.qualification}</p>
+                <p class="mt-1 text-xs text-[#77746d]">{professional.location}</p>
+              </div>
+            </div>
+
+            <h3 class="mt-5 text-lg font-medium leading-6">{professional.speciality}</h3>
+            <div class="mt-3 flex flex-wrap gap-2">
+              {professional.specialties.map((item) => <span class="rounded-full border border-black/10 bg-[#f4f1ea] px-3 py-1.5 text-xs text-[#69665f]">{item}</span>)}
+            </div>
+
+            <div class="mt-5 rounded-2xl bg-[#ebe7df] p-4">
+              <p class="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#77746d]">Why this may suit you</p>
+              <p class="mt-2 text-sm leading-6 text-[#69665f]">{professional.rationale}</p>
+            </div>
+
+            <div class="mt-auto pt-5">
+              <div class="grid grid-cols-2 gap-3 border-t border-black/10 pt-4">
+                <div>
+                  <p class="text-[11px] text-[#77746d]">Consultation</p>
+                  <p class="mt-1 text-sm font-semibold">{professional.priceLabel} · {professional.duration}</p>
+                </div>
+                <div>
+                  <p class="text-[11px] text-[#77746d]">Earliest time</p>
+                  <p class="mt-1 text-sm font-semibold">{professional.nextTime}</p>
+                </div>
+              </div>
+              <button class="open-profile mt-4 flex w-full items-center justify-between rounded-full bg-[#d8ff75] px-5 py-3.5 text-sm font-semibold text-black transition duration-200 hover:bg-[#c9ef68]" type="button" data-id={professional.id}>View full profile <span aria-hidden="true">→</span></button>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div id="empty-results" class="mt-4 hidden rounded-[24px] border border-dashed border-black/20 bg-[#fafafa] p-10 text-center" aria-live="polite">
+        <h2 class="font-serif text-2xl">No professionals match every filter.</h2>
+        <p class="mt-2 text-sm text-[#69665f]">Clear a filter to see more profiles.</p>
+      </div>
+    </section>
+
+    <section class="border-t border-black/10 bg-[#ebe7df]">
+      <div class="mx-auto flex max-w-[1400px] flex-col gap-3 px-5 py-7 sm:flex-row sm:items-center sm:justify-between sm:px-7 lg:px-10">
+        <h2 class="font-serif text-2xl tracking-[-0.02em]">Compare first. Decide when you are ready.</h2>
+        <p class="max-w-2xl text-sm leading-6 text-[#69665f]">Equilisr helps you compare professional services. Financial, credit, tax and legal advice is provided only by the qualified professional you choose.</p>
+      </div>
+    </section>
+
+    <footer class="bg-[#262626] text-white">
+      <div class="mx-auto flex max-w-[1400px] items-end justify-between gap-4 px-5 py-7 sm:px-7 lg:px-10">
+        <div><p class="text-xl font-semibold tracking-[-0.04em] sm:text-2xl">Equilisr</p><p class="mt-1 text-xs text-white/45">Professional marketplace</p></div>
+        <p class="text-sm text-white/45">© 2026 Equilisr</p>
+      </div>
+    </footer>
+  </main>
+
+  <dialog id="profile-dialog" class="m-auto w-[min(820px,calc(100vw-24px))] max-h-[calc(100vh-24px)] overflow-auto rounded-[28px] border-0 bg-[#f4f1ea] p-0 text-[#171717] shadow-[0_30px_90px_rgba(23,23,23,0.35)] backdrop:bg-[#171717]/65" aria-labelledby="dialog-title">
+    <button id="dialog-close" class="absolute right-5 top-5 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-[#fafafa] text-xl transition duration-200 hover:border-black/25" type="button" aria-label="Close profile">×</button>
+    <div id="dialog-content"></div>
+  </dialog>
+
+  <script define:vars={{ professionals }}>
+    const professionButtons = document.querySelectorAll('.profession-filter');
+    const professionalCards = document.querySelectorAll('.professional-card');
+    const deliveryFilter = document.querySelector('#delivery-filter');
+    const priceFilter = document.querySelector('#price-filter');
+    const availabilityFilter = document.querySelector('#availability-filter');
+    const resultCount = document.querySelector('#result-count');
+    const emptyResults = document.querySelector('#empty-results');
+    const dialog = document.querySelector('#profile-dialog');
+    const dialogContent = document.querySelector('#dialog-content');
+    let activeProfession = 'all';
+    let dialogOpener;
+
+    const applyFilters = () => {
+      let visible = 0;
+      professionalCards.forEach((card) => {
+        const deliveryOptions = card.dataset.delivery.split(',');
+        const professionMatch = activeProfession === 'all' || card.dataset.profession === activeProfession;
+        const deliveryMatch = deliveryFilter.value === 'all' || deliveryOptions.includes(deliveryFilter.value);
+        const priceMatch = Number(card.dataset.price) <= Number(priceFilter.value);
+        const availabilityMatch = Number(card.dataset.availability) <= Number(availabilityFilter.value);
+        const show = professionMatch && deliveryMatch && priceMatch && availabilityMatch;
+        card.classList.toggle('hidden', !show);
+        if (show) visible += 1;
+      });
+      resultCount.textContent = String(visible);
+      emptyResults.classList.toggle('hidden', visible !== 0);
+    };
+
+    professionButtons.forEach((button) => button.addEventListener('click', () => {
+      activeProfession = button.dataset.profession;
+      professionButtons.forEach((item) => {
+        const active = item === button;
+        item.setAttribute('aria-pressed', String(active));
+        item.classList.toggle('border-[#262626]', active);
+        item.classList.toggle('bg-[#262626]', active);
+        item.classList.toggle('text-white', active);
+        item.classList.toggle('border-black/10', !active);
+        item.classList.toggle('bg-[#fafafa]', !active);
+        item.querySelector('.filter-check').classList.toggle('hidden', !active);
+      });
+      applyFilters();
+    }));
+
+    [deliveryFilter, priceFilter, availabilityFilter].forEach((select) => select.addEventListener('change', applyFilters));
+    document.querySelector('#clear-filters').addEventListener('click', () => {
+      deliveryFilter.value = 'all';
+      priceFilter.value = '999';
+      availabilityFilter.value = '99';
+      professionButtons[0].click();
+    });
+
+    const openProfile = (id, opener) => {
+      const professional = professionals.find((item) => item.id === id);
+      if (!professional) return;
+      dialogOpener = opener;
+      dialogContent.innerHTML = `
+        <div class="border-b border-black/10 bg-[#fafafa] p-7 pr-16 sm:p-9 sm:pr-20">
+          <div class="flex gap-4 sm:gap-5">
+            <img src="${professional.headshot}" alt="" class="h-20 w-20 shrink-0 rounded-full border border-black/10 bg-[#ebe7df] object-cover"/>
+            <div class="pt-0.5">
+              <p class="text-xs font-semibold uppercase tracking-[0.14em] text-[#77746d]">${professional.profession}</p>
+              <h2 id="dialog-title" class="mt-1 font-serif text-3xl leading-none tracking-[-0.035em] sm:text-4xl">${professional.name}</h2>
+              <p class="mt-3 text-[#69665f]">${professional.qualification}</p>
+              <p class="mt-1 text-sm text-[#77746d]">${professional.location}</p>
+            </div>
+          </div>
+        </div>
+        <div class="space-y-7 p-7 sm:p-9">
+          <div class="rounded-2xl bg-[#ebe7df] p-5">
+            <p class="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#77746d]">Why this professional may suit you</p>
+            <p class="mt-3 leading-7 text-[#69665f]">${professional.rationale}</p>
+          </div>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.15em] text-[#77746d]">How they work</p>
+            <h3 class="mt-3 text-xl font-semibold">${professional.speciality}</h3>
+            <p class="mt-3 leading-7 text-[#69665f]">${professional.approach}</p>
+            <div class="mt-4 flex flex-wrap gap-2">${professional.specialties.map((item) => `<span class="rounded-full border border-black/10 bg-[#fafafa] px-3 py-1.5 text-xs text-[#69665f]">${item}</span>`).join('')}</div>
+          </div>
+          <div class="grid gap-px overflow-hidden rounded-2xl bg-black/10 sm:grid-cols-3">
+            <div class="bg-[#fafafa] p-4"><p class="text-xs text-[#77746d]">Consultation</p><p class="mt-1 font-semibold">${professional.priceLabel} · ${professional.duration}</p></div>
+            <div class="bg-[#fafafa] p-4"><p class="text-xs text-[#77746d]">Format</p><p class="mt-1 font-semibold">${professional.location}</p></div>
+            <div class="bg-[#fafafa] p-4"><p class="text-xs text-[#77746d]">Next available</p><p class="mt-1 font-semibold">${professional.nextTime}</p></div>
+          </div>
+          <form id="booking-form" novalidate>
+            <fieldset>
+              <legend class="text-sm font-semibold">Choose a consultation time</legend>
+              <div class="mt-3 grid gap-2 sm:grid-cols-3">${professional.times.map((time) => `<label class="flex cursor-pointer items-start gap-2 rounded-xl border border-black/10 bg-[#fafafa] p-3 text-sm transition duration-200 hover:border-black/25"><input type="radio" name="time" value="${time}" class="mt-0.5 accent-[#262626]"/><span>${time}</span></label>`).join('')}</div>
+              <p id="time-error" class="mt-2 hidden text-xs text-[#8b3f35]">Choose a time before continuing.</p>
+            </fieldset>
+            <button class="mt-6 flex w-full items-center justify-between rounded-full bg-[#d8ff75] px-6 py-4 text-sm font-semibold text-black transition duration-200 hover:bg-[#c9ef68]" type="submit">Request consultation <span aria-hidden="true">→</span></button>
+            <p class="mt-3 text-center text-xs text-[#77746d]">No payment is taken when requesting an introduction.</p>
+          </form>
+          <div id="booking-confirmation" class="hidden rounded-[22px] bg-[#262626] p-6 text-white sm:p-7">
+            <p class="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">Request ready</p>
+            <h3 class="mt-3 font-serif text-3xl tracking-[-0.025em]">Meet ${professional.name}.</h3>
+            <p id="confirmation-copy" class="mt-3 text-sm leading-6 text-white/65"></p>
+          </div>
+        </div>`;
+      dialog.showModal();
+      dialogContent.querySelector('#booking-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const time = dialogContent.querySelector('input[name="time"]:checked');
+        const error = dialogContent.querySelector('#time-error');
+        if (!time) { error.classList.remove('hidden'); return; }
+        error.classList.add('hidden');
+        dialogContent.querySelector('#confirmation-copy').textContent = `${time.value} selected. Equilisr will use this preference when preparing the introduction.`;
+        dialogContent.querySelector('#booking-form').classList.add('hidden');
+        dialogContent.querySelector('#booking-confirmation').classList.remove('hidden');
+        localStorage.setItem('Equilisr.consultation.v1', JSON.stringify({ professional: professional.id, time: time.value }));
+      });
+    };
+
+    document.querySelectorAll('.open-profile').forEach((button) => button.addEventListener('click', () => openProfile(button.dataset.id, button)));
+    document.querySelector('#dialog-close').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', () => dialogOpener?.focus());
+  </script>
+</Layout>
+
+<style>
+  :global(button:focus-visible),
+  :global(a:focus-visible),
+  :global(select:focus-visible),
+  :global(input:focus-visible) {
+    outline: 3px solid #6a851b;
+    outline-offset: 3px;
+  }
+
+  #profile-dialog[open] {
+    animation: modal-in 180ms ease-out;
+  }
+
+  @keyframes modal-in {
+    from { opacity: 0; transform: translateY(10px) scale(.985); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(*) {
+      scroll-behavior: auto !important;
+      transition-duration: .01ms !important;
+      animation-duration: .01ms !important;
+    }
+  }
+</style>
