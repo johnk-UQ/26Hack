@@ -5,7 +5,7 @@ The laptop demo can use Groq for the generated two-turn journey. Copy `.env.exam
 Run the single-laptop demo from this directory:
 
 ```sh
-npm run dev
+npm run dev:ai
 ```
 
-The Astro site is static and the API is optional for the fallback journey. This is a pitch demo, not production hosting.
+When no key is configured, use `npm run dev:web` for the static fallback. The Astro site is static and the API is optional for the fallback journey. This is a pitch demo, not production hosting.
