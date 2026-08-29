@@ -36,3 +36,8 @@ Complete. The task commit hash is included in the handoff alongside this report.
 - Progress resolves role slugs and the explicit `complete` state instead of coercing slugs with `Number()`.
 - Generated summary context is escaped before any template interpolation.
 - Final route smoke: `/pathway` 200 (47,423 bytes), `/marketplace` 200 (58,712 bytes).
+
+## Review round 3 fixes
+
+- Fallback later roles now participate in pathway progress counting and the fallback details node is moved into the pathway section at runtime for valid layout semantics.
+- Verification: `npm test` PASS (36/36), `npm run build` PASS (4 static routes), and `/pathway` plus `/marketplace` local smoke returned HTTP 200.

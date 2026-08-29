@@ -239,6 +239,8 @@ test("pathway and marketplace expose generated rendering and generic booking hoo
   assert.match(pathway, /pathway-later/);
   assert.match(pathway, /details/);
   assert.match(pathway, /fallback-later/);
+  assert.match(pathway, /3 previews/);
+  assert.match(pathway, /append\(document\.querySelector\("#fallback-later"\)/);
   assert.match(pathway, /progressOrder/);
   assert.match(pathway, /state\.currentStep === "complete"/);
   assert.match(marketplace, /Browse all/);
