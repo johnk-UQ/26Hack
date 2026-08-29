@@ -40,3 +40,23 @@ Result: 4 passed, 0 failed. `git diff --check` passed with no output.
 
 - The requested npm test command remains un-runnable in this environment due to host-level Node `spawn EPERM`; direct equivalent execution passes.
 - The claim filter is intentionally conservative and may reject generated copy containing words such as “registered” or “best,” which is appropriate for the regulated-navigation boundary and can be refined by later server work if needed.
+
+## Fix round 1
+
+Addressed review findings by adding `credential` and `company` to the recursive prohibited-claim text filter. Added focused tests for those terms in profile speciality/rationale and inclusive duration/price boundaries (20/90 minutes and 0/600 AUD), plus just-outside rejection.
+
+Focused test command and exact output:
+
+```text
+node --input-type=module -e "import('./test/ai-contract.test.mjs')"
+✔ AI contract accepts valid clarification states and only one question
+✔ AI contract rejects unsupported or duplicate pathway roles
+✔ AI contract rejects malformed profiles, prohibited fields, and non-three matches
+✔ AI contract accepts inclusive consultation duration and price boundaries
+✔ normalization derives safe IDs, labels, accents, and response-order ranks
+ℹ tests 5
+ℹ pass 5
+ℹ fail 0
+```
+
+`git diff --check` passed with no output. Self-review confirms only the claim regex and focused contract tests changed in this round; no remaining concerns beyond the previously documented Node `spawn EPERM` limitation for the npm test runner.

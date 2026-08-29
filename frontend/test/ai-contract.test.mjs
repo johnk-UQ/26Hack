@@ -39,7 +39,17 @@ test("AI contract rejects malformed profiles, prohibited fields, and non-three m
   assert.equal(validateGenerateResult({ ...base, matches: [{ ...base.matches[0], rating: 5 }, ...base.matches.slice(1)] }).ok, false);
   assert.equal(validateGenerateResult({ ...base, matches: [{ ...base.matches[0], consultationMinutes: 10 }, ...base.matches.slice(1)] }).ok, false);
   assert.equal(validateGenerateResult({ ...base, matches: [{ ...base.matches[0], name: "Acme Financial Pty Ltd" }, ...base.matches.slice(1)] }).ok, false);
+  assert.equal(validateGenerateResult({ ...base, matches: [{ ...base.matches[0], speciality: "Credential and company selection" }, ...base.matches.slice(1)] }).ok, false);
+  assert.equal(validateGenerateResult({ ...base, matches: [{ ...base.matches[0], rationale: "Choose this company with credential confidence." }, ...base.matches.slice(1)] }).ok, false);
   assert.equal(validateGenerateRequest({ situation: "I am planning finances.", followUpQuestion: "What matters?" }).ok, false);
+});
+
+test("AI contract accepts inclusive consultation duration and price boundaries", () => {
+  const atMinimum = { ...base.matches[0], consultationMinutes: 20, priceAud: 0 };
+  const atMaximum = { ...base.matches[1], consultationMinutes: 90, priceAud: 600 };
+  assert.equal(validateGenerateResult({ ...base, matches: [atMinimum, atMaximum, base.matches[2]] }).ok, true);
+  assert.equal(validateGenerateResult({ ...base, matches: [{ ...atMinimum, consultationMinutes: 19 }, atMaximum, base.matches[2]] }).ok, false);
+  assert.equal(validateGenerateResult({ ...base, matches: [{ ...atMinimum, priceAud: 601 }, atMaximum, base.matches[2]] }).ok, false);
 });
 
 test("normalization derives safe IDs, labels, accents, and response-order ranks", () => {

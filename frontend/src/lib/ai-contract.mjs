@@ -10,7 +10,7 @@ export const SUPPORTED_ROLES = Object.freeze([
 
 const ROLE_SET = new Set(SUPPORTED_ROLES);
 const ACCENTS = ["#b7e17e", "#d0edaa", "#9ecb70", "#e1efcc", "#c4e396", "#aed17d"];
-const CLAIMS = /(?:licensed?|licen[cs]e|registered|certified|accredited|rating|reviews?|guarantee|best|available now|objectively|regulated|approved)/i;
+const CLAIMS = /(?:licensed?|licen[cs]e|registered|certified|accredited|credential(?:s)?|company|rating|reviews?|guarantee|best|available now|objectively|regulated|approved)/i;
 
 export class AIContractError extends Error {
   constructor(message) { super(message); this.name = "AIContractError"; }
