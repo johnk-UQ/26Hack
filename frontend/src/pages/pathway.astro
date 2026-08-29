@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import { PATHWAY_STEPS, ALEX_SUMMARY } from "../data/demo-content.mjs";
+---
+
+<Layout title="Your Arc pathway | Arc">
+  <main class="page-shell text-[var(--ink)]"><Header />
+    <section class="mx-auto max-w-[1280px] px-6 pb-20 pt-12 lg:px-10 lg:pb-28 lg:pt-20">
+      <div class="max-w-3xl"><p class="eyebrow">Step 2 of 3 · Your pathway</p><h1 class="section-title mt-5">Here’s who can help, and in what order.</h1><p class="mt-5 max-w-2xl text-lg leading-8 text-[var(--muted)]">Arc is explaining the questions and sequence. It is not recommending an investment, property, loan, tax structure, or provider as objectively best.</p></div>
+      <div class="mt-12 grid gap-8 lg:grid-cols-[1.2fr_.8fr]">
+        <section aria-labelledby="pathway-title"><div class="mb-5 flex items-center justify-between"><h2 id="pathway-title" class="text-sm font-bold uppercase tracking-[.15em] text-[var(--muted)]">Alex’s four-step path</h2><span class="rounded-full bg-[var(--pale)] px-3 py-1.5 text-xs font-semibold">1 active · 3 previews</span></div><ol class="space-y-4">
+          {PATHWAY_STEPS.map((step) => <li id={`step-${step.id}`} class={`path-card ${step.order === 1 ? "path-active" : ""}`}><div class="path-marker" aria-hidden="true">{step.order}</div><div class="min-w-0 flex-1"><div class="flex flex-wrap items-start justify-between gap-3"><div><p class="text-xs font-bold uppercase tracking-[.13em] text-[var(--quiet)]">{step.order === 1 ? "Current step" : "Up next"}</p><h3 class="mt-1 font-serif text-2xl">{step.professional}</h3></div><span class="status-pill">{step.order === 1 ? "Ready to explore" : "Preview"}</span></div><p class="mt-5 leading-7 text-[var(--muted)]"><strong class="text-[var(--ink)]">Why now:</strong> {step.reason}</p><div class="mt-5 grid gap-4 border-t border-[var(--line)] pt-4 text-sm sm:grid-cols-2"><div><p class="text-xs font-bold uppercase tracking-[.1em] text-[var(--quiet)]">Suggested timing</p><p class="mt-1">{step.timing}</p></div><div><p class="text-xs font-bold uppercase tracking-[.1em] text-[var(--quiet)]">Completion signal</p><p class="mt-1 text-[var(--muted)]">{step.completion}</p></div></div><a href={step.order === 1 ? "/marketplace" : `#step-${step.id}`} class={`${step.order === 1 ? "button-primary" : "button-secondary"} mt-6 focus-ring`}>{step.action} <span aria-hidden="true">{step.order === 1 ? "↗" : "↓"}</span></a></div></li>)}
+        </ol></section>
+        <aside class="panel h-fit bg-[var(--raised)] p-6 lg:sticky lg:top-6 lg:p-8"><p class="eyebrow">Alex’s context</p><h2 class="mt-4 font-serif text-3xl">A first plan for new momentum.</h2><ul class="mt-7 space-y-3">{ALEX_SUMMARY.map((item) => <li class="flex gap-3 text-sm leading-6"><span class="text-[#70a052]" aria-hidden="true">●</span><span>{item}</span></li>)}</ul><div class="mt-8 rounded-2xl bg-[var(--pale)] p-5"><p class="text-sm font-semibold">What Arc is doing</p><p class="mt-2 text-sm leading-6 text-[var(--muted)]">Turning a broad life event into an order of useful conversations. Your context stays under your control.</p></div><a href="/onboarding" class="mt-6 inline-flex text-sm font-semibold text-[var(--forest)] underline underline-offset-4 focus-ring">← Review your answers</a></aside>
+      </div>
+    </section>
+  </main>
+</Layout>
