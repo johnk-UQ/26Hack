@@ -165,3 +165,31 @@ test("projector hero reserves desktop clearance for both CTA buttons", () => {
   assert.match(source, /<h1 class="display-title hero-title[^>]*>/);
   assert.match(styles, /@media \(min-width: 1024px\)\s*\{\s*\.hero-title\s*\{\s*font-size: 5rem;/);
 });
+
+test("onboarding review gate prevents navigation before validating every response", () => {
+  const source = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../src/pages/onboarding.astro"), "utf8");
+  assert.match(source, /#build-pathway"\)\?\.addEventListener\("click", \(event\) => \{\s*event\.preventDefault\(\);/);
+  assert.match(source, /saveJourney\(null, next\);\s*window\.location\.assign\(/);
+});
+
+test("pathway progress and next action derive from the persisted current step", () => {
+  const source = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../src/pages/pathway.astro"), "utf8");
+  assert.match(source, /id="pathway-summary"/);
+  assert.match(source, /summary\.textContent = `\$\{completed\} complete/);
+  assert.match(source, /current === 1/);
+  assert.match(source, /Preview broker questions/);
+});
+
+test("marketplace profile focus and booking disabled state have accessible treatments", () => {
+  const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+  const marketplace = readFileSync(resolve(root, "src/pages/marketplace.astro"), "utf8");
+  const css = readFileSync(resolve(root, "src/styles/global.css"), "utf8");
+  assert.match(marketplace, /id="profile-title"[^>]*class="[^"]*focus-ring/);
+  assert.match(css, /\.button-primary:disabled\s*\{[^}]*opacity:/s);
+});
+
+test("product blueprint labels pre-MVP controls and pages as historical review", () => {
+  const blueprint = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../../docs/product-blueprint.md"), "utf8");
+  assert.match(blueprint, /At the time of the initial review/);
+  assert.doesNotMatch(blueprint, /The current onboarding controls are static\./);
+});

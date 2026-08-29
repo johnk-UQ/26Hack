@@ -65,9 +65,11 @@ import { INTAKE_PROMPTS, INTAKE_RESPONSES } from "../data/demo-content.mjs";
     step.querySelector("[data-back]")?.addEventListener("click", () => show(index - 1, true));
   });
   document.querySelector("#edit-answers")?.addEventListener("click", () => show(steps.length - 1, true));
-  document.querySelector("#build-pathway")?.addEventListener("click", () => {
+  document.querySelector("#build-pathway")?.addEventListener("click", (event) => {
+    event.preventDefault();
     if (answers.some((answer) => !answer.value.trim())) { const firstBlank = answers.find((answer) => !answer.value.trim()); firstBlank?.focus(); return; }
     const next = updateJourney(state, { intakeResponses: answers.map((answer) => answer.value), currentStep: "adviser" });
     saveJourney(null, next);
+    window.location.assign(event.currentTarget.href);
   });
 </script>

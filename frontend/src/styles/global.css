@@ -32,6 +32,7 @@ body {
 .button-primary, .button-secondary { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border-radius: 999px; padding: .85rem 1.25rem; font-size: .875rem; font-weight: 700; transition: transform 180ms ease, background-color 180ms ease; }
 .button-primary { background: var(--lime); color: var(--ink); }
 .button-primary:hover { background: #d5f49e; transform: translateY(-1px); }
+.button-primary:disabled { cursor: not-allowed; opacity: .55; transform: none; }
 .button-secondary { border: 1px solid var(--line); background: var(--raised); color: var(--ink); }
 .button-secondary:hover { background: var(--pale); }
 .display-title { font-family: Georgia, "Times New Roman", serif; font-size: clamp(3.4rem, 7vw, 6.4rem); line-height: .95; letter-spacing: -.06em; }
