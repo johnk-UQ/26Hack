@@ -22,7 +22,7 @@
 <script>
   const restart = document.querySelector("#restart-demo");
   restart?.addEventListener("click", () => {
-    try { window.localStorage.removeItem("switchpath.demoJourney.v1"); } catch { /* storage may be unavailable */ }
+    try { window.localStorage.removeItem("switchpath.demoJourney.v1"); window.localStorage.removeItem("switchpath.demoJourney.v2"); } catch { /* storage may be unavailable */ }
     window.location.href = "/onboarding";
   });
 </script>

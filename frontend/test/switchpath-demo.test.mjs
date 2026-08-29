@@ -6,6 +6,7 @@ import { dirname, resolve } from "node:path";
 
 import {
   STORAGE_KEY,
+  LEGACY_STORAGE_KEY,
   createInitialJourney,
   loadJourney,
   saveJourney,
@@ -42,9 +43,9 @@ const professionals = [
 test("journey state seeds Alex and safely recovers from corrupt storage", () => {
   const storage = new Map();
   const seeded = loadJourney(storage);
-  assert.equal(seeded.version, 1);
+  assert.equal(seeded.version, 2);
   assert.equal(seeded.demoPerson, "Alex");
-  assert.equal(seeded.intakeResponses.length, 5);
+  assert.equal(seeded.intakeResponses.length, 1);
   assert.equal(storage.get(STORAGE_KEY), undefined);
 
   storage.set(STORAGE_KEY, "not-json");
@@ -59,7 +60,7 @@ test("journey state updates fields and persists a versioned snapshot", () => {
   saveJourney(storage, next);
   const restored = loadJourney(storage);
   assert.equal(restored.currentStep, "mortgage-broker");
-  assert.equal(JSON.parse(storage.get(STORAGE_KEY)).version, 1);
+  assert.equal(JSON.parse(storage.get(STORAGE_KEY)).version, 2);
 });
 
 test("journey state rejects JSON-shaped snapshots with unusable response items", () => {
@@ -67,7 +68,7 @@ test("journey state rejects JSON-shaped snapshots with unusable response items",
   const valid = createInitialJourney();
   storage.set(STORAGE_KEY, JSON.stringify({ ...valid, intakeResponses: ["kept", null, 3, {}, "also kept"] }));
   const recovered = loadJourney(storage);
-  assert.deepEqual(recovered.intakeResponses, valid.intakeResponses);
+  assert.deepEqual(recovered.intakeResponses, ["kept"]);
 });
 
 test("saved response edits are rehydrated for every onboarding field", () => {
@@ -166,20 +167,40 @@ test("projector hero reserves desktop clearance for both CTA buttons", () => {
   assert.match(styles, /@media \(min-width: 1024px\)\s*\{\s*\.hero-title\s*\{\s*font-size: 5rem;/);
 });
 
-test("onboarding navigates directly to the pathway after analysis", () => {
+test("onboarding uses the two-turn AI journey and direct pathway navigation", () => {
   const source = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../src/pages/onboarding.astro"), "utf8");
-  assert.doesNotMatch(source, /#build-pathway['\"]\)\.addEventListener/);
+  assert.match(source, /createAiJourneyClient/);
+  assert.match(source, /status === "needs_clarification"/);
+  assert.match(source, /lastAnswers/);
   assert.match(source, /location\.assign\(['\"]\/pathway['\"]\)/);
-  assert.match(source, /saveJourney\(null,updateJourney\(state,/);
+  assert.match(source, /saveJourney\(null, next\)/);
 });
 
-test("onboarding uses a compact send control and hides completed conversation controls", () => {
+test("journey state migrates the opening answer from a v1 five-response snapshot and drops unknown fields", () => {
+  const storage = new Map();
+  storage.set(LEGACY_STORAGE_KEY, JSON.stringify({ version: 1, intakeResponses: ["A different opening situation.", "second", "third", "fourth", "fifth"], unknown: "discard me" }));
+  const migrated = loadJourney(storage);
+  assert.equal(migrated.version, 2);
+  assert.deepEqual(migrated.intakeResponses, ["A different opening situation."]);
+  assert.equal(migrated.initialSituation, "A different opening situation.");
+  assert.equal(Object.hasOwn(migrated, "unknown"), false);
+});
+
+test("malformed generated state never escapes load or save", () => {
+  const storage = new Map();
+  storage.set(STORAGE_KEY, JSON.stringify({ version: 2, generatedMatches: {} }));
+  assert.doesNotThrow(() => loadJourney(storage));
+  assert.equal(loadJourney(storage).generatedMatches, null);
+  assert.doesNotThrow(() => saveJourney(storage, { generatedMatches: [null] }));
+  assert.equal(loadJourney(storage).generatedMatches, null);
+});
+
+test("onboarding uses a compact send control, one follow-up, and staged analysis", () => {
   const source = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../src/pages/onboarding.astro"), "utf8");
-  assert.doesNotMatch(source, />Your response <span/);
-  assert.match(source, /Response for Switchpath prompt/);
   assert.match(source, /aria-label="Send response"/);
-  assert.match(source, /data-controls/);
-  assert.match(source, /controls\.hidden\s*=\s*true/);
+  assert.match(source, /analysis\.hidden = false/);
+  assert.match(source, /analysis\.querySelectorAll\("li"\)/);
+  assert.match(source, /followUp\.answer/);
 });
 
 test("onboarding keeps the conversation viewport until direct pathway navigation", () => {
@@ -187,6 +208,12 @@ test("onboarding keeps the conversation viewport until direct pathway navigation
   assert.doesNotMatch(source, /conversation\.hidden\s*=\s*true/);
   assert.match(source, /conversation-viewport/);
   assert.match(source, /location\.assign\(['\"]\/pathway['\"]\)/);
+});
+
+test("restart clears both journey storage versions", () => {
+  const source = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../src/components/Header.astro"), "utf8");
+  assert.match(source, /removeItem\("switchpath\.demoJourney\.v1"\)/);
+  assert.match(source, /removeItem\("switchpath\.demoJourney\.v2"\)/);
 });
 
 test("pathway progress and next action derive from the persisted current step", () => {

@@ -1,80 +1,17 @@
 import { INTAKE_RESPONSES } from "../data/demo-content.mjs";
-
-/** @typedef {{version:number, demoPerson:string, currentStep:string, intakeResponses:string[], booking: object|null}} JourneyState */
-
-export const STORAGE_KEY = "switchpath.demoJourney.v1";
-
-export function responsesAreUsable(responses) {
-  return Array.isArray(responses) && responses.length === INTAKE_RESPONSES.length
-    && responses.every((response) => typeof response === "string" && response.trim().length > 0);
-}
-
-/** @returns {JourneyState} */
-export function createInitialJourney() {
-  return {
-    version: 1,
-    demoPerson: "Alex",
-    currentStep: "adviser",
-    intakeResponses: [...INTAKE_RESPONSES],
-    booking: null,
-  };
-}
-
-function isJourney(value) {
-  return Boolean(
-    value &&
-      value.version === 1 &&
-      typeof value.demoPerson === "string" &&
-      typeof value.currentStep === "string" &&
-      responsesAreUsable(value.intakeResponses),
-  );
-}
-
-function getStorage(storage) {
-  if (storage) return storage;
-  try {
-    if (typeof window !== "undefined" && window.localStorage) return window.localStorage;
-  } catch {
-    return null;
-  }
-  return null;
-}
-
-/** @param {Storage|Map<string,string>|null|undefined} storage */
-export function loadJourney(storage) {
-  let target;
-  try { target = getStorage(storage); } catch { target = null; }
-  if (!target) return createInitialJourney();
-  try {
-    const raw = target.getItem ? target.getItem(STORAGE_KEY) : target.get(STORAGE_KEY);
-    if (!raw) return createInitialJourney();
-    const value = JSON.parse(raw);
-    return isJourney(value) ? { ...createInitialJourney(), ...value } : createInitialJourney();
-  } catch {
-    return createInitialJourney();
-  }
-}
-
-/** @param {Storage|Map<string,string>|null|undefined} storage @param {JourneyState} state */
-export function saveJourney(storage, state) {
-  let target;
-  try { target = getStorage(storage); } catch { target = null; }
-  if (!target) return state;
-  const safeResponses = responsesAreUsable(state?.intakeResponses)
-    ? state.intakeResponses
-    : createInitialJourney().intakeResponses;
-  const snapshot = JSON.stringify({ ...createInitialJourney(), ...state, intakeResponses: safeResponses, version: 1 });
-  try {
-    if (target.setItem) target.setItem(STORAGE_KEY, snapshot);
-    else target.set(STORAGE_KEY, snapshot);
-  } catch {
-    return state;
-  }
-  return state;
-}
-
-/** @param {JourneyState} state @param {Partial<JourneyState>} patch */
-export function updateJourney(state, patch) {
-  if (patch?.intakeResponses && !responsesAreUsable(patch.intakeResponses)) return { ...state, version: 1 };
-  return { ...state, ...patch, version: 1 };
-}
+import { validateGenerateResult } from "./ai-contract.mjs";
+export const STORAGE_KEY = "switchpath.demoJourney.v2";
+export const LEGACY_STORAGE_KEY = "switchpath.demoJourney.v1";
+export function responsesAreUsable(value) { return Array.isArray(value) && value.length >= 1 && value.length <= 2 && value.every((item) => typeof item === "string" && item.trim()); }
+export function createInitialJourney() { return { version: 2, demoPerson: "Alex", currentStep: "adviser", intakeResponses: [INTAKE_RESPONSES[0]], initialSituation: INTAKE_RESPONSES[0], followUpQuestion: null, followUpAnswer: null, generatedSummary: null, generatedPathway: null, generatedMatches: null, recommendedRole: null, generationSource: null, booking: null }; }
+export const resetJourney = createInitialJourney;
+const storageFor = (storage) => { if (storage) return storage; try { return typeof window !== "undefined" ? window.localStorage : null; } catch { return null; } };
+const get = (storage, key) => storage.getItem ? storage.getItem(key) : storage.get(key);
+const put = (storage, key, value) => storage.setItem ? storage.setItem(key, value) : storage.set(key, value);
+const text = (value, max = 2000) => typeof value === "string" && value.trim().length > 0 && value.trim().length <= max;
+const generatedIsSafe = (value) => value && validateGenerateResult({ summary: value.summary, recommendedRole: value.recommendedRole, pathway: value.pathway, matches: value.matches }).ok;
+const cleanGenerated = (value) => { if (!Array.isArray(value?.matches) || value.matches.some((item) => !item || typeof item !== "object")) return null; const candidate = { summary: value?.summary, recommendedRole: value?.recommendedRole, pathway: value?.pathway, matches: value.matches.map(({ name, speciality, specialities, consultationMinutes, priceAud, availability, locations, rationale }) => ({ name, speciality, specialities, consultationMinutes, priceAud, availability, locations, rationale })) }; return generatedIsSafe(candidate) ? candidate : null; };
+function migrate(value) { const initial = createInitialJourney(); if (!value || typeof value !== "object") return initial; const oldResponses = Array.isArray(value.intakeResponses) ? value.intakeResponses : []; const first = oldResponses.find((item) => typeof item === "string" && item.trim()); const responses = responsesAreUsable(oldResponses) ? oldResponses.map((item) => item.trim()) : first ? [first.trim()] : initial.intakeResponses; const generated = cleanGenerated({ summary: value.generatedSummary ?? value.summary, recommendedRole: value.recommendedRole, pathway: value.generatedPathway ?? value.pathway, matches: value.generatedMatches ?? value.matches }); return { version: 2, demoPerson: typeof value.demoPerson === "string" ? value.demoPerson : initial.demoPerson, currentStep: typeof value.currentStep === "string" ? value.currentStep : initial.currentStep, intakeResponses: responses, initialSituation: text(value.initialSituation) ? value.initialSituation.trim() : responses[0], followUpQuestion: text(value.followUpQuestion, 180) ? value.followUpQuestion.trim() : null, followUpAnswer: text(value.followUpAnswer) ? value.followUpAnswer.trim() : null, generatedSummary: generated?.summary ?? null, generatedPathway: generated?.pathway ?? null, generatedMatches: generated?.matches ?? null, recommendedRole: generated?.recommendedRole ?? null, generationSource: generated ? (value.generationSource === "example" ? "example" : "groq") : null, booking: value.booking && typeof value.booking === "object" ? value.booking : null }; }
+export function loadJourney(storage) { let target; try { target = storageFor(storage); } catch { target = null; } if (!target) return createInitialJourney(); try { const raw = get(target, STORAGE_KEY) || get(target, LEGACY_STORAGE_KEY); return raw ? migrate(JSON.parse(raw)) : createInitialJourney(); } catch { return createInitialJourney(); } }
+export function saveJourney(storage, state) { let target; try { target = storageFor(storage); } catch { target = null; } if (!target) return state; try { const next = migrate(state); put(target, STORAGE_KEY, JSON.stringify(next)); return next; } catch { return state; } }
+export function updateJourney(state, patch) { const next = { ...state, ...patch, version: 2 }; if (patch?.intakeResponses && !responsesAreUsable(patch.intakeResponses)) next.intakeResponses = state.intakeResponses; return next; }
