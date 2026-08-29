@@ -64,6 +64,9 @@ body {
 .step-icon { display: block; width: 2rem; height: 2rem; margin-top: 1.35rem; fill: none; stroke: #70a052; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.6; }
 .hero-cloud .eyebrow { color: var(--forest); }
 .avatar { display: flex; height: 2.5rem; width: 2.5rem; align-items: center; justify-content: center; border-radius: 50%; font-weight: 800; }
+.avatar img { height: 100%; width: 100%; border-radius: 50%; object-fit: cover; display: block; }
+.profile-photo { display: block; height: 4.5rem; width: 4.5rem; border-radius: 50%; object-fit: cover; border: 2px solid rgb(255 255 255 / .3); }
+.profile-photo[hidden] { display: none; }
 .avatar-lime { background: var(--lime); }
 .avatar-dark { background: var(--forest); color: white; }
 .avatar-small { height: 2rem; width: 2rem; flex-shrink: 0; font-size: .75rem; }
@@ -101,7 +104,11 @@ body {
 .pathway-later summary::-webkit-details-marker { display: none; }
 .pathway-later summary strong { display: block; margin-top: .25rem; font-size: 1.2rem; }
 .pathway-later summary .eyebrow { font-size: .62rem; }
-.summary-hint { color: var(--muted); font-size: .8rem; font-weight: 600; }
+.summary-hint { display: inline-flex; align-items: center; gap: .4rem; border-radius: 999px; background: var(--pale); padding: .35rem .8rem; color: var(--forest); font-size: .8rem; font-weight: 700; white-space: nowrap; }
+.pathway-later .summary-hint::before { content: "Show"; }
+.pathway-later[open] .summary-hint::before { content: "Hide"; }
+.pathway-later summary > span:first-child { font-weight: 700; color: var(--ink); }
+.pathway-later summary:hover .summary-hint { background: var(--lime); }
 .pathway-later[open] .summary-hint span { display: inline-block; transform: rotate(180deg); }
 .path-card-preview { background: rgba(251,253,249,.65); }
 .label { display: block; color: var(--muted); font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }

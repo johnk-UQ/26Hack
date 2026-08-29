@@ -10,7 +10,7 @@ export const SUPPORTED_ROLES = Object.freeze([
 
 const ROLE_SET = new Set(SUPPORTED_ROLES);
 const ACCENTS = ["#b7e17e", "#d0edaa", "#9ecb70", "#e1efcc", "#c4e396", "#aed17d"];
-const CLAIMS = /(?:licensed?|licen[cs]e|registered|certified|accredited|credential(?:s)?|company|rating|reviews?|guarantee|best|available now|objectively|regulated|approved)/i;
+const CLAIMS = /(?:licensed?|licen[cs]e|registered|certified|accredited|credential(?:s)?|company|rating|reviews|guarantee|best|available now|objectively)/i;
 
 export class AIContractError extends Error {
   constructor(message) { super(message); this.name = "AIContractError"; }
@@ -67,11 +67,14 @@ export function validateGenerateRequest(value) { return validate(value, checkGen
 
 const SUMMARY_KEYS = ["headline", "context"];
 const PATHWAY_KEYS = ["order", "professional", "reason", "timing", "completion"];
-const PROFILE_KEYS = ["name", "speciality", "specialities", "consultationMinutes", "priceAud", "availability", "locations", "rationale"];
+const PROFILE_KEYS = ["name", "presentation", "speciality", "specialities", "consultationMinutes", "priceAud", "availability", "locations", "rationale"];
+const FACE_COUNTS = { feminine: 7, masculine: 6 };
+const FACE_FOLDERS = { feminine: "female", masculine: "male" };
 function checkProfile(profile) {
   requireCondition(exactKeys(profile, PROFILE_KEYS), "malformed professional profile");
   requireCondition(text(profile.name, 2, 80) && /^[\p{L}][\p{L}'-]*(?:\s+[\p{L}][\p{L}'-]*)+$/u.test(profile.name.trim()), "invalid professional name");
   requireCondition(!profile.name.trim().split(/\s+/).some((part) => /^(?:pty|ltd|inc|llc|group|company|bank|wealth)$/i.test(part)), "company name is not allowed");
+  requireCondition(!Object.hasOwn(profile, "presentation") || profile.presentation === "feminine" || profile.presentation === "masculine", "invalid presentation");
   requireCondition(text(profile.speciality, 2, 160), "invalid speciality");
   requireCondition(Array.isArray(profile.specialities) && profile.specialities.length >= 1 && profile.specialities.length <= 5 && profile.specialities.every((item) => text(item, 1, 80)), "invalid specialities");
   requireCondition(Number.isInteger(profile.consultationMinutes) && profile.consultationMinutes >= 20 && profile.consultationMinutes <= 90, "invalid consultation duration");
@@ -105,15 +108,26 @@ function slug(name) {
   return name.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[']/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "professional";
 }
 function initials(name) { return name.trim().split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toUpperCase(); }
+function faceFor(profile, used) {
+  const key = Object.hasOwn(FACE_FOLDERS, profile.presentation) ? profile.presentation : null;
+  if (!key) return null;
+  const folder = FACE_FOLDERS[key]; const count = FACE_COUNTS[key];
+  let seed = 0; for (const character of profile.name) seed = (seed + character.codePointAt(0)) % count;
+  for (let step = 0; step < count; step += 1) {
+    const candidate = `/faces/${folder}/${folder}-${((seed + step) % count) + 1}.jpg`;
+    if (!used.has(candidate)) { used.add(candidate); return candidate; }
+  }
+  return `/faces/${folder}/${folder}-${seed + 1}.jpg`;
+}
 
 export function normalizeGeneratedJourney(value) {
   const checked = validateGenerateResult(value);
   if (!checked.ok) throw new AIContractError(checked.error);
-  const ids = new Map();
+  const ids = new Map(); const usedFaces = new Set();
   const matches = value.matches.map((profile, index) => {
     const baseId = slug(profile.name); const count = (ids.get(baseId) || 0) + 1; ids.set(baseId, count);
     const id = count === 1 ? baseId : `${baseId}-${count}`;
-    return { ...profile, id, initials: initials(profile.name), type: value.recommendedRole,
+    return { ...profile, id, initials: initials(profile.name), photo: faceFor(profile, usedFaces), type: value.recommendedRole,
       price: profile.priceAud, priceLabel: profile.priceAud === 0 ? "No initial fee" : `$${profile.priceAud} / ${profile.consultationMinutes} min`,
       locationLabel: profile.locations.join(" or "), availabilityRank: index + 1, accent: ACCENTS[index % ACCENTS.length] };
   });
