@@ -5,6 +5,10 @@ export const CONTEXT_ITEMS = [
   { id: "pathway", label: "Arc's pathway summary" },
 ];
 
+export function canCreateScriptedConsultation(professional) {
+  return professional?.type === "Financial adviser";
+}
+
 /** @param {{professional:{name:string,type:string},time:string,selectedContext?:string[],nextPathwayStep:string}} input */
 export function buildBookingConfirmation(input) {
   const selected = new Set(input.selectedContext || []);
@@ -16,4 +20,3 @@ export function buildBookingConfirmation(input) {
     nextPathwayStep: input.nextPathwayStep,
   };
 }
-

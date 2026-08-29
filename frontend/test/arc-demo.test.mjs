@@ -7,9 +7,10 @@ import {
   loadJourney,
   saveJourney,
   updateJourney,
+  responsesAreUsable,
 } from "../src/lib/journey-state.mjs";
 import { filterProfessionals } from "../src/lib/marketplace-filter.mjs";
-import { buildBookingConfirmation, CONTEXT_ITEMS } from "../src/lib/booking-context.mjs";
+import { buildBookingConfirmation, canCreateScriptedConsultation, CONTEXT_ITEMS } from "../src/lib/booking-context.mjs";
 import { getScrollBehavior } from "../src/lib/motion-policy.mjs";
 
 const professionals = [
@@ -74,6 +75,29 @@ test("saved response edits are rehydrated for every onboarding field", () => {
   assert.deepEqual(loadJourney(storage).intakeResponses, edited.intakeResponses);
 });
 
+test("blank response edits cannot replace a prior valid journey", () => {
+  const valid = createInitialJourney();
+  const blankResponses = ["", ...valid.intakeResponses.slice(1)];
+  assert.equal(responsesAreUsable(blankResponses), false);
+  const invalid = updateJourney(valid, { intakeResponses: blankResponses });
+  assert.deepEqual(invalid.intakeResponses, valid.intakeResponses);
+});
+
+test("storage getter and methods failing never break journey recovery", () => {
+  const throwingStorage = {
+    getItem() { throw new Error("read failed"); },
+    setItem() { throw new Error("write failed"); },
+  };
+  assert.equal(loadJourney(throwingStorage).demoPerson, "Alex");
+  assert.doesNotThrow(() => saveJourney(throwingStorage, createInitialJourney()));
+  const originalWindow = globalThis.window;
+  Object.defineProperty(globalThis, "window", { configurable: true, value: { get localStorage() { throw new Error("getter failed"); } } });
+  assert.equal(loadJourney().demoPerson, "Alex");
+  assert.doesNotThrow(() => saveJourney(null, createInitialJourney()));
+  if (originalWindow === undefined) delete globalThis.window;
+  else Object.defineProperty(globalThis, "window", { configurable: true, value: originalWindow });
+});
+
 test("marketplace filters by type, speciality, place, price, and earliest availability", () => {
   assert.deepEqual(
     filterProfessionals(professionals, {
@@ -109,4 +133,9 @@ test("booking confirmation contains only explicitly selected context items", () 
 test("reduced motion uses instant profile scrolling", () => {
   assert.equal(getScrollBehavior(true), "auto");
   assert.equal(getScrollBehavior(false), "smooth");
+});
+
+test("only financial advisers can create the scripted consultation", () => {
+  assert.equal(canCreateScriptedConsultation({ type: "Financial adviser" }), true);
+  assert.equal(canCreateScriptedConsultation({ type: "Mortgage broker" }), false);
 });
