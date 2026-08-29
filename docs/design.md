@@ -28,7 +28,21 @@ states.
 | Lime | `#c8ec89` | Primary actions and active progress |
 | Hairline | `deep green / 14%` | Dividers and card boundaries |
 
-Keep the current serif display treatment—Georgia with Times New Roman fallback—for major editorial headings. Use the existing sans-serif stack for interface copy. Avoid gradients and ornamental finance imagery.
+## Typography
+
+Two families, bundled locally through Fontsource so no request leaves the deployment.
+
+| Role | Family | Token | Weights | Used for |
+| --- | --- | --- | --- | --- |
+| Editorial | Newsreader Variable | `--font-serif` | 500 headings, 600–700 wordmark | `.display-title`, `.section-title`, `font-serif` headings, the `arc` wordmark, confirmation headings |
+| Interface | Inter Variable | `--font-sans` | 400 body, 600–800 labels and buttons | Body copy, navigation, forms, cards, eyebrows, metadata |
+
+- Fallbacks: `--font-serif` falls back to Georgia then Times New Roman; `--font-sans` falls back to system UI sans. Both are declared in `@theme` in `frontend/src/styles/global.css`, so Tailwind's `font-serif` and `font-sans` utilities resolve to the same stacks.
+- Loading: `frontend/src/layouts/Layout.astro` imports `@fontsource-variable/inter/wght.css` and `@fontsource-variable/newsreader/wght.css`. Fonts are emitted into the build output and served from the site. Do not add Google Fonts `<link>` tags.
+- Sizing: headings keep the existing `clamp()` scale. Body copy stays at or above 16px, supporting copy at or above 14px, and uppercase labels at or above 11px with `0.12em` tracking.
+- Newsreader is set at weight 500 with `font-optical-sizing: auto` for projector legibility; do not drop editorial headings below 500. Reserve italics for genuine emphasis.
+- Body text uses `font-synthesis-weight: none` so no faux-bold appears if a font fails to load.
+- Avoid gradients, ornamental finance imagery, and any third family.
 
 ## Interface patterns
 

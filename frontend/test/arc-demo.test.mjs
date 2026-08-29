@@ -193,3 +193,21 @@ test("product blueprint labels pre-MVP controls and pages as historical review",
   assert.match(blueprint, /At the time of the initial review/);
   assert.doesNotMatch(blueprint, /The current onboarding controls are static\./);
 });
+
+test("typography loads bundled Newsreader and Inter families for headings and interface copy", () => {
+  const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+  const layout = readFileSync(resolve(root, "src/layouts/Layout.astro"), "utf8");
+  const css = readFileSync(resolve(root, "src/styles/global.css"), "utf8");
+  const pkg = JSON.parse(readFileSync(resolve(root, "package.json"), "utf8"));
+
+  assert.ok(pkg.dependencies["@fontsource-variable/inter"], "Inter Variable must be a bundled dependency");
+  assert.ok(pkg.dependencies["@fontsource-variable/newsreader"], "Newsreader Variable must be a bundled dependency");
+  assert.match(layout, /import "@fontsource-variable\/inter/);
+  assert.match(layout, /import "@fontsource-variable\/newsreader/);
+
+  assert.match(css, /--font-sans:\s*"Inter Variable"[^;]*system-ui/);
+  assert.match(css, /--font-serif:\s*"Newsreader Variable"[^;]*Georgia[^;]*"Times New Roman"/);
+  assert.match(css, /body\s*\{[^}]*font-family:\s*var\(--font-sans\)/s);
+  assert.match(css, /\.display-title\s*\{[^}]*font-family:\s*var\(--font-serif\)/s);
+  assert.match(css, /\.section-title\s*\{[^}]*font-family:\s*var\(--font-serif\)/s);
+});

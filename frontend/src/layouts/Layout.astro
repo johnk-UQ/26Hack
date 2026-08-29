@@ -1,4 +1,6 @@
 ---
+import "@fontsource-variable/inter/wght.css";
+import "@fontsource-variable/newsreader/wght.css";
 import "../styles/global.css";
 
 const { title = "Arc" } = Astro.props;
@@ -12,7 +14,7 @@ const { title = "Arc" } = Astro.props;
     <title>{title}</title>
   </head>
 
-  <body class="bg-white text-gray-900">
+  <body>
     <slot />
   </body>
 </html>
