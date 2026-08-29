@@ -3,7 +3,7 @@ import "@fontsource-variable/inter/wght.css";
 import "@fontsource-variable/newsreader/wght.css";
 import "../styles/global.css";
 
-const { title = "Arc" } = Astro.props;
+const { title = "Switchpath" } = Astro.props;
 ---
 
 <!doctype html>
@@ -12,6 +12,16 @@ const { title = "Arc" } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <title>{title}</title>
+    <meta name="description" content="Switchpath is the AI front door to financial professional services — tell us what's happening in your life, and we'll help you find the right people to call, in the right order." />
+    <link rel="icon" type="image/png" href="/brand/switchpath-mark.png" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content="Tell us what's happening. Switchpath finds the financial professionals you need and the order to call them." />
+    <meta property="og:image" content="/brand/switchpath-lockup.png" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content="Tell us what's happening. Switchpath finds the financial professionals you need and the order to call them." />
+    <meta name="twitter:image" content="/brand/switchpath-lockup.png" />
   </head>
 
   <body>

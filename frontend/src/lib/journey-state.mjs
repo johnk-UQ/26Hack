@@ -2,7 +2,7 @@ import { INTAKE_RESPONSES } from "../data/demo-content.mjs";
 
 /** @typedef {{version:number, demoPerson:string, currentStep:string, intakeResponses:string[], booking: object|null}} JourneyState */
 
-export const STORAGE_KEY = "arc.demoJourney.v1";
+export const STORAGE_KEY = "switchpath.demoJourney.v1";
 
 export function responsesAreUsable(responses) {
   return Array.isArray(responses) && responses.length === INTAKE_RESPONSES.length

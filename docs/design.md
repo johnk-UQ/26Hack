@@ -1,4 +1,4 @@
-# Arc visual design direction
+# Switchpath visual design direction
 
 This document governs the demo’s visual implementation. Product behaviour and copy live in [product-blueprint.md](product-blueprint.md).
 
@@ -46,8 +46,8 @@ Two families, bundled locally through Fontsource so no request leaves the deploy
 
 ## Interface patterns
 
-- **Header:** compact Arc wordmark, current journey status, and a quiet **Restart demo** action.
-- **Conversation:** Arc messages use a soft raised bubble and small lime avatar; Alex’s responses use a dark bubble. Keep line length below roughly 65 characters on desktop.
+- **Header:** compact Switchpath wordmark, current journey status, and a quiet **Restart demo** action.
+- **Conversation:** Switchpath messages use a soft raised bubble and small lime avatar; Alex’s responses use a dark bubble. Keep line length below roughly 65 characters on desktop.
 - **Pathway step:** numbered vertical sequence with status, professional type, reason, timing, and one action. Active lime, future neutral, completed dark with a check.
 - **Match card:** name and speciality first; price and earliest time on one scan line; match rationale in a distinct tinted block. Use **Fictional demo profile** as quiet metadata.
 - **Filter chip:** outlined at rest, dark when selected. Every selected state must be communicated beyond colour.
@@ -57,7 +57,7 @@ Two families, bundled locally through Fontsource so no request leaves the deploy
 
 ## Page composition
 
-- **Landing:** consumer promise above the fold, a concrete example prompt, one primary action, then a short “how Arc helps” sequence and example life events.
+- **Landing:** consumer promise above the fold, a concrete example prompt, one primary action, then a short “how Switchpath helps” sequence and example life events.
 - **Onboarding:** conversation occupies about two-thirds of desktop width; a sticky summary/progress panel occupies one-third. Stack conversation before summary on mobile.
 - **Pathway:** lead with “Here’s who can help, and in what order.” Keep the ordered path dominant; supporting summary remains secondary.
 - **Marketplace:** tabs and filters precede results. Use a roomy card list or three-column adviser grid at wide widths; profile detail may be a dedicated panel or modal.

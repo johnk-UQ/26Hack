@@ -2,7 +2,7 @@ export const CONTEXT_ITEMS = [
   { id: "goals", label: "Goals and timeframe" },
   { id: "money", label: "Income, savings, and HECS debt" },
   { id: "housing", label: "Housing and dependant status" },
-  { id: "pathway", label: "Arc's pathway summary" },
+  { id: "pathway", label: "Switchpath's pathway summary" },
 ];
 
 export function canCreateScriptedConsultation(professional) {

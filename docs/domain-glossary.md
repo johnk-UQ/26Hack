@@ -1,4 +1,4 @@
-# Arc domain glossary
+# Switchpath domain glossary
 
 Use these terms consistently in product copy, code, and discussion.
 
@@ -17,5 +17,5 @@ Use these terms consistently in product copy, code, and discussion.
 | **Browse all** | The general marketplace view, filterable without a generated pathway. |
 | **Booking request** | The demo action that records a chosen professional, time, and approved context. It is not a real appointment or payment. |
 | **Navigation guidance** | Arc’s explanation of professional roles, sequence, and questions to resolve. |
-| **Regulated advice** | Personal financial, credit, tax, or legal advice that Arc does not provide; the relevant qualified professional provides it. |
+| **Regulated advice** | Personal financial, credit, tax, or legal advice that Switchpath does not provide; the relevant qualified professional provides it. |
 | **Demo state** | Versioned local browser data used to keep the scripted journey consistent and resettable. |
