@@ -233,6 +233,11 @@ test("pathway and marketplace expose generated rendering and generic booking hoo
   assert.match(marketplace, /generatedMatches/);
   assert.match(marketplace, /normalizeGeneratedJourney/);
   assert.match(marketplace, /generated.slice\(0, 3\)/);
+  assert.match(marketplace, /peopleList = PROFESSIONALS/);
+  assert.match(marketplace, /currentStep: nextStep/);
+  assert.match(marketplace, /escapeHtml/);
+  assert.match(pathway, /pathway-later/);
+  assert.match(pathway, /details/);
   assert.match(marketplace, /Browse all/);
   assert.match(marketplace, /canBook/);
 });

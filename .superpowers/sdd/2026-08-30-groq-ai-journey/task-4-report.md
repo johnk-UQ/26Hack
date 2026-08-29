@@ -21,3 +21,11 @@ Complete. The task commit hash is included in the handoff alongside this report.
 
 - Full browser automation was unavailable in this environment, so the smoke evidence is local route serving rather than click-level browser automation.
 - Existing catalogue records retain their pre-existing content and remain available under Browse all; generated records are intentionally client-rendered after static load.
+
+## Review round 1 fixes
+
+- Browse mode now uses the full six-profile catalogue plus generated records, while matches mode remains capped at three generated cards; profile lookup covers both sets.
+- Generated later pathway roles are moved into the existing collapsed details pattern; fallback remains static and collapsed.
+- Booking persists a generated next-role slug or `complete`, rather than a fixed role.
+- Generated strings are HTML-escaped before the page-level templates consume them; visible tab copy is `Your top matches`.
+- Verification rerun: `npm test` PASS (36/36); `npm run build` PASS (4 static routes); local route smoke remained HTTP 200 for `/pathway` and `/marketplace`.
