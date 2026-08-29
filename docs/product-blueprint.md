@@ -6,7 +6,7 @@ Arc is an AI-guided front door to financial professional services. The user desc
 
 This document is the product source of truth for the pitch demo. See [design.md](design.md) for visual rules and [domain-glossary.md](domain-glossary.md) for shared terms.
 
-## Current-site review
+## Current-site review (historical baseline)
 
 The existing Astro site is visually polished but demonstrates a private-markets investing product rather than this service-navigation concept.
 
@@ -18,7 +18,7 @@ The existing Astro site is visually polished but demonstrates a private-markets 
 | Advice disclaimer | Clearer navigation-versus-advice boundary |
 | — | `/pathway` and working `/marketplace` experiences |
 
-The current onboarding controls are static. Links to `/marketplace` and `/fund` have no corresponding pages, and the main MVP pathway, professional matches, rationale, and booking interaction do not yet exist.
+At the time of the initial review, the onboarding controls were static. Links to `/marketplace` and `/fund` had no corresponding pages, and the main MVP pathway, professional matches, rationale, and booking interaction did not yet exist. Those observations describe the pre-MVP baseline; the current implementation provides the working routes and scripted journey described below.
 
 ## Demo user and moment
 

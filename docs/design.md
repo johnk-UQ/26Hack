@@ -9,19 +9,24 @@ This document governs the demo’s visual implementation. Product behaviour and 
 3. **Editorial, not institutional.** Retain Arc’s confident typography and generous space while replacing private-market imagery and jargon.
 4. **Stage legibility.** Important headings, progress, prices, and calls to action must read clearly when projected from a laptop.
 
-## Existing visual system to retain
+## Adopted deep-green / pale-green visual system
+
+The demo uses the newer deep-green and pale-green direction for a calmer, more
+distinctive marketplace. The green is paired with near-white surfaces and
+black-green text for contrast; lime is reserved for primary actions and active
+states.
 
 | Role | Value | Use |
 | --- | --- | --- |
-| Canvas | `#f4f1ea` | Main page background |
-| Soft surface | `#ebe7df` | Alternating sections and grouped content |
-| Raised surface | `#fafafa` | Cards, inputs, and conversation bubbles |
-| Ink | `#171717` | Primary text and dark panels |
-| Secondary ink | `#69665f` | Supporting copy |
-| Quiet ink | `#77746d` | Labels and metadata |
-| Accent | `#d8ff75` | Primary actions, active progress, small highlights |
-| Dark surface | `#262626` | Summary and confirmation panels |
-| Hairline | `black / 10%` | Dividers and card boundaries |
+| Canvas | `#f3f7ee` | Main page background |
+| Pale green | `#e1efcf` | Grouped content, rationale blocks, active context |
+| Raised surface | `#fbfdf9` | Cards, inputs, and conversation bubbles |
+| Deep green | `#123b2a` | Header accents, summary, and confirmation panels |
+| Ink | `#12231b` | Primary text |
+| Secondary ink | `#53665c` | Supporting copy |
+| Quiet ink | `#738178` | Labels and metadata |
+| Lime | `#c8ec89` | Primary actions and active progress |
+| Hairline | `deep green / 14%` | Dividers and card boundaries |
 
 Keep the current serif display treatment—Georgia with Times New Roman fallback—for major editorial headings. Use the existing sans-serif stack for interface copy. Avoid gradients and ornamental finance imagery.
 

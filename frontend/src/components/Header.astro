@@ -1,0 +1,21 @@
+<header class="border-b border-[var(--line)] bg-[var(--canvas)]">
+  <nav class="mx-auto flex max-w-[1280px] items-center justify-between gap-6 px-6 py-5 lg:px-10" aria-label="Main navigation">
+    <a href="/" class="font-serif text-2xl font-bold tracking-[-0.05em] focus-ring">arc</a>
+    <div class="hidden items-center gap-7 text-sm text-[var(--muted)] md:flex">
+      <a href="/#how-it-works" class="nav-link focus-ring">How Arc helps</a>
+      <a href="/#scenarios" class="nav-link focus-ring">Life events</a>
+      <a href="/marketplace" class="nav-link focus-ring">Professionals</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <button id="restart-demo" type="button" class="text-xs text-[var(--muted)] underline-offset-4 hover:underline sm:text-sm focus-ring">Restart demo</button>
+      <a href="/onboarding" class="button-primary focus-ring">Tell Arc what’s happening <span aria-hidden="true">↗</span></a>
+    </div>
+  </nav>
+</header>
+<script>
+  const restart = document.querySelector("#restart-demo");
+  restart?.addEventListener("click", () => {
+    try { window.localStorage.removeItem("arc.demoJourney.v1"); } catch { /* storage may be unavailable */ }
+    window.location.href = "/onboarding";
+  });
+</script>
