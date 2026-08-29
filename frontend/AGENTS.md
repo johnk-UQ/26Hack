@@ -10,6 +10,8 @@ Manage the background server with `astro dev stop`, `astro dev status`, and `ast
 
 ## Documentation
 
+For the Arc financial-professional-services demo, read `../docs/product-blueprint.md` before implementation. For UI changes, also apply `../docs/design.md`; shared product terms live in `../docs/domain-glossary.md`.
+
 Full documentation: https://docs.astro.build
 
 Consult these guides before working on related tasks:
