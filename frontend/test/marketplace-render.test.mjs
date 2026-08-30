@@ -12,7 +12,7 @@ test("the marketplace route renders the imported professional directory in the S
 
   const html = readFileSync(resolve(root, "dist/marketplace/index.html"), "utf8");
   assert.match(html, /aria-label="Your Switchpath journey"/);
-  assert.match(html, /data-state="active" aria-current="step">\s*Your matches/);
+  assert.match(html, /data-state="active" aria-current="step">\s*<span class="journey-progress-label-short">Matches<\/span><span class="journey-progress-label-full">Your matches<\/span>/);
   assert.match(html, /Olivia Bennett/);
   assert.match(html, /id="professional-results"/);
   assert.match(html, /id="profile-dialog"[^>]*aria-labelledby="dialog-title"/);
