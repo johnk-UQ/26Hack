@@ -87,16 +87,23 @@ body {
 .event-link small { color: var(--muted); font-size: .8rem; }
 .event-link b { position: absolute; right: 1.2rem; top: 1.1rem; font-size: 1.2rem; font-weight: 400; }
 .page-shell { min-height: 100vh; background: var(--canvas); }
+.journey-progress { display: grid; width: min(100%, 48rem); grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: hidden; margin-inline: auto; border: 1px solid var(--line); border-radius: 999px; background: rgba(251,253,249,.75); }
+.journey-progress-pill { display: flex; min-height: 2.65rem; align-items: center; justify-content: center; padding: .65rem 1rem; color: var(--muted); font-size: .8rem; font-weight: 700; text-align: center; }
+.journey-progress-pill + .journey-progress-pill { border-left: 1px solid var(--line); }
+.journey-progress-pill[data-state="active"] { background: var(--lime); color: var(--ink); }
+.journey-progress-pill[data-state="complete"] { background: var(--forest); color: white; }
+.onboarding-title { font-family: var(--font-serif); font-weight: 400; font-size: clamp(2.2rem, 3.2vw, 3.3rem); line-height: 1; letter-spacing: -.025em; }
 .panel { border: 1px solid var(--line); border-radius: 1.5rem; background: var(--raised); }
 .panel-dark { background: var(--forest); color: white; }
 .conversation-shell { min-width: 0; }
 .conversation-viewport { height: clamp(28rem, 62vh, 44rem); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgba(18,59,42,.2) transparent; }
+.onboarding-layout .conversation-viewport { height: clamp(28rem, 62vh, 42rem); }
 .conversation-viewport::-webkit-scrollbar { width: .35rem; }
 .conversation-viewport::-webkit-scrollbar-thumb { border-radius: 999px; background: rgba(18,59,42,.2); }
 .conversation-shell > :first-child { border-bottom: 1px solid var(--line); padding: 1.25rem 0; }
-.conversation-shell #conversation { padding: 2rem 0; }
+.conversation-shell #conversation { padding: 1rem 0; }
 .conversation-turn { display: flex; align-items: flex-start; gap: .75rem; }
-.conversation-turn-alex { margin-top: 1.25rem; margin-left: 2rem; }
+.conversation-turn-alex { margin-top: .8rem; margin-left: 2rem; }
 .conversation-turn-alex .field { border-radius: 1rem .2rem 1rem 1rem; background: var(--forest); color: white; border-color: var(--forest); }
 .conversation-turn-alex .field::placeholder { color: rgba(255,255,255,.65); }
 .conversation-turn-alex .label { color: var(--quiet); }
@@ -135,6 +142,8 @@ body {
 .send-control { display: inline-flex; min-height: 3.5rem; min-width: 3.5rem; align-items: center; justify-content: center; border: 1px solid var(--lime); border-radius: 999px; background: var(--lime); color: var(--ink); font-size: 1.55rem; font-weight: 800; line-height: 1; transition: transform 180ms ease, background 180ms ease; }
 .send-control:hover { transform: translateX(2px); }
 .send-control:disabled { cursor: wait; opacity: .55; }
+.onboarding-layout .response-controls { min-height: 3rem; }
+.onboarding-layout .send-control { min-height: 3rem; min-width: 3rem; font-size: 1.35rem; }
 .recommendation-panel { animation: reveal-up 220ms ease-out both; }
 .onboarding-layout.is-recommendation { display: block; max-width: 52rem; }
 .onboarding-layout.is-recommendation .conversation-shell { max-width: 52rem; }
@@ -145,6 +154,7 @@ body {
 .analysis-panel li { color: var(--quiet); font-size: 1rem; opacity: .45; transition: opacity 200ms ease, color 200ms ease; }
 .analysis-panel li.is-complete { color: var(--forest); opacity: 1; }
 .analysis-panel li.is-complete::before { content: "✓"; display: inline-block; margin-right: .6rem; color: #70a052; font-weight: 800; }
+.message-text.is-streaming::after { content: ""; display: inline-block; width: .42rem; height: 1em; margin-left: .18rem; vertical-align: -.1em; background: currentColor; opacity: .55; animation: stream-caret 620ms steps(1) infinite; }
 
 @media (max-width: 640px) {
   .conversation-viewport { height: min(34rem, 62vh); }
@@ -153,6 +163,7 @@ body {
   .hero-recommendation { margin-left: 0; }
 }
 @keyframes reveal-up { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes stream-caret { 50% { opacity: 0; } }
 
 /* The landing story reveals once, then rests in its useful final state. */
 .hero-sequence-question,

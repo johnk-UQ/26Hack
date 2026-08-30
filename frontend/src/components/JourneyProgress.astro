@@ -1,0 +1,21 @@
+---
+const { current } = Astro.props;
+const steps = [
+  { id: "profile", label: "Your profile" },
+  { id: "pathway", label: "Your pathway" },
+  { id: "matches", label: "Your matches" },
+];
+const currentIndex = steps.findIndex((step) => step.id === current);
+---
+
+<nav class="journey-progress" aria-label="Your Switchpath journey">
+  {steps.map((step, index) => (
+    <span
+      class="journey-progress-pill"
+      data-state={index < currentIndex ? "complete" : index === currentIndex ? "active" : "upcoming"}
+      aria-current={index === currentIndex ? "step" : undefined}
+    >
+      {step.label}
+    </span>
+  ))}
+</nav>

@@ -9,6 +9,7 @@
     "dev": "npm run dev:web",
     "dev:web": "astro dev",
     "dev:api": "node server/index.mjs",
+    "dev:demo": "node scripts/dev-demo.mjs",
     "dev:ai": "node scripts/dev-ai.mjs",
     "build": "astro build",
     "test": "node --test test/*.test.mjs",

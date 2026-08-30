@@ -144,20 +144,13 @@ test("only financial advisers can create the scripted consultation", () => {
   assert.equal(canCreateScriptedConsultation({ type: "Mortgage broker" }), false);
 });
 
-test("marketplace controller with imports uses a normal Astro module script", () => {
-  const source = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../src/pages/marketplace.astro"), "utf8");
-  assert.doesNotMatch(source, /<script\s+define:vars=/);
-  assert.match(source, /<script>\s+import\s+\{\s*buildBookingConfirmation/);
-});
-
-test("dark explainer and profile panels use the dedicated dark panel variant", () => {
+test("onboarding stays compact while shared dark panels retain the forest theme", () => {
   const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
   const css = readFileSync(resolve(root, "src/styles/global.css"), "utf8");
   const onboarding = readFileSync(resolve(root, "src/pages/onboarding.astro"), "utf8");
-  const marketplace = readFileSync(resolve(root, "src/pages/marketplace.astro"), "utf8");
   assert.match(css, /\.panel-dark\s*\{[^}]*background:\s*var\(--forest\)/s);
-  assert.match(onboarding, /class="panel panel-dark [^"]*text-white/);
-  assert.match(marketplace, /class="panel panel-dark [^"]*text-white/);
+  assert.doesNotMatch(onboarding, /class="panel panel-dark [^"]*text-white/);
+  assert.match(onboarding, /class="conversation-shell"/);
 });
 
 test("projector hero reserves desktop clearance for both CTA buttons", () => {
@@ -189,9 +182,23 @@ test("onboarding uses the two-turn AI journey and direct pathway navigation", ()
   const source = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../src/pages/onboarding.astro"), "utf8");
   assert.match(source, /createAiJourneyClient/);
   assert.match(source, /status === "needs_clarification"/);
-  assert.match(source, /lastAnswers/);
+  assert.match(source, /pendingAnswers/);
   assert.match(source, /location\.assign\(['\"]\/pathway['\"]\)/);
   assert.match(source, /saveJourney\(null, next\)/);
+});
+
+test("journey mode defaults to AI while demo mode is explicitly selectable", () => {
+  const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+  const source = readFileSync(resolve(root, "src/pages/onboarding.astro"), "utf8");
+  const devAi = readFileSync(resolve(root, "scripts/dev-ai.mjs"), "utf8");
+  const pkg = JSON.parse(readFileSync(resolve(root, "package.json"), "utf8"));
+  assert.match(source, /PUBLIC_JOURNEY_MODE/);
+  assert.match(source, /createAiJourneyClient/);
+  assert.match(source, /createExampleJourney/);
+  assert.match(source, /mode === "demo"/);
+  assert.equal(pkg.scripts["dev:demo"], "node scripts/dev-demo.mjs");
+  assert.match(pkg.scripts["dev:ai"], /scripts\/dev-ai\.mjs/);
+  assert.match(devAi, /PUBLIC_JOURNEY_MODE:\s*"ai"/);
 });
 
 test("journey state migrates the opening answer from a v1 five-response snapshot and drops unknown fields", () => {
@@ -228,10 +235,11 @@ test("onboarding keeps the conversation viewport until direct pathway navigation
   assert.match(source, /location\.assign\(['\"]\/pathway['\"]\)/);
 });
 
-test("restart clears both journey storage versions", () => {
+test("header keeps only the streamlined onboarding action", () => {
   const source = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../src/components/Header.astro"), "utf8");
-  assert.match(source, /removeItem\("switchpath\.demoJourney\.v1"\)/);
-  assert.match(source, /removeItem\("switchpath\.demoJourney\.v2"\)/);
+  assert.match(source, /Tell Switchpath what’s happening/);
+  assert.doesNotMatch(source, /Start over/);
+  assert.doesNotMatch(source, /Get started/);
 });
 
 test("pathway cards and next action derive from the persisted generated pathway", () => {
@@ -242,25 +250,16 @@ test("pathway cards and next action derive from the persisted generated pathway"
   assert.match(source, /See \$\{step\.professional\} matches/);
 });
 
-test("pathway and marketplace expose generated rendering and generic booking hooks", () => {
+test("pathway exposes generated rendering and persisted next-step hooks", () => {
   const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
   const pathway = readFileSync(resolve(root, "src/pages/pathway.astro"), "utf8");
-  const marketplace = readFileSync(resolve(root, "src/pages/marketplace.astro"), "utf8");
   assert.match(pathway, /generatedPathway/);
   assert.match(pathway, /generatedSummary/);
-  assert.match(marketplace, /generatedMatches/);
-  assert.match(marketplace, /normalizeGeneratedJourney/);
-  assert.match(marketplace, /generated.slice\(0, 3\)/);
-  assert.match(marketplace, /peopleList = PROFESSIONALS/);
-  assert.match(marketplace, /currentStep: nextStep/);
-  assert.match(marketplace, /escapeHtml/);
   assert.match(pathway, /pathway-later/);
   assert.match(pathway, /details/);
   assert.match(pathway, /fallback-later/);
   assert.match(pathway, /class="summary-hint"/);
   assert.match(pathway, /What may come later/);
-  assert.match(marketplace, /Browse all/);
-  assert.match(marketplace, /canBook/);
 });
 
 test("static fallback cards use shared progress metadata and persisted completion", () => {
@@ -270,14 +269,6 @@ test("static fallback cards use shared progress metadata and persisted completio
   assert.match(pathway, /<li data-pathway-step=\{step\.id\} data-order=\{step\.order\} class="path-card path-card-preview">/);
   assert.match(pathway, /if \(steps\) document\.querySelector\("#fallback-later"\)\.hidden = true;/);
   assert.doesNotMatch(pathway, /if \(!steps\) document\.querySelector\("#pathway-summary"\)\.textContent = "0 complete · 1 active · 3 previews"/);
-});
-
-test("marketplace profile focus and booking disabled state have accessible treatments", () => {
-  const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-  const marketplace = readFileSync(resolve(root, "src/pages/marketplace.astro"), "utf8");
-  const css = readFileSync(resolve(root, "src/styles/global.css"), "utf8");
-  assert.match(marketplace, /id="profile-title"[^>]*class="[^"]*focus-ring/);
-  assert.match(css, /\.button-primary:disabled\s*\{[^}]*opacity:/s);
 });
 
 test("product blueprint labels pre-MVP controls and pages as historical review", () => {
