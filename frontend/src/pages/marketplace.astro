@@ -1,80 +1,584 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
-import { PROFESSIONALS } from "../data/professionals.mjs";
-import { CONTEXT_ITEMS } from "../lib/booking-context.mjs";
+import JourneyProgress from "../components/JourneyProgress.astro";
+
+const professionals = [
+  {
+    id: "sarah-chen",
+    initials: "SC",
+    headshot: "/headshots/sarah-chen.webp",
+    name: "Sarah Chen",
+    profession: "Accountant",
+    professionKey: "accountant",
+    qualification: "CPA · Registered Tax Agent",
+    speciality: "Personal tax and annual returns",
+    specialties: ["Personal tax returns", "Tax compliance", "Deductions"],
+    location: "Online",
+    deliveryKeys: ["online"],
+    price: 79,
+    priceLabel: "$79",
+    duration: "30 min",
+    availabilityDays: 0,
+    nextTime: "Today, 5:30 pm",
+    times: ["Today, 5:30 pm", "Tomorrow, 10:00 am", "Tomorrow, 4:30 pm"],
+    tone: "#d8ff75",
+    rationale: "May suit you if you want help preparing an annual return, identifying eligible deductions and understanding your tax position clearly.",
+    approach: "Sarah reviews income, expenses and supporting records, then prepares a clear checklist of missing information before lodging a return.",
+  },
+  {
+    id: "daniel-morris",
+    initials: "DM",
+    headshot: "/headshots/daniel-morris.webp",
+    name: "Daniel Morris",
+    profession: "Accountant",
+    professionKey: "accountant",
+    qualification: "CA · Registered Tax Agent",
+    speciality: "Small-business accounting and tax",
+    specialties: ["Business tax", "Entity setup", "Cash-flow reports"],
+    location: "Brisbane + online",
+    deliveryKeys: ["face-to-face", "online"],
+    price: 179,
+    priceLabel: "$179",
+    duration: "60 min",
+    availabilityDays: 1,
+    nextTime: "Tomorrow, 10:00 am",
+    times: ["Tomorrow, 10:00 am", "Tomorrow, 2:30 pm", "Thursday, 9:00 am"],
+    tone: "#ebe7df",
+    rationale: "May suit business owners who need help choosing a structure, staying compliant and understanding how the business is performing.",
+    approach: "Daniel brings bookkeeping, tax obligations and management reporting into one practical plan with clear dates and responsibilities.",
+  },
+  {
+    id: "maya-chen",
+    initials: "MC",
+    headshot: "/headshots/maya-chen.webp",
+    name: "Maya Chen",
+    profession: "Financial adviser",
+    professionKey: "financial-adviser",
+    qualification: "Financial Adviser · AR 001234567",
+    speciality: "Goals-based wealth planning",
+    specialties: ["First-time investors", "Cash-flow planning", "Property readiness"],
+    location: "Online",
+    deliveryKeys: ["online"],
+    price: 220,
+    priceLabel: "$220",
+    duration: "60 min",
+    availabilityDays: 1,
+    nextTime: "Tomorrow, 11:30 am",
+    times: ["Tomorrow, 11:30 am", "Wednesday, 2:00 pm", "Friday, 9:00 am"],
+    tone: "#ebe7df",
+    rationale: "May suit early-career clients who want to clarify goals, cash buffers and investment priorities before choosing financial products.",
+    approach: "Maya starts with goals, current commitments and trade-offs, then maps the decisions that should be resolved before discussing strategies or products.",
+  },
+  {
+    id: "daniel-okafor",
+    initials: "DO",
+    headshot: "/headshots/daniel-okafor.webp",
+    name: "Daniel Okafor",
+    profession: "Financial adviser",
+    professionKey: "financial-adviser",
+    qualification: "Financial Adviser · AR 009876543",
+    speciality: "Investment foundations and cash flow",
+    specialties: ["Investment foundations", "Young professionals", "Risk conversations"],
+    location: "Brisbane + online",
+    deliveryKeys: ["face-to-face", "online"],
+    price: 195,
+    priceLabel: "$195",
+    duration: "50 min",
+    availabilityDays: 3,
+    nextTime: "Thursday, 4:00 pm",
+    times: ["Thursday, 4:00 pm", "Friday, 11:30 am", "Monday, 5:00 pm"],
+    tone: "#ebe7df",
+    rationale: "May suit people who want to organise savings, debt and investing into a practical sequence before making long-term commitments.",
+    approach: "Daniel helps clients define the purpose of their money, understand risk and turn competing priorities into a staged financial plan.",
+  },
+  {
+    id: "priya-kapoor",
+    initials: "PK",
+    headshot: "/headshots/priya-kapoor.webp",
+    name: "Priya Kapoor",
+    profession: "Lawyer",
+    professionKey: "lawyer",
+    qualification: "Solicitor · Queensland",
+    speciality: "Property and contract law",
+    specialties: ["Contract review", "Property transactions", "First purchases"],
+    location: "Brisbane + online",
+    deliveryKeys: ["face-to-face", "online"],
+    price: 240,
+    priceLabel: "$240",
+    duration: "60 min",
+    availabilityDays: 2,
+    nextTime: "Wednesday, 9:30 am",
+    times: ["Wednesday, 9:30 am", "Thursday, 1:00 pm", "Friday, 10:00 am"],
+    tone: "#ebe7df",
+    rationale: "May suit buyers who want a contract explained in plain language and key obligations identified before signing a property agreement.",
+    approach: "Priya reviews the contract, searches and deadlines, then explains the practical decisions and risks that need attention before settlement.",
+  },
+  {
+    id: "olivia-bennett",
+    initials: "OB",
+    headshot: "/headshots/olivia-bennett.webp",
+    name: "Olivia Bennett",
+    profession: "Lawyer",
+    professionKey: "lawyer",
+    qualification: "Principal Lawyer · Queensland",
+    speciality: "Wills and estate planning",
+    specialties: ["Wills", "Estate planning", "Powers of attorney"],
+    location: "Online",
+    deliveryKeys: ["online"],
+    price: 280,
+    priceLabel: "$280",
+    duration: "60 min",
+    availabilityDays: 4,
+    nextTime: "Friday, 1:30 pm",
+    times: ["Friday, 1:30 pm", "Monday, 10:00 am", "Tuesday, 3:30 pm"],
+    tone: "#ebe7df",
+    rationale: "May suit people who want to document their wishes, appoint decision-makers and understand how their estate plan fits together.",
+    approach: "Olivia begins with family circumstances and intended outcomes, then identifies the documents and decisions needed for a coherent estate plan.",
+  },
+  {
+    id: "olivia-brooks",
+    initials: "OB",
+    headshot: "/headshots/olivia-brooks.webp",
+    name: "Olivia Brooks",
+    profession: "Mortgage broker",
+    professionKey: "mortgage-broker",
+    qualification: "Mortgage Broker · Credit Representative 445120",
+    speciality: "First-home and investment lending",
+    specialties: ["Borrowing capacity", "Loan comparison", "Pre-approval"],
+    location: "Brisbane + online",
+    deliveryKeys: ["face-to-face", "online"],
+    price: 0,
+    priceLabel: "No initial fee",
+    duration: "30 min",
+    availabilityDays: 0,
+    nextTime: "Today, 4:30 pm",
+    times: ["Today, 4:30 pm", "Tomorrow, 9:00 am", "Tomorrow, 3:00 pm"],
+    tone: "#d8ff75",
+    rationale: "May suit buyers who want to test a realistic borrowing range and understand the information lenders will ask them to provide.",
+    approach: "Olivia reviews income, commitments and deposit position, then explains borrowing capacity, lender requirements and available next steps.",
+  },
+  {
+    id: "lucas-martin",
+    initials: "LM",
+    headshot: "/headshots/lucas-martin.webp",
+    name: "Lucas Martin",
+    profession: "Mortgage broker",
+    professionKey: "mortgage-broker",
+    qualification: "Mortgage Broker · Credit Representative 517904",
+    speciality: "Refinancing and self-employed borrowers",
+    specialties: ["Refinancing", "Self-employed", "Loan structures"],
+    location: "Online",
+    deliveryKeys: ["online"],
+    price: 0,
+    priceLabel: "No initial fee",
+    duration: "45 min",
+    availabilityDays: 3,
+    nextTime: "Thursday, 12:00 pm",
+    times: ["Thursday, 12:00 pm", "Friday, 2:30 pm", "Monday, 9:30 am"],
+    tone: "#ebe7df",
+    rationale: "May suit borrowers with variable or business income who want their documentation organised before comparing refinance options.",
+    approach: "Lucas reviews current lending, income evidence and future plans, then outlines suitable lender criteria and a preparation checklist.",
+  },
+];
 ---
 
-<Layout title="Find a professional | Switchpath">
-  <main class="page-shell text-[var(--ink)]"><Header />
-    <section class="mx-auto max-w-[1280px] px-6 pb-20 pt-12 lg:px-10 lg:pb-28 lg:pt-20">
-      <div class="flex flex-col justify-between gap-6 lg:flex-row lg:items-end"><div class="max-w-3xl"><p class="eyebrow">Step 3 of 3 · Choose a next conversation</p><h1 class="section-title mt-5">Professionals who may fit the next question.</h1><p class="mt-5 max-w-2xl text-lg leading-8 text-[var(--muted)]">These professionals are matched to your pathway. Switchpath helps you compare; a licensed professional provides advice.</p></div><a href="/pathway" class="button-secondary shrink-0 focus-ring">← Back to pathway</a></div>
-      <div class="mt-12 flex flex-wrap items-center justify-between gap-4 border-b border-[var(--line)] pb-4"><div class="flex gap-2" role="group" aria-label="Professional views"><button id="matches-tab" class="tab-button tab-active focus-ring" type="button" aria-pressed="true">Your matches <span>(3)</span></button><button id="browse-tab" class="tab-button focus-ring" type="button" aria-pressed="false">Browse all professionals</button></div><p id="result-count" class="text-sm text-[var(--muted)]">3 profiles</p></div>
-      <section class="mt-7 rounded-2xl border border-[var(--line)] bg-[var(--pale)] p-5" aria-labelledby="filters-title"><div class="flex flex-wrap items-center justify-between gap-3"><h2 id="filters-title" class="text-sm font-bold">Filter professionals</h2><button id="clear-filters" type="button" class="text-sm font-semibold underline underline-offset-4 focus-ring">Clear filters</button></div><div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5"><label class="text-xs font-bold text-[var(--muted)]">Type<select id="type-filter" class="field mt-1"><option value="">All types</option><option>Financial adviser</option><option>Mortgage broker</option><option>Tax accountant</option><option>Conveyancer</option></select></label><label class="text-xs font-bold text-[var(--muted)]">Speciality<input id="speciality-filter" class="field mt-1" type="search" placeholder="e.g. property" /></label><label class="text-xs font-bold text-[var(--muted)]">Brisbane / online<select id="location-filter" class="field mt-1"><option value="">Any location</option><option>Brisbane</option><option>Online</option></select></label><label class="text-xs font-bold text-[var(--muted)]">Price<select id="price-filter" class="field mt-1"><option value="">Any price</option><option value="200">Up to $200</option><option value="250">Up to $250</option><option value="350">Up to $350</option></select></label><label class="text-xs font-bold text-[var(--muted)]">Earliest availability<select id="availability-filter" class="field mt-1"><option value="">Any time</option><option value="2">Within 2 days</option><option value="3">Within 3 days</option><option value="5">Within 5 days</option></select></label></div></section>
-      <section id="professional-results" class="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3" aria-live="polite">
-        {PROFESSIONALS.map((person, index) => <article class={`professional-card ${index > 2 ? "browse-only" : "match-card"} panel flex flex-col p-6`} data-id={person.id} data-type={person.type} data-speciality={`${person.speciality} ${person.specialities.join(" ")}`} data-locations={person.locations.join(",")} data-price={person.price} data-availability={person.availabilityRank}>
-          <div class="flex items-start justify-between gap-3"><div class="avatar" style={`background:${person.accent}`}>{person.photo ? <img src={person.photo} alt="" width="40" height="40" loading="lazy" /> : person.initials}</div></div><p class="mt-7 text-xs font-bold uppercase tracking-[.12em] text-[var(--quiet)]">{person.type}</p><h2 class="mt-2 font-serif text-3xl">{person.name}</h2><p class="mt-2 min-h-12 text-sm leading-6 text-[var(--muted)]">{person.speciality}</p><div class="mt-6 grid grid-cols-2 gap-3 border-y border-[var(--line)] py-4 text-sm"><div><p class="text-xs text-[var(--quiet)]">Initial consultation</p><p class="mt-1 font-semibold">{person.priceLabel}</p></div><div><p class="text-xs text-[var(--quiet)]">Available</p><p class="mt-1 font-semibold">{person.availability}</p></div></div><p class="mt-5 flex-1 rounded-xl bg-[var(--pale)] p-4 text-sm leading-6 text-[var(--muted)]"><strong class="block text-xs uppercase tracking-[.1em] text-[var(--ink)]">Why Switchpath matched them</strong><span class="mt-2 block">{person.rationale}</span></p><button type="button" class="button-primary mt-5 w-full focus-ring view-profile" data-person={person.id}>View profile and times <span aria-hidden="true">→</span></button>
-        </article>)}
-      </section>
-      <p id="empty-results" hidden class="panel mt-8 p-10 text-center text-[var(--muted)]">No profiles match those filters. Try clearing one filter.</p>
+<Layout title="Your matches | Switchpath">
+  <main class="page-shell min-h-screen text-[var(--ink)]">
+    <Header />
 
-      <section id="profile-panel" hidden class="mt-12 grid gap-8 lg:grid-cols-[.8fr_1.2fr]" aria-labelledby="profile-title"><div class="panel panel-dark h-fit p-7 text-white"><p class="eyebrow text-[var(--pale)]">Selected profile</p><img id="profile-photo" class="profile-photo mt-6" alt="" width="72" height="72" hidden /><h2 id="profile-title" tabindex="-1" class="mt-5 font-serif text-4xl focus-ring"></h2><p id="profile-type" class="mt-2 text-sm text-white/65"></p><p id="profile-speciality" class="mt-7 leading-7 text-white/75"></p><div class="mt-7 border-t border-white/15 pt-5 text-sm"><p class="text-white/50">Initial consultation</p><p id="profile-price" class="mt-1 text-xl"></p><p class="mt-4 text-white/50">Availability</p><p id="profile-availability" class="mt-1"></p></div><p class="mt-7 border-t border-white/15 pt-5 text-xs leading-5 text-white/55">Review the details, choose a time, and decide what context you want to share.</p></div>
-        <div id="booking-panel" class="panel p-7 lg:p-9"><p class="eyebrow">Context control</p><h2 id="booking-title" class="mt-4 font-serif text-3xl">Choose a time, then choose what to share.</h2><p id="booking-intro" class="mt-3 max-w-xl leading-7 text-[var(--muted)]">Every item starts unchecked. Switchpath only includes the context you explicitly select in this request.</p><p id="preview-only-note" hidden class="mt-6 rounded-xl bg-[var(--pale)] p-4 text-sm leading-6 text-[var(--muted)]">This professional is a later pathway preview. Requests currently begin with a financial adviser.</p><label id="time-label" class="label mt-7" for="time-select">Select a time</label><select id="time-select" class="field mt-2 max-w-md"><option value="">Choose a time</option></select><fieldset id="context-fieldset" class="mt-7"><legend class="label">Context to share</legend><div class="mt-3 grid gap-3 sm:grid-cols-2">{CONTEXT_ITEMS.map((item) => <label class="flex items-start gap-3 rounded-xl border border-[var(--line)] p-4 text-sm leading-6"><input class="context-check mt-1 h-4 w-4 accent-[#4f8b43]" type="checkbox" value={item.id} /><span>{item.label}</span></label>)}</div></fieldset><p id="sharing-count" class="mt-5 text-sm font-semibold text-[var(--muted)]" aria-live="polite">Sharing 0 items</p><button id="request-consultation" type="button" class="button-primary mt-6 focus-ring" disabled>Request consultation <span aria-hidden="true">→</span></button><p id="booking-disclaimer" class="mt-4 text-xs leading-5 text-[var(--quiet)]">Choose the details you want ready for your next conversation.</p><div id="confirmation" hidden class="confirmation-panel mt-8" aria-live="assertive"><p class="eyebrow eyebrow-on-dark">Request noted</p><h3 class="mt-3 font-serif text-3xl">Your next conversation is ready.</h3><dl class="mt-6 space-y-3 text-sm"><div><dt class="text-white/55">Professional</dt><dd id="confirm-professional" class="mt-1 font-semibold"></dd></div><div><dt class="text-white/55">Time</dt><dd id="confirm-time" class="mt-1 font-semibold"></dd></div><div><dt class="text-white/55">Shared context</dt><dd id="confirm-context" class="mt-1 leading-6"></dd></div></dl><p class="mt-6 border-t border-white/15 pt-5 text-sm leading-6"><span class="text-white/55">Next pathway step</span><strong id="confirm-next" class="mt-1 block"></strong></p></div></div>
+    <section class="mx-auto max-w-[1280px] px-6 pb-16 pt-6 lg:px-10 lg:pb-24 lg:pt-8">
+      <JourneyProgress current="matches" />
+      <div class="mt-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--quiet)]">Professional marketplace</p>
+          <h1 id="marketplace-title" class="mt-2 font-serif text-4xl leading-none tracking-[-0.035em] sm:text-5xl">Browse professionals</h1>
+          <p id="marketplace-intro" class="mt-3 max-w-2xl text-sm leading-6 text-[var(--muted)]">Compare professionals and decide who you would like to speak with first.</p>
+        </div>
+        <a id="back-to-pathway" href="/pathway" style="display:none" class="button-secondary shrink-0 focus-ring">← Back to your pathway</a>
+      </div>
+
+      <div id="view-tabs" style="display:none" class="mt-6 flex flex-wrap gap-2" role="group" aria-label="Professional views">
+        <button id="matches-tab" class="view-tab inline-flex items-center gap-2 rounded-full border border-[#262626] bg-[var(--forest)] px-4 py-2.5 text-sm font-medium text-white transition duration-200" type="button" aria-pressed="true">Your matches <span id="matches-count">(3)</span></button>
+        <button id="browse-tab" class="view-tab inline-flex items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--raised)] px-4 py-2.5 text-sm font-medium transition duration-200 hover:border-black/25" type="button" aria-pressed="false">Browse all professionals</button>
+      </div>
+
+      <section id="matches-panel" style="display:none" class="mt-6" aria-labelledby="matches-heading">
+        <div class="rounded-[24px] border border-[var(--line)] bg-[var(--pale)] p-5">
+          <p class="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--quiet)]">Matched to your pathway</p>
+          <h2 id="matches-heading" class="mt-2 font-serif text-2xl tracking-[-0.02em]">Your first conversation: <span id="matches-role">Financial adviser</span></h2>
+          <p class="mt-2 max-w-3xl text-sm leading-6 text-[var(--muted)]">These profiles reflect what you told Switchpath. Compare them, then choose who you would like to speak with. Advice itself comes from the professional you choose.</p>
+        </div>
+        <div id="match-results" class="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3"></div>
       </section>
+
+      <div id="browse-panel">
+        <div class="mt-6 rounded-[24px] border border-[var(--line)] bg-[var(--pale)] p-4 sm:p-5">
+          <fieldset>
+            <legend class="sr-only">Filter by profession</legend>
+            <div class="flex gap-2 overflow-x-auto pb-1" aria-label="Professional types">
+              <button class="profession-filter inline-flex shrink-0 items-center gap-2 rounded-full border border-[#262626] bg-[var(--forest)] px-4 py-2.5 text-sm font-medium text-white transition duration-200" type="button" data-profession="all" aria-pressed="true"><span class="filter-check" aria-hidden="true">✓</span>All professionals</button>
+              <button class="profession-filter inline-flex shrink-0 items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--raised)] px-4 py-2.5 text-sm font-medium transition duration-200 hover:border-black/25" type="button" data-profession="accountant" aria-pressed="false"><span class="filter-check hidden" aria-hidden="true">✓</span>Accountants</button>
+              <button class="profession-filter inline-flex shrink-0 items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--raised)] px-4 py-2.5 text-sm font-medium transition duration-200 hover:border-black/25" type="button" data-profession="financial-adviser" aria-pressed="false"><span class="filter-check hidden" aria-hidden="true">✓</span>Financial advisers</button>
+              <button class="profession-filter inline-flex shrink-0 items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--raised)] px-4 py-2.5 text-sm font-medium transition duration-200 hover:border-black/25" type="button" data-profession="lawyer" aria-pressed="false"><span class="filter-check hidden" aria-hidden="true">✓</span>Lawyers</button>
+              <button class="profession-filter inline-flex shrink-0 items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--raised)] px-4 py-2.5 text-sm font-medium transition duration-200 hover:border-black/25" type="button" data-profession="mortgage-broker" aria-pressed="false"><span class="filter-check hidden" aria-hidden="true">✓</span>Mortgage brokers</button>
+            </div>
+          </fieldset>
+
+          <div class="mt-4 grid gap-3 border-t border-[var(--line)] pt-4 sm:grid-cols-3">
+            <label class="text-xs font-semibold text-[var(--muted)]">Meeting format
+              <select id="delivery-filter" class="mt-2 w-full rounded-xl border border-[var(--line)] bg-[var(--raised)] px-3 py-3 text-sm font-normal text-[var(--ink)] transition duration-200 hover:border-black/25">
+                <option value="all">Any format</option>
+                <option value="face-to-face">Face-to-face</option>
+                <option value="online">Online</option>
+              </select>
+            </label>
+            <label class="text-xs font-semibold text-[var(--muted)]">Consultation price
+              <select id="price-filter" class="mt-2 w-full rounded-xl border border-[var(--line)] bg-[var(--raised)] px-3 py-3 text-sm font-normal text-[var(--ink)] transition duration-200 hover:border-black/25">
+                <option value="999">Any price</option>
+                <option value="0">No initial fee</option>
+                <option value="150">Up to $150</option>
+                <option value="200">Up to $200</option>
+                <option value="250">Up to $250</option>
+                <option value="300">Up to $300</option>
+              </select>
+            </label>
+            <label class="text-xs font-semibold text-[var(--muted)]">Earliest availability
+              <select id="availability-filter" class="mt-2 w-full rounded-xl border border-[var(--line)] bg-[var(--raised)] px-3 py-3 text-sm font-normal text-[var(--ink)] transition duration-200 hover:border-black/25">
+                <option value="99">Any time</option>
+                <option value="0">Today</option>
+                <option value="3">Within 3 days</option>
+                <option value="7">Within 7 days</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="mt-6 flex items-center justify-between gap-4">
+          <p class="text-sm text-[var(--muted)]" aria-live="polite"><span id="result-count" class="font-semibold text-[var(--ink)]">8</span> professionals available</p>
+          <button id="clear-filters" class="rounded-full px-3 py-2 text-sm font-medium text-[var(--muted)] underline decoration-black/25 underline-offset-4 transition duration-200 hover:text-[var(--ink)]" type="button">Clear filters</button>
+        </div>
+
+        <div id="professional-results" class="mt-3 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {professionals.map((professional) => (
+            <article class="professional-card flex min-h-[480px] flex-col rounded-[24px] border border-[var(--line)] bg-[var(--raised)] p-6 shadow-[0_14px_36px_rgba(23,23,23,0.035)] transition duration-200 hover:-translate-y-0.5 hover:border-[var(--line)] hover:shadow-[0_18px_44px_rgba(23,23,23,0.07)]" data-profession={professional.professionKey} data-delivery={professional.deliveryKeys.join(",")} data-price={professional.price} data-availability={professional.availabilityDays}>
+              <div class="flex items-start gap-4">
+                <img src={professional.headshot} alt="" class="h-14 w-14 shrink-0 rounded-full border border-[var(--line)] bg-[var(--pale)] object-cover" loading="lazy" decoding="async" />
+                <div class="min-w-0 pt-0.5">
+                  <p class="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--quiet)]">{professional.profession}</p>
+                  <h2 class="mt-1 text-xl font-semibold tracking-[-0.025em]">{professional.name}</h2>
+                  <p class="mt-1 text-sm text-[var(--muted)]">{professional.qualification}</p>
+                  <p class="mt-1 text-xs text-[var(--quiet)]">{professional.location}</p>
+                </div>
+              </div>
+
+              <h3 class="mt-5 text-lg font-medium leading-6">{professional.speciality}</h3>
+              <div class="mt-3 flex flex-wrap gap-2">
+                {professional.specialties.map((item) => <span class="rounded-full border border-[var(--line)] bg-[var(--canvas)] px-3 py-1.5 text-xs text-[var(--muted)]">{item}</span>)}
+              </div>
+
+              <div class="mt-5 rounded-2xl bg-[var(--pale)] p-4">
+                <p class="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--quiet)]">Why this may suit you</p>
+                <p class="mt-2 text-sm leading-6 text-[var(--muted)]">{professional.rationale}</p>
+              </div>
+
+              <div class="mt-auto pt-5">
+                <div class="grid grid-cols-2 gap-3 border-t border-[var(--line)] pt-4">
+                  <div>
+                    <p class="text-[11px] text-[var(--quiet)]">Consultation</p>
+                    <p class="mt-1 text-sm font-semibold">{professional.priceLabel} · {professional.duration}</p>
+                  </div>
+                  <div>
+                    <p class="text-[11px] text-[var(--quiet)]">Earliest time</p>
+                    <p class="mt-1 text-sm font-semibold">{professional.nextTime}</p>
+                  </div>
+                </div>
+                <button class="open-profile mt-4 flex w-full items-center justify-between rounded-full bg-[var(--lime)] px-5 py-3.5 text-sm font-semibold text-[var(--ink)] transition duration-200 hover:bg-[#d5f49e]" type="button" data-id={professional.id}>View full profile <span aria-hidden="true">→</span></button>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div id="empty-results" class="mt-4 hidden rounded-[24px] border border-dashed border-[var(--line)] bg-[var(--raised)] p-10 text-center" aria-live="polite">
+          <h2 class="font-serif text-2xl">No professionals match every filter.</h2>
+          <p class="mt-2 text-sm text-[var(--muted)]">Clear a filter to see more profiles.</p>
+        </div>
+      </div>
     </section>
+
+    <section class="border-t border-[var(--line)] bg-[var(--pale)]">
+      <div class="mx-auto flex max-w-[1400px] flex-col gap-3 px-5 py-7 sm:flex-row sm:items-center sm:justify-between sm:px-7 lg:px-10">
+        <h2 class="font-serif text-2xl tracking-[-0.02em]">Compare first. Decide when you are ready.</h2>
+        <p class="max-w-2xl text-sm leading-6 text-[var(--muted)]">Switchpath helps you compare professional services. Financial, credit, tax and legal advice is provided only by the qualified professional you choose.</p>
+      </div>
+    </section>
+
+    <footer class="border-t border-[var(--line)] bg-[var(--canvas)]"><div class="mx-auto flex max-w-[1280px] flex-col justify-between gap-5 px-6 py-10 text-sm text-[var(--muted)] sm:flex-row lg:px-10"><div><img src="/brand/switchpath-lockup.png" alt="Switchpath" width="2172" height="724" class="block h-10 w-auto -my-2.5" /><p class="mt-2 max-w-lg text-xs leading-5">Switchpath guides you to questions and professional roles. It does not provide financial, credit, tax, legal, or investment advice.</p></div><p>© 2026 Switchpath</p></div></footer>
   </main>
+
+  <dialog id="profile-dialog" class="m-auto w-[min(820px,calc(100vw-24px))] max-h-[calc(100vh-24px)] overflow-auto rounded-[28px] border-0 bg-[var(--canvas)] p-0 text-[var(--ink)] shadow-[0_30px_90px_rgba(23,23,23,0.35)] backdrop:bg-[#12231b]/65" aria-labelledby="dialog-title">
+    <button id="dialog-close" class="absolute right-5 top-5 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--raised)] text-xl transition duration-200 hover:border-black/25" type="button" aria-label="Close profile">×</button>
+    <div id="dialog-content"></div>
+  </dialog>
+
+  <script type="application/json" id="directory-data" set:html={JSON.stringify(professionals)}></script>
+
+  <script>
+    import { loadJourney } from "../lib/journey-state.mjs";
+    import { normalizeGeneratedJourney } from "../lib/ai-contract.mjs";
+
+    const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
+    const directory = JSON.parse(document.querySelector('#directory-data').textContent);
+    const professionButtons = document.querySelectorAll('.profession-filter');
+    const professionalCards = document.querySelectorAll('.professional-card');
+    const deliveryFilter = document.querySelector('#delivery-filter');
+    const priceFilter = document.querySelector('#price-filter');
+    const availabilityFilter = document.querySelector('#availability-filter');
+    const resultCount = document.querySelector('#result-count');
+    const emptyResults = document.querySelector('#empty-results');
+    const dialog = document.querySelector('#profile-dialog');
+    const dialogContent = document.querySelector('#dialog-content');
+    let activeProfession = 'all';
+    let dialogOpener;
+
+    const applyFilters = () => {
+      let visible = 0;
+      professionalCards.forEach((card) => {
+        const deliveryOptions = card.dataset.delivery.split(',');
+        const professionMatch = activeProfession === 'all' || card.dataset.profession === activeProfession;
+        const deliveryMatch = deliveryFilter.value === 'all' || deliveryOptions.includes(deliveryFilter.value);
+        const priceMatch = Number(card.dataset.price) <= Number(priceFilter.value);
+        const availabilityMatch = Number(card.dataset.availability) <= Number(availabilityFilter.value);
+        const show = professionMatch && deliveryMatch && priceMatch && availabilityMatch;
+        card.classList.toggle('hidden', !show);
+        if (show) visible += 1;
+      });
+      resultCount.textContent = String(visible);
+      emptyResults.classList.toggle('hidden', visible !== 0);
+    };
+
+    professionButtons.forEach((button) => button.addEventListener('click', () => {
+      activeProfession = button.dataset.profession;
+      professionButtons.forEach((item) => {
+        const active = item === button;
+        item.setAttribute('aria-pressed', String(active));
+        item.classList.toggle('border-[#262626]', active);
+        item.classList.toggle('bg-[var(--forest)]', active);
+        item.classList.toggle('text-white', active);
+        item.classList.toggle('border-[var(--line)]', !active);
+        item.classList.toggle('bg-[var(--raised)]', !active);
+        item.querySelector('.filter-check').classList.toggle('hidden', !active);
+      });
+      applyFilters();
+    }));
+
+    [deliveryFilter, priceFilter, availabilityFilter].forEach((select) => select.addEventListener('change', applyFilters));
+    document.querySelector('#clear-filters').addEventListener('click', () => {
+      deliveryFilter.value = 'all';
+      priceFilter.value = '999';
+      availabilityFilter.value = '99';
+      professionButtons[0].click();
+    });
+
+    const profiles = new Map(directory.map((professional) => [professional.id, professional]));
+
+    const avatar = (professional, size) => professional.headshot
+      ? `<img src="${escapeHtml(professional.headshot)}" alt="" class="${size} shrink-0 rounded-full border border-[var(--line)] bg-[var(--pale)] object-cover" loading="lazy" decoding="async"/>`
+      : `<span class="${size} flex shrink-0 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--lime)] text-sm font-semibold" aria-hidden="true">${escapeHtml(professional.initials || '')}</span>`;
+
+    const openProfile = (id, opener) => {
+      const professional = profiles.get(id);
+      if (!professional) return;
+      dialogOpener = opener;
+      dialogContent.innerHTML = `
+        <div class="border-b border-[var(--line)] bg-[var(--raised)] p-7 pr-16 sm:p-9 sm:pr-20">
+          <div class="flex gap-4 sm:gap-5">
+            ${avatar(professional, 'h-20 w-20')}
+            <div class="pt-0.5">
+              <p class="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--quiet)]">${escapeHtml(professional.profession)}</p>
+              <h2 id="dialog-title" class="mt-1 font-serif text-3xl leading-none tracking-[-0.035em] sm:text-4xl">${escapeHtml(professional.name)}</h2>
+              <p class="mt-3 text-[var(--muted)]">${escapeHtml(professional.qualification)}</p>
+              <p class="mt-1 text-sm text-[var(--quiet)]">${escapeHtml(professional.location)}</p>
+            </div>
+          </div>
+        </div>
+        <div class="space-y-7 p-7 sm:p-9">
+          <div class="rounded-2xl bg-[var(--pale)] p-5">
+            <p class="text-[10px] font-semibold uppercase tracking-[0.15em] text-[var(--quiet)]">Why this professional may suit you</p>
+            <p class="mt-3 leading-7 text-[var(--muted)]">${escapeHtml(professional.rationale)}</p>
+          </div>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.15em] text-[var(--quiet)]">How they work</p>
+            <h3 class="mt-3 text-xl font-semibold">${escapeHtml(professional.speciality)}</h3>
+            ${professional.approach ? `<p class="mt-3 leading-7 text-[var(--muted)]">${escapeHtml(professional.approach)}</p>` : ''}
+            <div class="mt-4 flex flex-wrap gap-2">${professional.specialties.map((item) => `<span class="rounded-full border border-[var(--line)] bg-[var(--raised)] px-3 py-1.5 text-xs text-[var(--muted)]">${escapeHtml(item)}</span>`).join('')}</div>
+          </div>
+          <div class="grid gap-px overflow-hidden rounded-2xl bg-black/10 sm:grid-cols-3">
+            <div class="bg-[var(--raised)] p-4"><p class="text-xs text-[var(--quiet)]">Consultation</p><p class="mt-1 font-semibold">${escapeHtml(professional.priceLabel)} · ${escapeHtml(professional.duration)}</p></div>
+            <div class="bg-[var(--raised)] p-4"><p class="text-xs text-[var(--quiet)]">Format</p><p class="mt-1 font-semibold">${escapeHtml(professional.location)}</p></div>
+            <div class="bg-[var(--raised)] p-4"><p class="text-xs text-[var(--quiet)]">Next available</p><p class="mt-1 font-semibold">${escapeHtml(professional.nextTime)}</p></div>
+          </div>
+          <form id="booking-form" novalidate>
+            <fieldset>
+              <legend class="text-sm font-semibold">Choose a consultation time</legend>
+              <div class="mt-3 grid gap-2 sm:grid-cols-3">${professional.times.map((time) => `<label class="flex cursor-pointer items-start gap-2 rounded-xl border border-[var(--line)] bg-[var(--raised)] p-3 text-sm transition duration-200 hover:border-black/25"><input type="radio" name="time" value="${escapeHtml(time)}" class="mt-0.5 accent-[#262626]"/><span>${escapeHtml(time)}</span></label>`).join('')}</div>
+              <p id="time-error" class="mt-2 hidden text-xs text-[#8b3f35]">Choose a time before continuing.</p>
+            </fieldset>
+            <button class="mt-6 flex w-full items-center justify-between rounded-full bg-[var(--lime)] px-6 py-4 text-sm font-semibold text-[var(--ink)] transition duration-200 hover:bg-[#d5f49e]" type="submit">Request consultation <span aria-hidden="true">→</span></button>
+            <p class="mt-3 text-center text-xs text-[var(--quiet)]">No payment is taken when requesting an introduction.</p>
+          </form>
+          <div id="booking-confirmation" class="hidden rounded-[22px] bg-[var(--forest)] p-6 text-white sm:p-7">
+            <p class="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">Request ready</p>
+            <h3 class="mt-3 font-serif text-3xl tracking-[-0.025em]">Meet ${escapeHtml(professional.name)}.</h3>
+            <p id="confirmation-copy" class="mt-3 text-sm leading-6 text-white/65"></p>
+          </div>
+        </div>`;
+      dialog.showModal();
+      dialogContent.querySelector('#booking-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const time = dialogContent.querySelector('input[name="time"]:checked');
+        const error = dialogContent.querySelector('#time-error');
+        if (!time) { error.classList.remove('hidden'); return; }
+        error.classList.add('hidden');
+        dialogContent.querySelector('#confirmation-copy').textContent = `${time.value} selected. Switchpath will use this preference when preparing the introduction.`;
+        dialogContent.querySelector('#booking-form').classList.add('hidden');
+        dialogContent.querySelector('#booking-confirmation').classList.remove('hidden');
+        localStorage.setItem('switchpath.consultation.v1', JSON.stringify({ professional: professional.id, time: time.value }));
+      });
+    };
+
+    const bindProfileButtons = (root) => root.querySelectorAll('.open-profile').forEach((button) => {
+      if (button.dataset.bound) return;
+      button.dataset.bound = 'true';
+      button.addEventListener('click', () => openProfile(button.dataset.id, button));
+    });
+
+    bindProfileButtons(document);
+    document.querySelector('#dialog-close').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', () => dialogOpener?.focus());
+
+    const journeyMatches = () => {
+      const journey = loadJourney();
+      if (!Array.isArray(journey.generatedMatches) || journey.generatedMatches.length === 0) return null;
+      try {
+        const normalized = normalizeGeneratedJourney({ summary: journey.generatedSummary, recommendedRole: journey.recommendedRole, pathway: journey.generatedPathway, matches: journey.generatedMatches });
+        return { role: normalized.recommendedRole, matches: normalized.matches };
+      } catch { return null; }
+    };
+
+    const toProfile = (person) => ({
+      id: `match-${person.id}`,
+      headshot: person.photo,
+      initials: person.initials,
+      name: person.name,
+      profession: person.type,
+      qualification: `${person.consultationMinutes}-minute initial consultation`,
+      speciality: person.speciality,
+      specialties: person.specialities,
+      location: person.locationLabel,
+      priceLabel: person.priceAud === 0 ? 'No initial fee' : `$${person.priceAud}`,
+      duration: `${person.consultationMinutes} min`,
+      nextTime: person.availability,
+      times: [person.availability],
+      rationale: person.rationale,
+      approach: '',
+    });
+
+    const matchCard = (professional) => `
+      <article class="flex min-h-[440px] flex-col rounded-[24px] border border-[var(--line)] bg-[var(--raised)] p-6 shadow-[0_14px_36px_rgba(23,23,23,0.035)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_18px_44px_rgba(23,23,23,0.07)]">
+        <div class="flex items-start gap-4">
+          ${avatar(professional, 'h-14 w-14')}
+          <div class="min-w-0 pt-0.5">
+            <p class="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--quiet)]">${escapeHtml(professional.profession)}</p>
+            <h3 class="mt-1 text-xl font-semibold tracking-[-0.025em]">${escapeHtml(professional.name)}</h3>
+            <p class="mt-1 text-sm text-[var(--muted)]">${escapeHtml(professional.qualification)}</p>
+            <p class="mt-1 text-xs text-[var(--quiet)]">${escapeHtml(professional.location)}</p>
+          </div>
+        </div>
+        <h4 class="mt-5 text-lg font-medium leading-6">${escapeHtml(professional.speciality)}</h4>
+        <div class="mt-3 flex flex-wrap gap-2">${professional.specialties.map((item) => `<span class="rounded-full border border-[var(--line)] bg-[var(--canvas)] px-3 py-1.5 text-xs text-[var(--muted)]">${escapeHtml(item)}</span>`).join('')}</div>
+        <div class="mt-5 rounded-2xl bg-[var(--pale)] p-4">
+          <p class="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--quiet)]">Why Switchpath matched them</p>
+          <p class="mt-2 text-sm leading-6 text-[var(--muted)]">${escapeHtml(professional.rationale)}</p>
+        </div>
+        <div class="mt-auto pt-5">
+          <div class="grid grid-cols-2 gap-3 border-t border-[var(--line)] pt-4">
+            <div><p class="text-[11px] text-[var(--quiet)]">Consultation</p><p class="mt-1 text-sm font-semibold">${escapeHtml(professional.priceLabel)} · ${escapeHtml(professional.duration)}</p></div>
+            <div><p class="text-[11px] text-[var(--quiet)]">Earliest time</p><p class="mt-1 text-sm font-semibold">${escapeHtml(professional.nextTime)}</p></div>
+          </div>
+          <button class="open-profile mt-4 flex w-full items-center justify-between rounded-full bg-[var(--lime)] px-5 py-3.5 text-sm font-semibold text-[var(--ink)] transition duration-200 hover:bg-[#d5f49e]" type="button" data-id="${escapeHtml(professional.id)}">View full profile <span aria-hidden="true">→</span></button>
+        </div>
+      </article>`;
+
+    const tabs = document.querySelector('#view-tabs');
+    const matchesTab = document.querySelector('#matches-tab');
+    const browseTab = document.querySelector('#browse-tab');
+    const matchesPanel = document.querySelector('#matches-panel');
+    const browsePanel = document.querySelector('#browse-panel');
+
+    const show = (element, visible) => { element.style.display = visible ? '' : 'none'; };
+
+    const setTab = (tab) => {
+      const showMatches = tab === matchesTab;
+      show(matchesPanel, showMatches);
+      show(browsePanel, !showMatches);
+      [matchesTab, browseTab].forEach((item) => {
+        const active = item === tab;
+        item.setAttribute('aria-pressed', String(active));
+        item.classList.toggle('border-[#262626]', active);
+        item.classList.toggle('bg-[var(--forest)]', active);
+        item.classList.toggle('text-white', active);
+        item.classList.toggle('border-[var(--line)]', !active);
+        item.classList.toggle('bg-[var(--raised)]', !active);
+      });
+    };
+
+    const generated = journeyMatches();
+    if (generated) {
+      const matchProfiles = generated.matches.map(toProfile);
+      matchProfiles.forEach((professional) => profiles.set(professional.id, professional));
+      const matchResults = document.querySelector('#match-results');
+      matchResults.innerHTML = matchProfiles.map(matchCard).join('');
+      bindProfileButtons(matchResults);
+      document.querySelector('#matches-role').textContent = generated.role;
+      document.querySelector('#matches-count').textContent = `(${matchProfiles.length})`;
+      document.querySelector('#marketplace-title').textContent = 'Your matches';
+      document.querySelector('#marketplace-intro').textContent = 'Switchpath matched these professionals to the first step of your pathway. Browse everyone else whenever you want a wider view.';
+      show(document.querySelector('#back-to-pathway'), true);
+      show(tabs, true);
+      matchesTab.addEventListener('click', () => setTab(matchesTab));
+      browseTab.addEventListener('click', () => setTab(browseTab));
+      setTab(matchesTab);
+    }
+
+    applyFilters();
+  </script>
 </Layout>
 
-<script>
-  import { buildBookingConfirmation } from "../lib/booking-context.mjs";
-  import { PROFESSIONALS } from "../data/professionals.mjs";
-  import { loadJourney, saveJourney, updateJourney } from "../lib/journey-state.mjs";
-  import { filterProfessionals } from "../lib/marketplace-filter.mjs";
-  import { getScrollBehavior } from "../lib/motion-policy.mjs";
-  import { normalizeGeneratedJourney } from "../lib/ai-contract.mjs";
-  const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]);
-  const journey = loadJourney();
-  const generated = Array.isArray(journey.generatedMatches) ? (() => { try { return normalizeGeneratedJourney({ summary: journey.generatedSummary, recommendedRole: journey.recommendedRole, pathway: journey.generatedPathway, matches: journey.generatedMatches }).matches; } catch { return null; } })() : null;
-  const peopleList = PROFESSIONALS;
-  const generatedRaw = generated ? generated.map((person) => ({ ...person })) : null;
-  generated?.forEach((person) => Object.keys(person).forEach((key) => { if (typeof person[key] === "string") person[key] = escapeHtml(person[key]); else if (Array.isArray(person[key])) person[key] = person[key].map((value) => typeof value === "string" ? escapeHtml(value) : value); }));
-  const people = Object.fromEntries([...peopleList, ...(generatedRaw || [])].map((person) => [person.id, person]));
-  const filterData = [...peopleList, ...(generatedRaw || [])].map(({ id, type, speciality, specialities, locations, price, availabilityRank }) => ({ id, type, speciality, specialities, locations, price, availabilityRank }));
-  const scrollBehavior = getScrollBehavior(typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-  const results = document.querySelector("#professional-results");
-  if (generated) { const generatedCards = generated.slice(0, 3).map((person) => { const article = document.createElement("article"); article.className = "professional-card match-card panel flex flex-col p-6"; article.dataset.id = person.id; article.dataset.type = person.type; article.dataset.speciality = `${person.speciality} ${person.specialities.join(" ")}`; article.dataset.locations = person.locations.join(","); article.dataset.price = person.price; article.dataset.availability = person.availabilityRank; article.innerHTML = `<div class="avatar" style="background:${person.accent}">${person.photo ? `<img src="${person.photo}" alt="" width="40" height="40" loading="lazy">` : person.initials}</div><p class="mt-7 text-xs font-bold uppercase tracking-[.12em] text-[var(--quiet)]">${person.type}</p><h2 class="mt-2 font-serif text-3xl">${person.name}</h2><p class="mt-2 min-h-12 text-sm leading-6 text-[var(--muted)]">${person.speciality}</p><div class="mt-6 grid grid-cols-2 gap-3 border-y border-[var(--line)] py-4 text-sm"><div><p class="text-xs text-[var(--quiet)]">Initial consultation</p><p class="mt-1 font-semibold">${person.priceLabel}</p></div><div><p class="text-xs text-[var(--quiet)]">Available</p><p class="mt-1 font-semibold">${person.availability}</p></div></div><p class="mt-5 flex-1 rounded-xl bg-[var(--pale)] p-4 text-sm leading-6 text-[var(--muted)]">${person.rationale}</p><button type="button" class="button-primary mt-5 w-full focus-ring view-profile" data-person="${person.id}">View profile and times →</button>`; return article; }); results.prepend(...generatedCards); results.querySelectorAll(".browse-only, .match-card:not([data-id])").forEach((card) => { card.classList.remove("match-card"); card.classList.add("browse-only"); }); document.querySelector("#matches-tab span").textContent = "(3)"; }
-  const cards = [...document.querySelectorAll(".professional-card")];
-  if (generated) cards.slice(3).forEach((card) => { card.classList.remove("match-card"); card.classList.add("browse-only"); });
-  const matchesTab = document.querySelector("#matches-tab"); const browseTab = document.querySelector("#browse-tab");
-  const resultCount = document.querySelector("#result-count"); const empty = document.querySelector("#empty-results");
-  let mode = "matches";
-  const filters = { type: document.querySelector("#type-filter"), speciality: document.querySelector("#speciality-filter"), location: document.querySelector("#location-filter"), price: document.querySelector("#price-filter"), availability: document.querySelector("#availability-filter") };
-  const applyFilters = () => {
-    const filtered = filterProfessionals(filterData, { type: filters.type.value, speciality: filters.speciality.value, location: filters.location.value, maxPrice: filters.price.value, maxAvailabilityRank: filters.availability.value });
-    const allowed = new Set(filtered.map((person) => person.id)); let shown = 0;
-    cards.forEach((card) => { const inMode = mode === "matches" ? card.classList.contains("match-card") : true; const visible = inMode && allowed.has(card.dataset.id); card.hidden = !visible; if (visible) shown += 1; });
-    resultCount.textContent = `${shown} profile${shown === 1 ? "" : "s"}`; empty.hidden = shown !== 0;
-  };
-  const setMode = (next) => { mode = next; matchesTab.classList.toggle("tab-active", mode === "matches"); browseTab.classList.toggle("tab-active", mode === "browse"); matchesTab.setAttribute("aria-pressed", String(mode === "matches")); browseTab.setAttribute("aria-pressed", String(mode === "browse")); applyFilters(); };
-  matchesTab.addEventListener("click", () => setMode("matches")); browseTab.addEventListener("click", () => setMode("browse"));
-  Object.values(filters).forEach((control) => control.addEventListener(control.tagName === "INPUT" ? "input" : "change", applyFilters));
-  document.querySelector("#clear-filters").addEventListener("click", () => { Object.values(filters).forEach((control) => { control.value = ""; }); applyFilters(); });
-  const profilePanel = document.querySelector("#profile-panel"); const timeSelect = document.querySelector("#time-select"); const request = document.querySelector("#request-consultation"); let selected;
-  const timeLabel = document.querySelector("#time-label"); const contextFieldset = document.querySelector("#context-fieldset"); const sharingCount = document.querySelector("#sharing-count"); const previewNote = document.querySelector("#preview-only-note");
-  const canBook = (person) => Boolean(person?.name && person?.type);
-  const nextStep = journey.generatedPathway?.[1]?.professional?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "complete";
-  const updateRequestState = () => { const count = document.querySelectorAll(".context-check:checked").length; sharingCount.textContent = `Sharing ${count} item${count === 1 ? "" : "s"}`; request.disabled = !canBook(selected) || !timeSelect.value; };
-  const openProfile = (personId, restoredBooking = null) => {
-    selected = people[personId]; profilePanel.hidden = false; const profilePhoto = document.querySelector("#profile-photo"); profilePhoto.hidden = !selected.photo; if (selected.photo) profilePhoto.src = selected.photo; document.querySelector("#profile-title").textContent = selected.name; document.querySelector("#profile-type").textContent = selected.type; document.querySelector("#profile-speciality").textContent = selected.speciality; document.querySelector("#profile-price").textContent = selected.priceLabel; document.querySelector("#profile-availability").textContent = selected.availability;
-    timeSelect.replaceChildren(); const placeholder = document.createElement("option"); placeholder.value = ""; placeholder.textContent = "Choose a time"; timeSelect.append(placeholder); const option = document.createElement("option"); option.value = selected.availability; option.textContent = selected.availability; timeSelect.append(option);
-    timeSelect.value = restoredBooking?.time || ""; document.querySelectorAll(".context-check").forEach((check) => { check.checked = restoredBooking && Array.isArray(restoredBooking.sharedItems) ? restoredBooking.sharedItems.includes(check.parentElement.textContent.trim()) : false; }); document.querySelector("#confirmation").hidden = !restoredBooking; request.textContent = "Request consultation →";
-    const sharedItems = Array.isArray(restoredBooking?.sharedItems) ? restoredBooking.sharedItems : []; const adviser = canBook(selected); timeLabel.hidden = !adviser; timeSelect.hidden = !adviser; contextFieldset.hidden = !adviser; sharingCount.hidden = !adviser; request.hidden = !adviser; previewNote.hidden = true; if (restoredBooking) { document.querySelector("#confirm-professional").textContent = restoredBooking.professional; document.querySelector("#confirm-time").textContent = restoredBooking.time; document.querySelector("#confirm-context").textContent = sharedItems.length ? sharedItems.join(" · ") : "No context selected"; document.querySelector("#confirm-next").textContent = restoredBooking.nextPathwayStep; }
-    updateRequestState(); profilePanel.scrollIntoView({ behavior: scrollBehavior, block: "start" }); document.querySelector("#profile-title").focus({ preventScroll: true });
-  };
-  document.querySelectorAll(".view-profile").forEach((button) => button.addEventListener("click", () => openProfile(button.dataset.person)));
-  timeSelect.addEventListener("change", updateRequestState); document.querySelectorAll(".context-check").forEach((check) => check.addEventListener("change", updateRequestState));
-  request.addEventListener("click", () => { if (!canBook(selected)) return; const confirmation = buildBookingConfirmation({ professional: selected, time: timeSelect.value, selectedContext: [...document.querySelectorAll(".context-check:checked")].map((check) => check.value), nextPathwayStep: journey.generatedPathway?.[1]?.professional || "Next conversation" }); document.querySelector("#confirm-professional").textContent = confirmation.professional; document.querySelector("#confirm-time").textContent = confirmation.time; document.querySelector("#confirm-context").textContent = confirmation.sharedItems.length ? confirmation.sharedItems.join(" · ") : "No context selected"; document.querySelector("#confirm-next").textContent = confirmation.nextPathwayStep; document.querySelector("#confirmation").hidden = false; request.textContent = "Request noted"; request.disabled = true; saveJourney(null, updateJourney(loadJourney(), { booking: confirmation, currentStep: nextStep })); });
-  const restoredId = journey.booking && Object.entries(people).find(([, person]) => person.name === journey.booking.professional)?.[0]; if (restoredId && canBook(people[restoredId])) openProfile(restoredId, journey.booking);
-  applyFilters();
-  document.querySelector("#matches-tab").firstChild.textContent = "Your top matches ";
-</script>
+<style>
+  :global(button:focus-visible),
+  :global(a:focus-visible),
+  :global(select:focus-visible),
+  :global(input:focus-visible) {
+    outline: 3px solid #6a851b;
+    outline-offset: 3px;
+  }
+
+  #profile-dialog[open] {
+    animation: modal-in 180ms ease-out;
+  }
+
+  @keyframes modal-in {
+    from { opacity: 0; transform: translateY(10px) scale(.985); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(*) {
+      scroll-behavior: auto !important;
+      transition-duration: .01ms !important;
+      animation-duration: .01ms !important;
+    }
+  }
+</style>

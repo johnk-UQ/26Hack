@@ -7,11 +7,20 @@ export const INTAKE_PROMPTS = [
 ];
 
 export const INTAKE_RESPONSES = [
-  "I have started my first proper job and saved about $35,000. I want to invest and maybe buy an investment property.",
+  "hey so im 21 and at uni and honestly have no idea what im doing with money lol",
   "Build wealth without making an expensive mistake, and understand whether property is realistic.",
   "$35,000 saved, $24,000 HECS debt, earning $85,000, renting, no dependants.",
   "In the next month. I am thinking about property within two years.",
   "I do not know who to speak to first, what advice is independent, or what I can actually afford.",
+];
+
+export const DEMO_CONVERSATION = [
+  { role: "assistant", text: "That’s fine. Tell me what’s going on at the moment. What money is coming in, what do you owe, and is there anything you’re trying to work toward?" },
+  { role: "user", text: "i did an internship this yr and made like 30k from it, ive got maybe 18k left in my bank\n\nalso have like 4.5k on a credit card which is probs bad\n\nstill have hecs obviously and i work casual at a bar during semester but the hours are random" },
+  { role: "assistant", text: "Got it. A few things are happening at once. Before I work out who might be useful, what are you hoping to achieve with the money you have left?" },
+  { role: "user", text: "honestly just wanna not waste it\n\nlike i want to get ahead while im young but idk if that means investing or paying everything off or putting it in super or what\n\nalso pretty sure i didnt do my tax properly from the internship and i got paid some bonus thing at the end" },
+  { role: "assistant", text: "And roughly how expensive is the credit card debt? Do you know the interest rate or minimum payment?" },
+  { role: "user", text: "no clue on the rate 😭 i just know it keeps charging me interest\n\nminimum is like 120ish i think\n\nalso might do another internship over summer so my income could go up again but its not guaranteed" },
 ];
 
 export const PATHWAY_STEPS = [
