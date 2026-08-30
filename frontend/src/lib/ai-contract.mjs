@@ -10,7 +10,34 @@ export const SUPPORTED_ROLES = Object.freeze([
 
 const ROLE_SET = new Set(SUPPORTED_ROLES);
 const ACCENTS = ["#b7e17e", "#d0edaa", "#9ecb70", "#e1efcc", "#c4e396", "#aed17d"];
-const CLAIMS = /(?:licensed?|licen[cs]e|registered|certified|accredited|credential(?:s)?|company|rating|reviews|guarantee|best|available now|objectively)/i;
+// Claims the model must never make about a synthetic profile. Each pattern is
+// word-bounded: an unbounded /rating/ also fires inside "operating" and "generating",
+// and /company/ inside "accompany", which rejected safe output.
+const CLAIM_PATTERNS = [
+  /\blicen[cs](?:e[sd]?|ing)\b/i,
+  /\bregistered\b/i,
+  /\bcertified\b/i,
+  /\baccredited\b/i,
+  /\bcredentials?\b/i,
+  /\bcompany\b/i,
+  /\bratings?\b/i,
+  /\breviews\b/i,
+  /\bguarantee[sd]?\b/i,
+  /\bbest\b/i,
+  /\bavailable now\b/i,
+  /\bobjectively\b/i,
+];
+// "reviews" and "best" also carry ordinary senses this domain uses constantly
+// ("reviews your contract", "how best to"). Those are cleared before the ban list runs,
+// so the noun senses ("customer reviews", "the best adviser") still fail.
+const ORDINARY_SENSES = [
+  /\bhow\s+best\s+to\b/gi,
+  /\breviews\s+(?:your|the|their|his|her|its|each|every|these|those)\b/gi,
+];
+const makesClaim = (value) => {
+  const probe = ORDINARY_SENSES.reduce((text, pattern) => text.replace(pattern, " "), value);
+  return CLAIM_PATTERNS.some((pattern) => pattern.test(probe));
+};
 
 export class AIContractError extends Error {
   constructor(message) { super(message); this.name = "AIContractError"; }
@@ -21,14 +48,21 @@ const failure = (error) => ({ ok: false, error: error instanceof Error ? error.m
 const isPlainObject = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
 const exactKeys = (value, keys) => isPlainObject(value) && Object.keys(value).every((key) => keys.includes(key));
 const text = (value, min = 1, max = 2000) => typeof value === "string" && value.trim().length >= min && value.trim().length <= max;
-const sentence = (value, max = 180) => text(value, 1, max) && /[.!?]$/.test(value.trim()) && !/[.!?].*[.!?]/.test(value.trim().slice(0, -1));
+// Models routinely write "e.g." or "etc.", whose full stops must not read as a second
+// sentence. Everything else stays one sentence, ending in terminal punctuation.
+const ABBREVIATIONS = /\b(?:e\.g|i\.e|etc|vs|approx|incl|mr|mrs|ms|dr|st)\.,?/gi;
+const sentence = (value, max = 180) => {
+  if (!text(value, 1, max)) return false;
+  const trimmed = value.trim();
+  return /[.!?]$/.test(trimmed) && !/[.!?]/.test(trimmed.slice(0, -1).replace(ABBREVIATIONS, " "));
+};
 
 function validate(value, checks) {
   try { checks(value); return result(value); } catch (error) { return failure(error); }
 }
 function requireCondition(condition, message) { if (!condition) throw new AIContractError(message); }
 function rejectClaims(value) {
-  if (typeof value === "string") requireCondition(!CLAIMS.test(value), "prohibited claim or field");
+  if (typeof value === "string") requireCondition(!makesClaim(value), "prohibited claim or field");
   else if (Array.isArray(value)) value.forEach(rejectClaims);
   else if (isPlainObject(value)) Object.entries(value).forEach(([key, item]) => {
     requireCondition(!/(license|credential|rating|review|guarantee|availabilityDate)/i.test(key), "prohibited claim or field");

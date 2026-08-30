@@ -44,6 +44,48 @@ test("AI contract rejects malformed profiles, prohibited fields, and non-three m
   assert.equal(validateGenerateRequest({ situation: "I am planning finances.", followUpQuestion: "What matters?" }).ok, false);
 });
 
+test("AI contract keeps ordinary wording that merely contains a banned word", () => {
+  // The ban list guards against invented credentials and marketing claims. It must not
+  // fire on substrings ("ope-rating") or on ordinary verb and adverb senses, which this
+  // domain uses constantly - that rejected safe model output and surfaced as an error.
+  const withRationale = (rationale) => ({ ...base, matches: [{ ...base.matches[0], rationale }, ...base.matches.slice(1)] });
+  for (const rationale of [
+    "Helps with operating costs and everyday cash flow.",
+    "Focused on generating long-term income.",
+    "Reviews your contract with you before you sign.",
+    "Can accompany you through each decision.",
+    "Helps you decide how best to allocate your savings.",
+    "Works on integrating super into a wider plan.",
+    "Good at separating personal and business money.",
+  ]) assert.equal(validateGenerateResult(withRationale(rationale)).ok, true, rationale);
+});
+
+test("AI contract still rejects invented credentials, ratings, and superlative claims", () => {
+  const withRationale = (rationale) => ({ ...base, matches: [{ ...base.matches[0], rationale }, ...base.matches.slice(1)] });
+  for (const rationale of [
+    "A registered tax agent who can lodge for you.",
+    "A licensed adviser with full accreditation.",
+    "Certified and accredited across Australia.",
+    "Holds credentials from a major company.",
+    "Rated the best adviser in Brisbane.",
+    "Carries a five-star rating from past clients.",
+    "Has hundreds of customer reviews online.",
+    "Comes with a guarantee on returns.",
+    "Objectively the strongest option for you.",
+    "Available now for a same-day session.",
+  ]) assert.equal(validateGenerateResult(withRationale(rationale)).ok, false, rationale);
+});
+
+test("AI contract accepts a clarifying question containing an abbreviation", () => {
+  // Models routinely write "e.g." or "etc."; the one-sentence guard must not read those
+  // internal full stops as a second sentence.
+  assert.equal(validateClarifyResult({ status: "needs_clarification", question: "What is your main goal right now (e.g., buying a home, paying down debt, etc.)?" }).ok, true);
+  assert.equal(validateClarifyResult({ status: "needs_clarification", question: "Are you planning to buy i.e. within the next year?" }).ok, true);
+  assert.equal(validateClarifyResult({ status: "needs_clarification", question: "What is your goal? Also, what is your timeframe?" }).ok, false);
+  assert.equal(validateClarifyResult({ status: "needs_clarification", question: "Tell me your goal. Then your timeframe." }).ok, false);
+  assert.equal(validateClarifyResult({ status: "needs_clarification", question: "No question mark here" }).ok, false);
+});
+
 test("AI contract accepts inclusive consultation duration and price boundaries", () => {
   const atMinimum = { ...base.matches[0], consultationMinutes: 20, priceAud: 0 };
   const atMaximum = { ...base.matches[1], consultationMinutes: 90, priceAud: 600 };

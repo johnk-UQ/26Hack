@@ -1,9 +1,9 @@
 ---
 const { current } = Astro.props;
 const steps = [
-  { id: "profile", label: "Your profile" },
-  { id: "pathway", label: "Your pathway" },
-  { id: "matches", label: "Your matches" },
+  { id: "profile", labelShort: "Profile", labelFull: "Your profile" },
+  { id: "pathway", labelShort: "Pathway", labelFull: "Your pathway" },
+  { id: "matches", labelShort: "Matches", labelFull: "Your matches" },
 ];
 const currentIndex = steps.findIndex((step) => step.id === current);
 ---
@@ -15,7 +15,7 @@ const currentIndex = steps.findIndex((step) => step.id === current);
       data-state={index < currentIndex ? "complete" : index === currentIndex ? "active" : "upcoming"}
       aria-current={index === currentIndex ? "step" : undefined}
     >
-      {step.label}
+      <span class="journey-progress-label-short">{step.labelShort}</span><span class="journey-progress-label-full">{step.labelFull}</span>
     </span>
   ))}
 </nav>
