@@ -43,7 +43,7 @@ The final interaction lets the user request a fictional consultation with one of
 
 ## Built in 48 hours
 
-Switchpath was created for Weekend of Startups 2026, where it reached the semi-finals. We used the Anthropic API to help turn the initial product idea into a working demo within the weekend.
+Switchpath was created for Weekend of Startups 2026, where it reached the semi-finals. We integrated the Anthropic API into the conversational intake so it could interpret a user's situation, ask a relevant follow-up question, and generate their professional pathway and matches. Claude also helped us design and build the prototype within the 48-hour event.
 
 The prototype uses:
 
